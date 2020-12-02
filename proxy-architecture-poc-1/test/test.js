@@ -30,6 +30,9 @@ describe('Synthetix v3', function() {
 
       let tx;
 
+      tx = await beacon.stageMigrator(migrator.address);
+      await tx.wait();
+
       tx = await migrator.prepareForMigration();
       await tx.wait();
 
@@ -92,7 +95,12 @@ describe('Synthetix v3', function() {
         const migrator = await Migrator.deploy(beacon.address);
         await migrator.deployed();
 
-        const tx = await migrator.migrateSettings();
+        let tx;
+
+        tx = await beacon.stageMigrator(migrator.address);
+        await tx.wait();
+
+        tx = await migrator.migrateSettings();
         await tx.wait();
       });
 
@@ -116,6 +124,9 @@ describe('Synthetix v3', function() {
           await migrator.deployed();
 
           let tx;
+
+          tx = await beacon.stageMigrator(migrator.address);
+          await tx.wait();
 
           tx = await migrator.prepareForMigration();
           await tx.wait();

@@ -19,7 +19,32 @@ contract Beacon {
 
     event ProxyCreated(bytes32 moduleId, address proxy);
 
-    function upgrade(bytes32[] memory moduleIds, address[] memory newImplementations) public {
+    address private _admin;
+    address private _stagedMigrator;
+
+    constructor() {
+        _admin = msg.sender;
+    }
+
+    modifier onlyAdmin() {
+        require(msg.sender == _admin, "Only the admin can call this");
+        _;
+    }
+
+    function stageMigrator(address migrator) public onlyAdmin {
+        _stagedMigrator = migrator;
+    }
+
+    function releaseMigrator() public onlyMigrator {
+        _stagedMigrator = address(0);
+    }
+
+    modifier onlyMigrator() {
+        require(msg.sender == _stagedMigrator, "Only the admin can call this");
+        _;
+    }
+
+    function upgrade(bytes32[] memory moduleIds, address[] memory newImplementations) public onlyMigrator {
         uint len = moduleIds.length;
         for (uint i; i < len; i++) {
             bytes32 moduleId = moduleIds[i];
@@ -38,7 +63,7 @@ contract Beacon {
         _contractsVersion++;
     }
 
-    function configure(bytes32[] memory settingIds, uint[] memory values) public {
+    function configure(bytes32[] memory settingIds, uint[] memory values) public onlyMigrator {
         uint len = settingIds.length;
         for (uint i; i < len; i++) {
             bytes32 settingId = settingIds[i];
@@ -59,11 +84,11 @@ contract Beacon {
         return proxyAddress;
     }
 
-    function suspend() public {
+    function suspend() public onlyMigrator {
         // TODO
     }
 
-    function resume() public {
+    function resume() public onlyMigrator {
         // TODO
     }
 

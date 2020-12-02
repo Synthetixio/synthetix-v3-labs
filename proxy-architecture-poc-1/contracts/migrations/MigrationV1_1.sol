@@ -55,5 +55,6 @@ contract MigrationV1_1 {
 
     function finalizeMigration() public {
         _beacon.resume();
+        _beacon.releaseMigrator();
     }
 }

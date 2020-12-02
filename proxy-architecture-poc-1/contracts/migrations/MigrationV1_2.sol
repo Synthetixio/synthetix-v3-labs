@@ -22,5 +22,9 @@ contract MigrationV1_2 {
 
         _beacon.configure(settingIds, values);
     }
+
+    function finalizeMigration() public {
+        _beacon.releaseMigrator();
+    }
 }
 
