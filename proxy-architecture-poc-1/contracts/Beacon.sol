@@ -5,6 +5,10 @@ import "./Proxy.sol";
 
 
 contract Beacon {
+    // ---------------------------------
+    // State
+    // ---------------------------------
+
     uint256 private _contractsVersion;
     uint256 private _settingsVersion;
 
@@ -17,31 +21,53 @@ contract Beacon {
     // module proxy address => proxy implementation address
     mapping(address => address) private _implementations;
 
-    event ProxyCreated(bytes32 moduleId, address proxy);
-
     address private _admin;
+    address private _stagedAdmin;
     address private _stagedMigrator;
 
-    constructor() {
-        _admin = msg.sender;
-    }
+    // ---------------------------------
+    // Events
+    // ---------------------------------
+
+    event ProxyCreated(bytes32 moduleId, address proxy);
+
+    // ---------------------------------
+    // Modifiers
+    // ---------------------------------
 
     modifier onlyAdmin() {
         require(msg.sender == _admin, "Only the admin can call this");
         _;
     }
 
+    modifier onlyMigrator() {
+        require(msg.sender == _stagedMigrator, "Only the admin can call this");
+        _;
+    }
+
+    // ---------------------------------
+    // Mutative functions
+    // ---------------------------------
+
+    constructor() {
+        _admin = msg.sender;
+    }
+
     function stageMigrator(address migrator) public onlyAdmin {
         _stagedMigrator = migrator;
     }
 
-    function releaseMigrator() public onlyMigrator {
-        _stagedMigrator = address(0);
+    function stageAdmin(address newAdmin) public onlyAdmin {
+        _stagedAdmin = newAdmin;
     }
 
-    modifier onlyMigrator() {
-        require(msg.sender == _stagedMigrator, "Only the admin can call this");
-        _;
+    function acceptAdmin() public {
+        require(msg.sender == _stagedAdmin, "Sender is not staged");
+        _admin = _stagedAdmin;
+    }
+
+    function releaseMigrator() public onlyMigrator {
+        _stagedMigrator = address(0);
     }
 
     function upgrade(bytes32[] memory moduleIds, address[] memory newImplementations) public onlyMigrator {
@@ -53,9 +79,9 @@ contract Beacon {
             address proxy = _proxies[moduleId];
             if (proxy == address(0)) {
                 proxy = _createProxy(moduleId);
-            } else {
-                // TODO: Upgrade implementation for existing proxy.
             }
+
+            // TODO: delete proxy if newImplementation = 0x0?
 
             _implementations[proxy] = implementation;
         }
@@ -91,6 +117,10 @@ contract Beacon {
     function resume() public onlyMigrator {
         // TODO
     }
+
+    // ---------------------------------
+    // View functions
+    // ---------------------------------
 
     function getProxy(bytes32 moduleId) public view returns (address) {
         return _proxies[moduleId];
