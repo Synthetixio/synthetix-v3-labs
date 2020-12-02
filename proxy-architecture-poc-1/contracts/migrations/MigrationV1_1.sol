@@ -35,12 +35,12 @@ contract MigrationV1_1 {
         _beacon.upgrade(moduleIds, implementations);
     }
 
-    function initializeNewProxies() public {
+    function initializeProxies() public {
         NebulaV1 nebula = NebulaV1(_beacon.getProxy(_NEBULA_MODULE_ID));
-        nebula.setBeacon(address(_beacon));
+        nebula.initialize(address(_beacon));
 
         PulsarV1 pulsar = PulsarV1(_beacon.getProxy(_PULSAR_MODULE_ID));
-        pulsar.setBeacon(address(_beacon));
+        pulsar.initialize(address(_beacon));
     }
 
     function migrateSettings() public {

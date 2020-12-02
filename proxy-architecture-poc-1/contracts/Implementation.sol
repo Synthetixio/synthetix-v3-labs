@@ -7,8 +7,15 @@ import "./Beacon.sol";
 contract Implementation {
     Beacon private _beacon;
 
-    function setBeacon(address beacon) public {
-        require(address(_beacon) == address(0), "Beacon already set");
+    mapping(uint => bool) private _initializations;
+
+    modifier initializer(uint initializationNum) {
+        require(_initializations[initializationNum] == false, "Initializer already called");
+        _;
+        _initializations[initializationNum] = true;
+    }
+
+    function initialize(address beacon) public virtual initializer(1) {
         _beacon = Beacon(beacon);
     }
 

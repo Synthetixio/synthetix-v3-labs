@@ -36,7 +36,7 @@ describe('Synthetix v3', function() {
       tx = await migrator.migrateContracts();
       await tx.wait();
 
-      tx = await migrator.initializeNewProxies();
+      tx = await migrator.initializeProxies();
       await tx.wait();
 
       tx = await migrator.migrateSettings();
@@ -70,8 +70,16 @@ describe('Synthetix v3', function() {
       expect(await pulsarProxy.whoami()).to.equal('PulsarV1');
     });
 
+    it('initialized someVal in nebulaProxy', async () => {
+      expect(await nebulaProxy.getSomeVal()).to.equal('42');
+    });
+
     it('retrieves settings correctly', async () => {
       expect(await beacon.getSetting(cratioSettingId)).to.equal(600);
+    });
+
+    it('reverts when attempting to call an initializer again', async () => {
+      expect(nebulaProxy.initialize(beacon.address)).to.be.reverted;
     });
 
     // ----------------------------------------
@@ -115,6 +123,9 @@ describe('Synthetix v3', function() {
           tx = await migrator.migrateContracts();
           await tx.wait();
 
+          tx = await migrator.initializeProxies();
+          await tx.wait();
+
           tx = await migrator.finalizeMigration();
           await tx.wait();
         });
@@ -132,6 +143,14 @@ describe('Synthetix v3', function() {
           expect(await beacon.getSettingsVersion()).to.equal('2');
         });
 
+        it('initialized someVal in nebulaProxy', async () => {
+          expect(await nebulaProxy.getSomeVal()).to.equal('42');
+        });
+
+        it('initialized someOtherVal in nebulaProxy', async () => {
+          expect(await nebulaProxy.getSomeOtherVal()).to.equal('33');
+        });
+
         it('properly forwards to the implementations', async () => {
           expect(await nebulaProxy.whoami()).to.equal('NebulaV2');
           expect(await pulsarProxy.whoami()).to.equal('PulsarV1');
@@ -143,6 +162,10 @@ describe('Synthetix v3', function() {
 
         it('enables modules to know about settings', async () => {
           expect(await nebulaProxy.getCRatio()).to.equal(500);
+        });
+
+        it('reverts when attempting to call an initializer again', async () => {
+          expect(nebulaProxy.initializeV2()).to.be.reverted;
         });
       });
     });

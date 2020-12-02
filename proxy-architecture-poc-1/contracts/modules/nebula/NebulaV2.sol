@@ -2,13 +2,17 @@
 pragma solidity >= 0.6.0 < 0.8.0;
 
 import "./Nebulav1.sol";
-import "./NebulaStorage.sol";
+import "./NebulaStorageV2.sol";
 import "../pulsar/PulsarV1.sol";
 
 
-contract NebulaV2 is NebulaV1 {
+contract NebulaV2 is Implementation, NebulaStorageV2 {
     bytes32 constant PULSAR_MODULE = 0x70756c7361720000000000000000000000000000000000000000000000000000;
     bytes32 constant CRATIO_SETTING = 0x63726174696f0000000000000000000000000000000000000000000000000000;
+
+    function initializeV2() public initializer(2) {
+        _someOtherVal = 33;
+    }
 
     function whoispulsar() public view returns (string memory) {
         PulsarV1 pulsar = PulsarV1(_getModule(PULSAR_MODULE));
@@ -16,8 +20,16 @@ contract NebulaV2 is NebulaV1 {
         return pulsar.whoami();
     }
 
-    function whoami() public pure override returns (string memory) {
+    function whoami() public pure returns (string memory) {
         return "NebulaV2";
+    }
+
+    function getSomeVal() public view returns (uint) {
+        return _someVal;
+    }
+
+    function getSomeOtherVal() public view returns (uint) {
+        return _someOtherVal;
     }
 
     function getCRatio() public view returns (uint) {

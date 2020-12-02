@@ -28,6 +28,11 @@ contract MigrationV2_2 {
         _beacon.upgrade(moduleIds, implementations);
     }
 
+    function initializeProxies() public {
+        NebulaV2 nebula = NebulaV2(_beacon.getProxy(_NEBULA_MODULE_ID));
+        nebula.initializeV2();
+    }
+
     function finalizeMigration() public {
         _beacon.resume();
     }
