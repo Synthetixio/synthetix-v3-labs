@@ -1,22 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >= 0.6.0 < 0.8.0;
 
+import "./Migration.sol";
 import "../Beacon.sol";
 import "../modules/nebula/NebulaV2.sol";
 
 
-contract MigrationV2_2 {
-    Beacon private _beacon;
-
+contract MigrateToV3 is Migration {
     bytes32 private constant _NEBULA_MODULE_ID = 0x6e6562756c610000000000000000000000000000000000000000000000000000; // bytes32("nebula")
-
-    constructor(address beacon) {
-        _beacon = Beacon(beacon);
-    }
-
-    function prepareForMigration() public {
-        _beacon.suspend();
-    }
 
     function migrateContracts() public {
         bytes32[] memory moduleIds = new bytes32[](1);
@@ -31,11 +22,6 @@ contract MigrationV2_2 {
     function initializeProxies() public {
         NebulaV2 nebula = NebulaV2(_beacon.getProxy(_NEBULA_MODULE_ID));
         nebula.initializeV2();
-    }
-
-    function finalizeMigration() public {
-        _beacon.resume();
-        _beacon.releaseMigrator();
     }
 }
 

@@ -9,8 +9,7 @@ contract Beacon {
     // State
     // ---------------------------------
 
-    uint256 private _contractsVersion;
-    uint256 private _settingsVersion;
+    uint256 private _version;
 
     // setting id => setting value
     mapping(bytes32 => uint) private _settings;
@@ -66,10 +65,6 @@ contract Beacon {
         _admin = _stagedAdmin;
     }
 
-    function releaseMigrator() public onlyMigrator {
-        _stagedMigrator = address(0);
-    }
-
     function upgrade(bytes32[] memory moduleIds, address[] memory newImplementations) public onlyMigrator {
         uint len = moduleIds.length;
         for (uint i; i < len; i++) {
@@ -85,8 +80,6 @@ contract Beacon {
 
             _implementations[proxy] = implementation;
         }
-
-        _contractsVersion++;
     }
 
     function configure(bytes32[] memory settingIds, uint[] memory values) public onlyMigrator {
@@ -97,8 +90,6 @@ contract Beacon {
 
             _settings[settingId] = value;
         }
-
-        _settingsVersion++;
     }
 
     function _createProxy(bytes32 moduleId) private returns (address) {
@@ -108,6 +99,22 @@ contract Beacon {
         emit ProxyCreated(moduleId, proxyAddress);
 
         return proxyAddress;
+    }
+
+    function prepareForMigration() public onlyMigrator {
+        suspend();
+
+        _version++;
+    }
+
+    function abortMigration() public onlyMigrator {
+        // TODO
+    }
+
+    function finalizeMigration() public onlyMigrator {
+        resume();
+
+        _stagedMigrator = address(0);
     }
 
     function suspend() public onlyMigrator {
@@ -134,12 +141,8 @@ contract Beacon {
         return _implementations[msg.sender];
     }
 
-    function getContractsVersion() public view returns (uint) {
-        return _contractsVersion;
-    }
-
-    function getSettingsVersion() public view returns (uint) {
-        return _settingsVersion;
+    function getVersion() public view returns (uint) {
+        return _version;
     }
 
     function getSetting(bytes32 settingId) public view returns (uint) {

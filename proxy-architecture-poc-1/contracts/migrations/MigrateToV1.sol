@@ -1,26 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >= 0.6.0 < 0.8.0;
 
+import "./Migration.sol";
 import "../Beacon.sol";
 import "../modules/nebula/Nebulav1.sol";
 import "../modules/pulsar/PulsarV1.sol";
 
 
-contract MigrationV1_1 {
-    Beacon private _beacon;
-
+contract MigrateToV1 is Migration {
     bytes32 private constant _NEBULA_MODULE_ID = 0x6e6562756c610000000000000000000000000000000000000000000000000000; // bytes32("nebula")
     bytes32 private constant _PULSAR_MODULE_ID = 0x70756c7361720000000000000000000000000000000000000000000000000000; // bytes32("pulsar")
 
     bytes32 private constant _CRATIO_SETTING_ID = 0x63726174696f0000000000000000000000000000000000000000000000000000; // bytes32("cratio")
-
-    constructor(address beacon) {
-        _beacon = Beacon(beacon);
-    }
-
-    function prepareForMigration() public {
-        _beacon.suspend();
-    }
 
     function migrateContracts() public {
         bytes32[] memory moduleIds = new bytes32[](2);
@@ -51,10 +42,5 @@ contract MigrationV1_1 {
         values[0] = 600;
 
         _beacon.configure(settingIds, values);
-    }
-
-    function finalizeMigration() public {
-        _beacon.resume();
-        _beacon.releaseMigrator();
     }
 }
