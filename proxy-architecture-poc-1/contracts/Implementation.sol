@@ -4,7 +4,7 @@ pragma solidity >= 0.6.0 < 0.8.0;
 import "./Beacon.sol";
 
 
-contract BeaconResolver {
+contract Implementation {
     Beacon private _beacon;
 
     function setBeacon(address beacon) public {
