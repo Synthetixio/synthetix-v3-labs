@@ -1,0 +1,178 @@
+{
+  "manifestVersion": "3.1",
+  "impls": {
+    "0b1b8f92747bfb6ef65894c0b949b1c695813e1ac7f82df2909c575c123949e0": {
+      "address": "0x72cB3698d07c91940253438d1F79e448DdeE92d0",
+      "txHash": "0x7c985a794f40a723375b1e0bcfa39142b15eaf1671d0107ed8aeecfc991bc094",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AddressResolver",
+            "label": "value",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:7"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          }
+        }
+      }
+    },
+    "c5e453ade3bcecd532416e2f18457825a5c3340345efea3c989aabfa8c685378": {
+      "address": "0xb2cF9b20D4Fe84d5344774a18AcBF98adA38745b",
+      "txHash": "0x75946c3ec5be7e30ae225b36890f6a434dcbc6efc6164b79a4f18ef32e601f3b",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AddressResolver",
+            "label": "value",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:7"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          }
+        }
+      }
+    },
+    "e4fce28c16081f28506f4669dc6d9d26637af61f5b258f7956965f990520023b": {
+      "address": "0xBa44D32530E5134aDebb0a43A31d8Da30B9792f4",
+      "txHash": "0x524acdd8017629de1072fd89786e1af8da282cd238b6f0fc634b71bad05d1536",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AddressResolver",
+            "label": "value",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:5"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          }
+        }
+      }
+    },
+    "914f6a22dd7448e18dd5a0af26f7eca85211f7a1f3ca7dba4be52eb9814e601b": {
+      "address": "0x0F8c2B211f58409C174eEDB535742cd148C4B1aE",
+      "txHash": "0x90ddd14e4da14d79cf8e81c4a3933a9a82b9e55aaf1b8ff849a1b3563147fec2",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AddressResolver",
+            "label": "uintValue",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:7"
+          },
+          {
+            "contract": "AddressResolver",
+            "label": "stringValue",
+            "type": "t_string_storage",
+            "src": "contracts/AddressResolver.sol:8"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_string_storage": {
+            "label": "string"
+          }
+        }
+      }
+    },
+    "56832cf0bf2f4a9062487758381e41163ba50183b811c4d419039ccaaf061ea2": {
+      "address": "0x480BC596474123F63B8FA7CF2AB0396dcF862aD3",
+      "txHash": "0xd8d7a0345b675288c9ddb530ef0a430fb46e978a00e9a906e0a1c5f58a6a3bd1",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AddressResolver",
+            "label": "uintValue",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:7"
+          },
+          {
+            "contract": "AddressResolver",
+            "label": "stringValue",
+            "type": "t_string_storage",
+            "src": "contracts/AddressResolver.sol:8"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_string_storage": {
+            "label": "string"
+          }
+        }
+      }
+    },
+    "b83c6736b7314f54be1dfad82624c150344e3ac9f7bf123dd61d266e5d135f39": {
+      "address": "0xBbfad96678132340Ae7fEA40Ca78108e6791DC4C",
+      "txHash": "0x94c927cbad7f0e8aae5f47df56f859fc0906733661c8052feb0c5ef8d36675bf",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AddressResolver",
+            "label": "uintValue",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:7"
+          },
+          {
+            "contract": "AddressResolver",
+            "label": "stringValue",
+            "type": "t_string_storage",
+            "src": "contracts/AddressResolver.sol:8"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_string_storage": {
+            "label": "string"
+          }
+        }
+      }
+    },
+    "46349c20b431e914a1efab5142bd85f70e451637050bd299840410463cb2097a": {
+      "address": "0x4664a1762997926271daef850a5D1C2263284cd8",
+      "txHash": "0x9499412038000233f29557da3cfe9a36a6ad114c4155acb0cda9f93f63e82745",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AddressResolver",
+            "label": "uintValue",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:7"
+          },
+          {
+            "contract": "AddressResolver",
+            "label": "stringValue",
+            "type": "t_string_storage",
+            "src": "contracts/AddressResolver.sol:8"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_string_storage": {
+            "label": "string"
+          }
+        }
+      }
+    }
+  },
+  "admin": {
+    "address": "0xe0f7dFc1B36bB005E8dc3306c54bEe85984C57F5",
+    "txHash": "0x047a8d050e604701037a04b9c1814b162197876395bb734dc956387514b9ec8f"
+  }
+}
