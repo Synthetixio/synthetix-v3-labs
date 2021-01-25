@@ -169,6 +169,34 @@
           }
         }
       }
+    },
+    "f6af0ce8597a640ff52db23c7714e8d9bbd12fc5f4d2ccb1db44c58a07d22cd7": {
+      "address": "0x697C169b5aFB327553dFBADEBc90a4a2dcD7f3f1",
+      "txHash": "0xa1f1b4cb84a9892ac78a186988e518521ba9ac2244de922189e6138d0e34b6b2",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AddressResolver",
+            "label": "uintValue",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:7"
+          },
+          {
+            "contract": "AddressResolver",
+            "label": "stringValue",
+            "type": "t_string_storage",
+            "src": "contracts/AddressResolver.sol:8"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_string_storage": {
+            "label": "string"
+          }
+        }
+      }
     }
   },
   "admin": {
