@@ -1,8 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.0;
 
+// import "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol";
+
 contract AddressResolver {
-    string public constant version = '2.3';
+    string public constant version = '3';
 
     uint256 public uintValue;
     string public stringValue;
