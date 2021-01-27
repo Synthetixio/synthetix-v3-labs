@@ -1,21 +1,22 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.7.6;
+pragma abicoder v2;
 
-import "./DiamondStorage.sol";
+import "./DiamondLibrary.sol";
+import "./facets/OwnerFacet.sol";
+import "./facets/UpgradeFacet.sol";
 
 
-contract DiamondProxy is DiamondStorage {
-    constructor() public {
-        DiamondStorage storage ds = diamondStorage();
+contract DiamondProxy {
+    constructor(DiamondLibrary.FacetData[] memory initialFacets) {
+        DiamondLibrary.setOwner(msg.sender);
 
-        ds.owner = msg.sender;
+        DiamondLibrary.registerFacets(initialFacets);
     }
 
     fallback() external payable {
-        DiamondStorage storage ds = diamondStorage();
-
-        address implementation = ds.implementationForSelector[msg.sig];
-        require(implementation != address(0), "DiamondProxy: Unknown selector");
+        address implementation = DiamondLibrary.proxyStorage().implementationForSelector[msg.sig];
+        require(implementation != address(0), "Selector not registered in any facet");
 
         assembly {
             calldatacopy(0, 0, calldatasize())

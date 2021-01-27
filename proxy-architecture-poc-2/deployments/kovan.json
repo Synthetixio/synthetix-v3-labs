@@ -1,13 +1,9 @@
 {
   "ProxyAdmin": "0xe0f7dFc1B36bB005E8dc3306c54bEe85984C57F5",
   "AddressResolver": {
-    "proxy": "0x24fff13b6Ada2CFBecb5cced07a68e2bE4075bCE",
+    "proxy": "",
     "implementations": [
-      "0x0F8c2B211f58409C174eEDB535742cd148C4B1aE",
-      "0x480BC596474123F63B8FA7CF2AB0396dcF862aD3",
-      "0xBbfad96678132340Ae7fEA40Ca78108e6791DC4C",
-      "0x4664a1762997926271daef850a5D1C2263284cd8",
-      "0x146bC2060fB91A037103a505908D32d6fcf3d155"
+      ""
     ],
     "initializer": {
       "values": [

@@ -21,6 +21,11 @@ async function deploy() {
   // Proxy management tools
   // ---------------------------
 
+  const admin = await upgrades.admin.getInstance();
+  if (admin) {
+    console.log(`Proxy admin: ${admin.address}`);
+  }
+
   async function getProxy({ contract }) {
     console.log(`Retrieving proxy for ${contract}...`);
 
@@ -47,7 +52,11 @@ async function deploy() {
     const proxy = await upgrades.deployProxy(factory, values, { initializer: name });
     console.log(`  > Proxy deployed at: ${proxy.address}`);
 
+    const implementation = await admin.getProxyImplementation(proxy.address);
+    console.log(`  > First implementation: ${implementation}`);
+
     deployments[contract].proxy = proxy.address;
+    deployments[contract].implementations.push(implementation);
     saveDeploymentsFile();
 
     return proxy;
@@ -82,15 +91,6 @@ async function deploy() {
     console.log(`Proxy upgraded`);
 
     return proxy;
-  }
-
-  // ---------------------------
-  // Get proxy admin
-  // ---------------------------
-
-  const admin = await upgrades.admin.getInstance();
-  if (admin) {
-    console.log(`Proxy admin: ${admin.address}`);
   }
 
   // ---------------------------
