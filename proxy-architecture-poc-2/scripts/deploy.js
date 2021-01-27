@@ -113,8 +113,8 @@ async function deploy() {
     }
   }
   console.log(`  > AddressResolver version: ${await addressResolver.version()}`);
-  console.log(`  > AddressResolver uint value: ${await addressResolver.uintValue()}`);
-  console.log(`  > AddressResolver string value: ${await addressResolver.stringValue()}`);
+  console.log(`  > AddressResolver uint value 1: ${await addressResolver.uintValue1()}`);
+  console.log(`  > AddressResolver uint value 2: ${await addressResolver.uintValue2()}`);
 }
 
 deploy()

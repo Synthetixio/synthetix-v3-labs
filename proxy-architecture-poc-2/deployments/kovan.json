@@ -1,14 +1,14 @@
 {
   "ProxyAdmin": "0xe0f7dFc1B36bB005E8dc3306c54bEe85984C57F5",
   "AddressResolver": {
-    "proxy": "",
+    "proxy": "0xB2c03101E3e556e8Fbd127cef57Ff9b9ca4840DE",
     "implementations": [
-      ""
+      "0xB2d73b8e641eb72e13dB53b7D86A90100AAc33D6"
     ],
     "initializer": {
       "values": [
         42,
-        "hello"
+        1337
       ],
       "name": "initialize"
     }

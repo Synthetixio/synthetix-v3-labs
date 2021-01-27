@@ -225,6 +225,65 @@
           }
         }
       }
+    },
+    "240527b0772e2c44ecc58dac3024c7d7a395f55444a3b0382b76eb1c1cc91c13": {
+      "address": "0x11871C171191F75D06141FC599A64094FDDD7C66",
+      "txHash": "0xa0c735eff4363cff81c5703a5ce164793e59cddedad94f6a1e076bf61b7e747c",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AddressResolver",
+            "label": "uintValue1",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:9"
+          },
+          {
+            "contract": "AddressResolver",
+            "label": "uintValue2",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:10"
+          }
+        ],
+        "types": {
+          "t_uint256": {
+            "label": "uint256"
+          }
+        }
+      }
+    },
+    "c66171b02d20dfd5eac47bb52f70cb8e50a9fe6a5f9c871036f994550d6c0fb1": {
+      "address": "0xB2d73b8e641eb72e13dB53b7D86A90100AAc33D6",
+      "txHash": "0xfe4a3c911c46783098448e8b6f69198a0a12bb746a144fc688fb93438f31a4a8",
+      "layout": {
+        "storage": [
+          {
+            "contract": "AddressResolver",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "contracts/AddressResolver.sol:8"
+          },
+          {
+            "contract": "AddressResolver",
+            "label": "uintValue1",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:12"
+          },
+          {
+            "contract": "AddressResolver",
+            "label": "uintValue2",
+            "type": "t_uint256",
+            "src": "contracts/AddressResolver.sol:13"
+          }
+        ],
+        "types": {
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          }
+        }
+      }
     }
   },
   "admin": {

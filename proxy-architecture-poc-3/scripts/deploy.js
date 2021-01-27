@@ -74,6 +74,8 @@ async function deploy() {
   // Initial deploy of diamond
   // ---------------------------
 
+  let facets;
+
   if (deployments.Synthetix === '') {
     console.log(`Deploying new system...`);
 
@@ -84,9 +86,10 @@ async function deploy() {
     saveDeploymentsFile();
 
     // Initial facets
-    const facets = [];
+    facets = [];
     await deployFacet({ name: 'OwnerFacet', facets });
     await deployFacet({ name: 'UpgradeFacet', facets });
+    await deployFacet({ name: 'InspectFacet', facets });
 
     // Main proxy
     const Synthetix = await deployContract({
@@ -108,6 +111,15 @@ async function deploy() {
   });
   console.log(`Synthetix found at ${Synthetix.address}`);
 
+  const InspectFacet = await connetToContract({
+    name: 'InspectFacet',
+    address: Synthetix.address
+  });
+  const selectors = getSelectorsForContract({ contract: InspectFacet });
+  console.log(`InspectFacet known selector: ${selectors[0]}`);
+  const selector = await InspectFacet.implementationForSelector(selectors[0]);
+  console.log(`InspectFacet implementation for known selector: ${selector}`);
+
   const OwnerFacet = await connetToContract({
     name: "OwnerFacet",
     address: Synthetix.address,
@@ -120,7 +132,7 @@ async function deploy() {
 
   console.log('Checking for new facets...');
 
-  const facets = [];
+  facets = [];
   const facetNames = Object.keys(deployments.facets);
   for (let i = 0; i < facetNames.length; i++) {
     const name = facetNames[i];
@@ -132,19 +144,17 @@ async function deploy() {
   };
 
   if (facets.length > 0) {
+    console.log('Deploying new facets...');
+
     const UpgradeFacet = await connetToContract({
       name: "UpgradeFacet",
       address: Synthetix.address,
     });
 
     await UpgradeFacet.registerFacets(facets);
+  } else {
+    console.log(`  > No new facets found`);
   }
-
-  // ---------------------------
-  // Inspect facets
-  // ---------------------------
-
-  // TODO
 
   // -------------------------------
   // Interact with other facets
