@@ -144,8 +144,6 @@ async function deploy() {
   };
 
   if (facets.length > 0) {
-    console.log('Deploying new facets...');
-
     const UpgradeFacet = await connetToContract({
       name: "UpgradeFacet",
       address: Synthetix.address,
