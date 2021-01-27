@@ -3,15 +3,14 @@ pragma solidity ^0.7.6;
 
 import "../DiamondLibrary.sol";
 
-
 contract OwnerFacet {
-    function setOwner(address newOwner) public {
+    function setOwner(address newOwner) external {
         DiamondLibrary.requireOwner();
 
         DiamondLibrary.setOwner(newOwner);
     }
 
-    function getOwner() public view returns (address) {
+    function getOwner() external view returns (address) {
         return DiamondLibrary.getOwner();
     }
 }

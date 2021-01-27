@@ -53,7 +53,7 @@ async function deploy() {
       getSelectorsForContract({ contract }),
     ]);
 
-    console.log(`Deployed ${name} to ${contract.address}`);
+    console.log(`  > Deployed facet ${name} to ${contract.address}`);
 
     deployments.facets[name] = contract.address;
     saveDeploymentsFile();
@@ -75,9 +75,11 @@ async function deploy() {
   // ---------------------------
 
   if (deployments.Synthetix === '') {
+    console.log(`Deploying new system...`);
+
     // Main library
     const DiamondLibrary = await deployContract({ name: "DiamondLibrary" });
-    console.log(`Deployed DiamondLibrary to ${DiamondLibrary.address}`);
+    console.log(`  > Deployed DiamondLibrary to ${DiamondLibrary.address}`);
     deployments.DiamondLibrary = DiamondLibrary.address;
     saveDeploymentsFile();
 
@@ -91,28 +93,80 @@ async function deploy() {
       name: "DiamondProxy",
       args: [facets],
     });
-    console.log(`Deployed Synthetix to ${Synthetix.address}`);
+    console.log(`  > Deployed Synthetix to ${Synthetix.address}`);
     deployments.Synthetix = Synthetix.address;
     saveDeploymentsFile();
   }
 
-  // ---------------------------
-  // Interact with facets
-  // ---------------------------
+  // -------------------------------
+  // Interact with essential facets
+  // -------------------------------
 
   const Synthetix = await connetToContract({
     name: 'DiamondProxy',
     address: deployments.Synthetix
   });
-  // console.log(await ethers.provider.getCode(Synthetix.address));
+  console.log(`Synthetix found at ${Synthetix.address}`);
 
   const OwnerFacet = await connetToContract({
     name: "OwnerFacet",
     address: Synthetix.address,
   });
-  // console.log(await ethers.provider.getCode(OwnerFacet.address));
-
   console.log(`Synthetix owner: ${await OwnerFacet.getOwner()}`);
+
+  // ---------------------------
+  // Add new facets
+  // ---------------------------
+
+  console.log('Checking for new facets...');
+
+  const facets = [];
+  const facetNames = Object.keys(deployments.facets);
+  for (let i = 0; i < facetNames.length; i++) {
+    const name = facetNames[i];
+    const facet = deployments.facets[name];
+
+    if (facet === '') {
+      await deployFacet({ name, facets });
+    }
+  };
+
+  if (facets.length > 0) {
+    const UpgradeFacet = await connetToContract({
+      name: "UpgradeFacet",
+      address: Synthetix.address,
+    });
+
+    await UpgradeFacet.registerFacets(facets);
+  }
+
+  // ---------------------------
+  // Inspect facets
+  // ---------------------------
+
+  // TODO
+
+  // -------------------------------
+  // Interact with other facets
+  // -------------------------------
+
+  const AFacet = await connetToContract({
+    name: "AFacet",
+    address: Synthetix.address,
+  });
+  console.log(`AFacet.testA(): ${await AFacet.testA()}`);
+  console.log('AFacet.setSystemVersionA()...');
+  const tx = await AFacet.setSystemVersionA('xoxo');
+  const receipt = await tx.wait();
+  console.log(receipt);
+  console.log(`AFacet.getSystemVersionA(): $${await AFacet.getSystemVersionA()}`);
+
+  const BFacet = await connetToContract({
+    name: "BFacet",
+    address: Synthetix.address,
+  });
+  console.log(`BFacet testB(): ${await BFacet.testB()}`);
+  console.log(`BFacet.getSystemVersionB(): $${await BFacet.getSystemVersionB()}`);
 }
 
 deploy()
