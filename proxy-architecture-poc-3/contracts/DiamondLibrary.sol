@@ -48,7 +48,7 @@ library DiamondLibrary {
         bytes4[] selectors;
     }
 
-    function registerFacets(FacetData[] memory facets) public {
+    function registerFacets(FacetData[] memory facets) internal {
         ProxyStorage storage store = proxyStorage();
 
         // Sweep facets

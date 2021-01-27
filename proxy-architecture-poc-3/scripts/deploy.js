@@ -1,8 +1,6 @@
 const fs = require("fs");
 
 async function deploy() {
-  const owner = "0x68BF577920D6607c52114CB5E13696a19c2C9eFa";
-
   // ---------------------------
   // Facet utils
   // ---------------------------
@@ -17,19 +15,24 @@ async function deploy() {
     }, []);
   }
 
-  async function deployContract({ name, libraries, args = [] }) {
-    let factory;
-    if (libraries) {
-      factory = await ethers.getContractFactory(name, { libraries });
-    } else {
-      factory = await ethers.getContractFactory(name);
-    }
+  async function deployContract({ name, args = [] }) {
+    const factory = await ethers.getContractFactory(name);
+
     return await factory.deploy(...args);
   }
 
   async function connetToContract({ name, address }) {
     return await ethers.getContractAt(name, address);
   }
+
+  // ---------------------------
+  // Signers
+  // ---------------------------
+
+  const signers = await ethers.getSigners();
+
+  const owner = signers[0];
+  console.log(`Signer: ${owner.address}`);
 
   // ---------------------------
   // Initial deploy of diamond
@@ -40,20 +43,14 @@ async function deploy() {
   const DiamondLibrary = await deployContract({ name: "DiamondLibrary" });
   console.log(`Deployed DiamondLibrary to ${DiamondLibrary.address}`);
 
-  let OwnerFacet = await deployContract({
-    name: "OwnerFacet",
-    // libraries: { DiamondLibrary: DiamondLibrary.address },
-  });
+  let OwnerFacet = await deployContract({ name: "OwnerFacet" });
   facets.push([
     OwnerFacet.address,
     getSelectorsForContract({ contract: OwnerFacet }),
   ]);
   console.log(`Deployed OwnerFacet to ${OwnerFacet.address}`);
 
-  let UpgradeFacet = await deployContract({
-    name: "UpgradeFacet",
-    libraries: { DiamondLibrary: DiamondLibrary.address },
-  });
+  let UpgradeFacet = await deployContract({ name: "UpgradeFacet" });
   facets.push([
     UpgradeFacet.address,
     getSelectorsForContract({ contract: UpgradeFacet }),
@@ -63,7 +60,6 @@ async function deploy() {
   const Synthetix = await deployContract({
     name: "DiamondProxy",
     args: [facets],
-    libraries: { DiamondLibrary: DiamondLibrary.address },
   });
   console.log(`Deployed Synthetix to ${Synthetix.address}`);
 
@@ -84,7 +80,7 @@ async function deploy() {
   // Sanity checks
   // ---------------------------
 
-  console.log(`owner: ${await OwnerFacet.getOwner()}`);
+  console.log(`Synthetix owner: ${await OwnerFacet.getOwner()}`);
 }
 
 deploy()
