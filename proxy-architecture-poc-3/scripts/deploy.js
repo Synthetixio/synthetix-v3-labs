@@ -1,8 +1,24 @@
 const fs = require("fs");
 
 async function deploy() {
+  const network = 'kovan';
+
   // ---------------------------
-  // Facet utils
+  // Retrieve data file
+  // ---------------------------
+
+  const deploymentsFilePath = `./deployments/${network}.json`;
+	const deployments = JSON.parse(fs.readFileSync(deploymentsFilePath));
+
+  function saveDeploymentsFile() {
+	  fs.writeFileSync(
+	    deploymentsFilePath,
+	    JSON.stringify(deployments, null, 2)
+	  );
+  }
+
+  // ---------------------------
+  // Ethers utils
   // ---------------------------
 
   function getSelectorsForContract({ contract }) {
@@ -26,6 +42,26 @@ async function deploy() {
   }
 
   // ---------------------------
+  // Facet utils
+  // ---------------------------
+
+  async function deployFacet({ name, facets }) {
+    const contract = await deployContract({ name });
+
+    facets.push([
+      contract.address,
+      getSelectorsForContract({ contract }),
+    ]);
+
+    console.log(`Deployed ${name} to ${contract.address}`);
+
+    deployments.facets[name] = contract.address;
+    saveDeploymentsFile();
+
+    return contract;
+  }
+
+  // ---------------------------
   // Signers
   // ---------------------------
 
@@ -38,47 +74,43 @@ async function deploy() {
   // Initial deploy of diamond
   // ---------------------------
 
-  const facets = [];
+  if (deployments.Synthetix === '') {
+    // Main library
+    const DiamondLibrary = await deployContract({ name: "DiamondLibrary" });
+    console.log(`Deployed DiamondLibrary to ${DiamondLibrary.address}`);
+    deployments.DiamondLibrary = DiamondLibrary.address;
+    saveDeploymentsFile();
 
-  const DiamondLibrary = await deployContract({ name: "DiamondLibrary" });
-  console.log(`Deployed DiamondLibrary to ${DiamondLibrary.address}`);
+    // Initial facets
+    const facets = [];
+    await deployFacet({ name: 'OwnerFacet', facets });
+    await deployFacet({ name: 'UpgradeFacet', facets });
 
-  let OwnerFacet = await deployContract({ name: "OwnerFacet" });
-  facets.push([
-    OwnerFacet.address,
-    getSelectorsForContract({ contract: OwnerFacet }),
-  ]);
-  console.log(`Deployed OwnerFacet to ${OwnerFacet.address}`);
+    // Main proxy
+    const Synthetix = await deployContract({
+      name: "DiamondProxy",
+      args: [facets],
+    });
+    console.log(`Deployed Synthetix to ${Synthetix.address}`);
+    deployments.Synthetix = Synthetix.address;
+    saveDeploymentsFile();
+  }
 
-  let UpgradeFacet = await deployContract({ name: "UpgradeFacet" });
-  facets.push([
-    UpgradeFacet.address,
-    getSelectorsForContract({ contract: UpgradeFacet }),
-  ]);
-  console.log(`Deployed UpgradeFacet to ${UpgradeFacet.address}`);
+  // ---------------------------
+  // Interact with facets
+  // ---------------------------
 
-  const Synthetix = await deployContract({
-    name: "DiamondProxy",
-    args: [facets],
+  const Synthetix = await connetToContract({
+    name: 'DiamondProxy',
+    address: deployments.Synthetix
   });
-  console.log(`Deployed Synthetix to ${Synthetix.address}`);
+  // console.log(await ethers.provider.getCode(Synthetix.address));
 
-  // ---------------------------
-  // Re-wrap facets
-  // ---------------------------
-
-  OwnerFacet = await connetToContract({
+  const OwnerFacet = await connetToContract({
     name: "OwnerFacet",
     address: Synthetix.address,
   });
-  UpgradeFacet = await connetToContract({
-    name: "UpgradeFacet",
-    address: Synthetix.address,
-  });
-
-  // ---------------------------
-  // Sanity checks
-  // ---------------------------
+  // console.log(await ethers.provider.getCode(OwnerFacet.address));
 
   console.log(`Synthetix owner: ${await OwnerFacet.getOwner()}`);
 }

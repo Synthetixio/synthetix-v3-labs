@@ -1,0 +1,8 @@
+{
+  "Synthetix": "0x76FCb02B3dCA15C85319ed7D961Ac41C8080F475",
+  "DiamondLibrary": "0xc3B75bb61184A77Df9b9DE61499900cCD8732133",
+  "facets": {
+    "OwnerFacet": "0xb6436BD5E839c5aa55F5b867C4964DeDa8663dAF",
+    "UpgradeFacet": "0xD4F263f6B073115735c22c156567db089397c891"
+  }
+}
