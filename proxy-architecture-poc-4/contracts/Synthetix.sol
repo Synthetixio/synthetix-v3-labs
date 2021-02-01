@@ -2,10 +2,12 @@
 pragma solidity ^0.7.0;
 
 
-// Note: This contract should be dynamically generated
 contract Synthetix {
-    string public constant versionId = "1";
-
+    // --------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------
+    // GENERATED CODE - do not edit manually
+    // --------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------
     bytes4 constant SELECTOR_GET_ORACLE_TYPE = 0xd72e0705;
     bytes4 constant SELECTOR_SET_ORACLE_TYPE = 0xe6dbd15d;
     bytes4 constant SELECTOR_GET_VALUE = 0x20965255;
@@ -38,4 +40,6 @@ contract Synthetix {
                 }
         }
     }
+    // --------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------
 }

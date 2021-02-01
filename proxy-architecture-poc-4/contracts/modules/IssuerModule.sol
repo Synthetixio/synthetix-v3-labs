@@ -5,7 +5,7 @@ import "./ExchangerModule.sol";
 import "../storage/IssuanceStorage.sol";
 
 
-contract IssuerModule is IssuanceStorageAccessor  {
+contract IssuerModule is IssuanceStorageAccessor {
     function getValueViaExchanger() public view returns (string memory) {
         return ExchangerModule(address(this)).getValue();
     }
