@@ -107,7 +107,7 @@ async function deploy() {
       Module = await ethers.getContractAt(moduleName, module.implementation);
     }
 
-    console.log(`Connected to ${moduleName} at ${Module.address}`);
+    console.log(`Identifyed ${moduleName}`);
     logModuleSelectors(Module);
   };
 
@@ -121,13 +121,10 @@ async function deploy() {
     return await ethers.getContractAt(moduleName, Synthetix.address);
   }
 
-  const ExchangerModule = await getModule('ExchangerModule');
-  // const IssuerModule = await getModule('IssuerModule');
-
   // Test ExchangerModule
+  const ExchangerModule = await getModule('ExchangerModule');
   const newValue = '42';
   let readValue = await ExchangerModule.getValue();
-  console.log(`GlobalStorage.someValue: ${readValue}`);
   if (newValue !== readValue) {
     console.log(`Setting GlobalStorage.someValue via ExchangerModule...`);
 
@@ -135,7 +132,12 @@ async function deploy() {
     await tx.wait();
   }
   readValue = (await ExchangerModule.getValue()).toString();
-  console.log(`GlobalStorage.someValue: ${readValue}`);
+  console.log(`GlobalStorage.someValue via ExchangerModule: ${readValue}`);
+
+  // Test IssuerModule
+  const IssuerModule = await getModule('IssuerModule');
+  readValue = (await IssuerModule.getValueViaExchanger()).toString();
+  console.log(`GlobalStorage.someValue via IssuerModule: ${readValue}`);
 }
 
 deploy()

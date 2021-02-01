@@ -32,6 +32,14 @@
         "storage": [],
         "types": {}
       }
+    },
+    "99e4e151248b934fbc5ea034531009e7cb8595f1268b3bd02b1214bf03cb3a93": {
+      "address": "0xf73fd96768E4B353db901D294f19F7B8280b2cd8",
+      "txHash": "0x224daa8d87b8808327a1c6dc620e6822437c73bba740ecb7b6a4d7fa58014833",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
     }
   },
   "admin": {
