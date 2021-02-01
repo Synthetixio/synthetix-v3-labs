@@ -1,0 +1,17 @@
+{
+  "manifestVersion": "3.1",
+  "impls": {
+    "a086b9806b7c0096a38766e5441218623c135f3f7f9da682fa94b2039e0aa01e": {
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "txHash": "0x3d19287007c539371f370660edbdb19671f07bda02ca2e18ab23bd58bcb6b0eb",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    }
+  },
+  "admin": {
+    "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "txHash": "0x52c9be0ab70f72512f49bb48732a9065e7375148954544397ec32cd4022ff196"
+  }
+}

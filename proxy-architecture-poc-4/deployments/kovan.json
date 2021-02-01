@@ -1,0 +1,9 @@
+{
+  "Synthetix": {
+    "proxy": "0xa6F13cDBDc63E1BC1A93b9293a223116dDD8B812",
+    "implementations": [
+      "0x60Ca1264319dA83cE4B50865724dae55ae13a74F"
+    ]
+  },
+  "modules": {}
+}
