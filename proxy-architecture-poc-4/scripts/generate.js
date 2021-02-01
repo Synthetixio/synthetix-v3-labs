@@ -70,12 +70,24 @@ async function generate() {
 
   let routerCode = '';
 
+  const uniqueSelectors = [];
+
   for (let i = 0; i < modules.length; i++) {
     routerCode += '\n        ';
     routerCode += i === 0 ? 'if (' : 'else if (';
 
     const moduleName = modules[i];
     const functionData = await getModuleFunctionData(moduleName);
+
+    // Check for selector collisions
+    // TODO: Check entire signature
+    functionData.map(func => {
+      if (uniqueSelectors.some(selector => selector === func.selector)) {
+        throw new Error(`Duplicate selector ${func.name} found in ${moduleName}`);
+      } else {
+        uniqueSelectors.push(func.selector);
+      }
+    });
 
     routerCode += `
 ${functionData.map(func => `          msg.sig == ${func.selector} /*${func.name}*/`).join(' ||\n')}

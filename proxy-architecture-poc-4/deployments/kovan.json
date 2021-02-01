@@ -2,13 +2,13 @@
   "Synthetix": {
     "proxy": "0x59207cFf6F7328991417Ed1Db862aEB419eC577d",
     "implementations": [
-      "0x3B56548F9C07e404750B774E99917Cd4dEd4F0b5"
+      "0x20eCfb41049C3bA981992D5c17Dc4bf3A0760c76"
     ]
   },
   "modules": {
     "SystemModule": {
-      "bytecodeHash": "0x5a2fd9bb7805efdc224cb2ae0137dae9d2b4a67632bfcddcad48cdd5b5fb1053",
-      "implementation": "0xD2c7D79ED97DfBE878a164F261549ddEeA4aD8a6"
+      "bytecodeHash": "0xcd6ee84b270df1deeac112366ca32e3362c3e7d69b826d7918a53058a8a8d9ce",
+      "implementation": "0xfaDaD0Bff1082d106C0F06023Dac66750172244a"
     },
     "IssuerModule": {
       "bytecodeHash": "0x6e6af7fea3b0b871289d3c87fc51a68173e213fafb2f98258a93bb27884e0be7",

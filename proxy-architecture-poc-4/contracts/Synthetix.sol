@@ -19,7 +19,7 @@ contract Synthetix {
           msg.sig == 0x0d8e6e2c /*getVersion*/ ||
           msg.sig == 0x03c0a389 /*setDate*/ ||
           msg.sig == 0x788bc78c /*setVersion*/
-        ) implementation = 0xD2c7D79ED97DfBE878a164F261549ddEeA4aD8a6 /*SystemModule*/;
+        ) implementation = 0xfaDaD0Bff1082d106C0F06023Dac66750172244a /*SystemModule*/;
         else if (
           msg.sig == 0xd72e0705 /*getOracleType*/ ||
           msg.sig == 0x10916f3b /*getVersionViaExchanger*/ ||
