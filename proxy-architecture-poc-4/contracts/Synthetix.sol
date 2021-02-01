@@ -10,7 +10,7 @@ contract Synthetix {
     bytes4 constant SELECTOR_SET_VALUE = 0x93a09352;
 
     address constant MODULE_ISSUER = 0x6F7C78decFf421DfAe061D6B318DA0c1f42C272C;
-    address constant MODULE_EXCHANGER = 0xF163bE0294331E58cA7fEa4f637A4D771F8C2580;
+    address constant MODULE_EXCHANGER = 0x48D79c516C2494AcDCfC059615964E207Da81b0d;
 
     fallback() external {
 

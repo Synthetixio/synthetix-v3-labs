@@ -110,6 +110,32 @@ async function deploy() {
     console.log(`Connected to ${moduleName} at ${Module.address}`);
     logModuleSelectors(Module);
   };
+
+  // -------------
+  // Test modules
+  // -------------
+
+  let tx;
+
+  async function getModule(moduleName) {
+    return await ethers.getContractAt(moduleName, Synthetix.address);
+  }
+
+  const ExchangerModule = await getModule('ExchangerModule');
+  // const IssuerModule = await getModule('IssuerModule');
+
+  // Test ExchangerModule
+  const newValue = '42';
+  let readValue = await ExchangerModule.getValue();
+  console.log(`GlobalStorage.someValue: ${readValue}`);
+  if (newValue !== readValue) {
+    console.log(`Setting GlobalStorage.someValue via ExchangerModule...`);
+
+    tx = await ExchangerModule.setValue(newValue);
+    await tx.wait();
+  }
+  readValue = (await ExchangerModule.getValue()).toString();
+  console.log(`GlobalStorage.someValue: ${readValue}`);
 }
 
 deploy()
