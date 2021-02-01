@@ -68,6 +68,18 @@ async function deploy() {
     return data.bytecode;
   }
 
+  function logModuleSelectors(module) {
+    console.log('  > Selectors:');
+    module.interface.fragments.map(fragment => {
+      if (fragment.type === "function") {
+        const method = fragment.name;
+        const selector = module.interface.getSighash(fragment);
+
+        console.log(`    * ${method}: ${selector}`);
+      }
+    });
+  }
+
   const modules = Object.keys(deployments.modules);
 
   for (let i = 0; i < modules.length; i++) {
@@ -80,16 +92,23 @@ async function deploy() {
     const bytecodeHash = ethers.utils.sha256(bytecode);
     const bytecodeChanged = bytecodeHash !== deployments.modules[moduleName].bytecodeHash;
 
+    let Module;
+
     if (isNewModule || bytecodeChanged) {
-      console.log(`Deploying new ${moduleName} module instance...`);
+      console.log(`Deploying new ${moduleName} instance...`);
 
       const factory = await ethers.getContractFactory(moduleName);
-      const contract = await factory.deploy();
+      Module = await factory.deploy();
 
-      deployments.modules[moduleName].implementation = contract.address;
+      deployments.modules[moduleName].implementation = Module.address;
       deployments.modules[moduleName].bytecodeHash = bytecodeHash;
       saveDeploymentsFile();
+    } else {
+      Module = await ethers.getContractAt(moduleName, module.implementation);
     }
+
+    console.log(`Connected to ${moduleName} at ${Module.address}`);
+    logModuleSelectors(Module);
   };
 }
 

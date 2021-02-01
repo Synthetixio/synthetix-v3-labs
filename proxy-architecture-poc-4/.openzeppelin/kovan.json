@@ -8,6 +8,22 @@
         "storage": [],
         "types": {}
       }
+    },
+    "6482a70d177df9dc39a09d7e90075b3a3d0e2c9eb246a5b13ebec54ad73297b0": {
+      "address": "0xB97259F3b797AB748462D88bB4eF6f1DF6F9d198",
+      "txHash": "0xdd287e1f37e7a1fd15770f153aa3e4147447df08062c9f0bd6911c2b0db41735",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "6f1e3c0984f3a8f571b3cfbd30431a57c94454233d6528e8025672524b8f69cc": {
+      "address": "0xE881f64623F36931698C5a4325E178006E8A1536",
+      "txHash": "0x7fdc3d333d967dbcaa6f0b7ffd4e23bbfcfde5e8bbb46c98997d86e63e1e201d",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
     }
   },
   "admin": {
