@@ -56,6 +56,41 @@ async function deploy() {
     deployments.Synthetix.implementations.push(implementationAddress);
     saveDeploymentsFile();
   }
+
+  // ---------------
+  // Deploy modules
+  // ---------------
+
+  function getModuleBytecode(moduleName) {
+    const file = fs.readFileSync(`artifacts/contracts/modules/${moduleName}.sol/${moduleName}.json`);
+    const data = JSON.parse(file);
+
+    return data.bytecode;
+  }
+
+  const modules = Object.keys(deployments.modules);
+
+  for (let i = 0; i < modules.length; i++) {
+    const moduleName = modules[i];
+    const module = deployments.modules[moduleName];
+
+    const isNewModule = module.implementation === '';
+
+    const bytecode = getModuleBytecode(moduleName);
+    const bytecodeHash = ethers.utils.sha256(bytecode);
+    const bytecodeChanged = bytecodeHash !== deployments.modules[moduleName].bytecodeHash;
+
+    if (isNewModule || bytecodeChanged) {
+      console.log(`Deploying new ${moduleName} module instance...`);
+
+      const factory = await ethers.getContractFactory(moduleName);
+      const contract = await factory.deploy();
+
+      deployments.modules[moduleName].implementation = contract.address;
+      deployments.modules[moduleName].bytecodeHash = bytecodeHash;
+      saveDeploymentsFile();
+    }
+  };
 }
 
 deploy()
