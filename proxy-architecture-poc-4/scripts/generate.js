@@ -51,12 +51,15 @@ async function generate() {
   // Sweep modules
   // --------------
 
-  async function getModuleSelectors(moduleName) {
+  async function getModuleFunctionData(moduleName) {
     const contract = await ethers.getContractAt(moduleName, '0x0000000000000000000000000000000000000001');
 
     return contract.interface.fragments.reduce((selectors, fragment) => {
       if (fragment.type === "function") {
-        selectors.push(contract.interface.getSighash(fragment));
+        selectors.push({
+          name: fragment.name,
+          selector: contract.interface.getSighash(fragment)
+        });
       }
 
       return selectors;
@@ -72,14 +75,14 @@ async function generate() {
     routerCode += i === 0 ? 'if (' : 'else if (';
 
     const moduleName = modules[i];
-    const selectors = await getModuleSelectors(moduleName);
+    const functionData = await getModuleFunctionData(moduleName);
 
     routerCode += `
-${selectors.map(selector => `          msg.sig == ${selector}`).join(' ||\n')}
+${functionData.map(func => `          msg.sig == ${func.selector} /*${func.name}*/`).join(' ||\n')}
     `;
 
     const address = deployments.modules[moduleName].implementation;
-    routerCode += `    ) implementation = ${address};`
+    routerCode += `    ) implementation = ${address} /*${moduleName}*/;`
   }
 
   // --------------------

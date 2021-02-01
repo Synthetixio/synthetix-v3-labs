@@ -20,4 +20,10 @@ contract SystemModule is GlobalStorageAccessor {
     function getDate() public view returns (string memory) {
         return globalStorage().date;
     }
+
+    function getDateAndVersion() public view returns (string memory, string memory) {
+        GlobalData storage store = globalStorage();
+
+        return (store.date, store.version);
+    }
 }
