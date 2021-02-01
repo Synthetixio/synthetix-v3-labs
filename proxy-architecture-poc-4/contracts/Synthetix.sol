@@ -28,7 +28,9 @@ contract Synthetix {
         else if (
           msg.sig == 0xe017bb0d /*getSystemVersion*/
         ) implementation = 0x8B399a32deCa6CC56A21CF6c092D9DF05211CF72 /*ExchangerModule*/;
-        require(implementation != address(0), "Selector not registered in any module");
+        else {
+          revert("Unknown selector");
+        }
 
         // Delegatecall forwarder
         assembly {
@@ -45,6 +47,8 @@ contract Synthetix {
         }
     }
 
+    // --------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
 }

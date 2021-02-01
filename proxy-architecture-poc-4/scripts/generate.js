@@ -15,7 +15,9 @@ contract Synthetix {
     fallback() external {
         // Function selector to implementation contract lookup table
         address implementation;@router
-        require(implementation != address(0), "Selector not registered in any module");
+        else {
+          revert("Unknown selector");
+        }
 
         // Delegatecall forwarder
         assembly {
@@ -32,6 +34,8 @@ contract Synthetix {
         }
     }
 
+    // --------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
 }
