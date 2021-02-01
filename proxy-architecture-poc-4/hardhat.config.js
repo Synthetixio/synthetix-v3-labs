@@ -4,7 +4,15 @@ require('@nomiclabs/hardhat-ethers');
 require('@openzeppelin/hardhat-upgrades');
 
 module.exports = {
-  solidity: "0.7.3",
+  solidity: {
+    version: "0.7.3",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      }
+    }
+  },
   networks: {
     kovan: {
       url: `https://kovan.infura.io/v3/${process.env.INFURA_KEY}`,
