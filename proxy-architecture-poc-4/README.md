@@ -16,7 +16,7 @@ contract IssuerModule {
 }
 ```
 
-This is possible because all modules have access to the main proxy's storage, which removes the need of performing calls to an AddressResolver or SystemSettings contract. Given that every module also has access to every other module, this pattern allows for extreme modularity and small smart contract deployment sizes, which are needed properties of the Synthetix v3 system in Optimism.
+This is possible because all modules have access to the main proxy's storage, which removes the need of an AddressResolver or SystemSettings contract. Given that every module also has access to every other module, this pattern allows for extreme modularity and small smart contract deployment sizes, which are needed properties of the Synthetix v3 system in Optimism.
 
 To avoid storage collisions, modules must not declare in-contract variables, but instead access a storage namespace. This deviates signifficanlty from regular Solidity code style, but should not introduce too much complexity for developers.
 
