@@ -14,8 +14,7 @@ contract Synthetix {
 
     fallback() external {
         // Function selector to implementation contract lookup table
-        address implementation;
-        @router
+        address implementation;@router
         require(implementation != address(0), "Selector not registered in any module");
 
         // Delegatecall forwarder
@@ -52,14 +51,48 @@ async function generate() {
   // Sweep modules
   // --------------
 
+  async function getModuleSelectors(moduleName) {
+    const contract = await ethers.getContractAt(moduleName, '0x0000000000000000000000000000000000000001');
+
+    return contract.interface.fragments.reduce((selectors, fragment) => {
+      if (fragment.type === "function") {
+        selectors.push(contract.interface.getSighash(fragment));
+      }
+
+      return selectors;
+    }, []);
+  }
+
   const modules = Object.keys(deployments.modules);
 
-  for (let i = 0; i < modules.length; i++) {
-    const moduleName = modules[i];
-    const module = deployments.modules[moduleName];
+  let routerCode = '';
 
-    const factory = await ethers.getContractFactory(moduleName);
-  };
+  for (let i = 0; i < modules.length; i++) {
+    routerCode += '\n        ';
+    routerCode += i === 0 ? 'if (' : 'else if (';
+
+    const moduleName = modules[i];
+    const selectors = await getModuleSelectors(moduleName);
+
+    routerCode += `
+${selectors.map(selector => `          msg.sig == ${selector}`).join(' ||\n')}
+    `;
+
+    const address = deployments.modules[moduleName].implementation;
+    routerCode += `    ) implementation = ${address};`
+  }
+
+  // --------------------
+  // Write Synthetix.sol
+  // --------------------
+
+  const finalCode = source.replace('@router', routerCode);
+  console.log(finalCode);
+
+	fs.writeFileSync(
+	  'contracts/Synthetix.sol',
+	  finalCode
+	);
 }
 
 generate()

@@ -120,6 +120,14 @@
         "storage": [],
         "types": {}
       }
+    },
+    "aeb1d0f5eb46e1487e520340ba740e21e20e8fc92672644f099bc16612879a8b": {
+      "address": "0x3B56548F9C07e404750B774E99917Cd4dEd4F0b5",
+      "txHash": "0x4a81bf9f9c6df017d8178a7ac3ca82a51c4430e087c80a2a1ac8f02f30c0a52d",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
     }
   },
   "admin": {
