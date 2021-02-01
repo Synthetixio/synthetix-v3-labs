@@ -65,8 +65,11 @@ Developers will need to:
 
 The lookup table in the main proxy's implementation is generated in order to reduce a bit of gas, but mainly for removing any kind of diamond proxy complexity from the Solidity code.
 
-#### Sample output
+#### Deploying an instance
 
+First, specify PROVIDER_URL and MNEMONIC in a .env file. Then, run `npx hardhat run scripts/deploy.js --network kovan`
+
+Sample output:
 ```
 Compiling 1 file with 0.7.3
 Compilation finished successfully
