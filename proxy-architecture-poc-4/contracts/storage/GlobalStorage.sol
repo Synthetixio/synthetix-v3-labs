@@ -5,8 +5,6 @@ pragma solidity ^0.7.0;
 abstract contract GlobalStorageAccessor {
     bytes32 constant GLOBAL_STORAGE_POSITION = keccak256("io.synthetix.global");
 
-    // Append only!
-    // TODO: Enforce with tooling
     struct GlobalData {
         string someValue;
     }
