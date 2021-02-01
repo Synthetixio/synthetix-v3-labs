@@ -116,28 +116,43 @@ async function deploy() {
   // -------------
 
   let tx;
+  let readValue;
+  let newValue;
 
   async function getModule(moduleName) {
     return await ethers.getContractAt(moduleName, Synthetix.address);
   }
 
-  // Test ExchangerModule
   const ExchangerModule = await getModule('ExchangerModule');
-  const newValue = '42';
-  let readValue = await ExchangerModule.getValue();
+  const IssuerModule = await getModule('IssuerModule');
+
+  // ExchangerModule writing to GlobalStorage.someValue
+  newValue = '42';
+  readValue = await ExchangerModule.getValue();
   if (newValue !== readValue) {
     console.log(`Setting GlobalStorage.someValue via ExchangerModule...`);
 
     tx = await ExchangerModule.setValue(newValue);
     await tx.wait();
   }
-  readValue = (await ExchangerModule.getValue()).toString();
+  readValue = await ExchangerModule.getValue();
   console.log(`GlobalStorage.someValue via ExchangerModule: ${readValue}`);
 
-  // Test IssuerModule
-  const IssuerModule = await getModule('IssuerModule');
+  // IssuerModule accessing GlobalStorage.someValue indirectly via ExchangerModule
   readValue = (await IssuerModule.getValueViaExchanger()).toString();
   console.log(`GlobalStorage.someValue via IssuerModule: ${readValue}`);
+
+  // IssuerModule accessing writing IssuanceStorage.oracleType
+  newValue = 'chainlink';
+  readValue = await IssuerModule.getOracleType();
+  if (newValue !== readValue) {
+    console.log(`Setting IssuanceStorage.oracleType via IssuerModule...`);
+
+    tx = await IssuerModule.setOracleType(newValue);
+    await tx.wait();
+  }
+  readValue = await IssuerModule.getOracleType();
+  console.log(`IssuanceStorage.oracleType via IssuerModule: ${readValue}`);
 }
 
 deploy()

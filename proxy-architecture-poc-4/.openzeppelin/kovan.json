@@ -40,6 +40,14 @@
         "storage": [],
         "types": {}
       }
+    },
+    "ff1a3326184e501b76a4b29ccbf293534c4cd3b2d4cc71f62eed388c33ca48dc": {
+      "address": "0xbC5fa459bd0A63A55CD2B5947a992F07FB3205EB",
+      "txHash": "0x9a2d1ce53a896af373183b01d5043453813f630d1cd6b81a4b059b9495a3c415",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
     }
   },
   "admin": {
