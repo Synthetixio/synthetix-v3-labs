@@ -25,7 +25,7 @@ Developers will need to:
 * Always append variables to a namespace storage struct (enforced by tooling)
 * All functions in modules need to be unique (enforced by tooling)
 
-The lookup table in the main proxy's implementation is generated, reducing a bit of gas and also removing any kind of diamond proxy complexity from the Solidity code.
+The lookup table in the main proxy's implementation is generated in order to reduce a bit of gas, but mainly for removing any kind of diamond proxy complexity from the Solidity code.
 
 #### Sample output
 
