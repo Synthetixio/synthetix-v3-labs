@@ -48,6 +48,30 @@
         "storage": [],
         "types": {}
       }
+    },
+    "b10002caa001b6a843871b360941f443dcd44bd50a8e631d3d3ca8ca520540a9": {
+      "address": "0xe9306cdEe710471f556648806b3C50699bab246d",
+      "txHash": "0x5839698f2f08e8471653c1356cae7b4f5c8ba4b5bf35a32189a3c48a648a97b3",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "54b640bdf7ba2eee8fcd5f3ba902c2c53052ab409d2dd45379b4b56ec0a9d195": {
+      "address": "0x39038957c8B78B9E1F484C8123bB106a697Ed98e",
+      "txHash": "0xb10cd7178e03709b11f02c2e963b31dd793736b086b97713a5ca9c8ea401bc95",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "aae3da2be2931a7424cd6464f741a50257578f2f323faeb549e6264ee9c8edbd": {
+      "address": "0x037206231a4D1E138828632A565633FA9F443821",
+      "txHash": "0x2aba42cdcfe784a98f8b25436a3416a482e11696c736089b7116d39ea78e2b06",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
     }
   },
   "admin": {

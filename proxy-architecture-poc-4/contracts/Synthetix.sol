@@ -8,22 +8,33 @@ contract Synthetix {
     // GENERATED CODE - do not edit manually
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
+
+    address constant MODULE_SYSTEM = 0x81692EB97C341bdFf339c499Aeee5d1A2F1cD555;
+    bytes4 constant SELECTOR_GET_VERSION = 0x0d8e6e2c;
+    bytes4 constant SELECTOR_SET_VERSION = 0x788bc78c;
+
+    address constant MODULE_ISSUER = 0x29A4e406Ec46B37937587b25Dd045f898AF1E80A;
     bytes4 constant SELECTOR_GET_ORACLE_TYPE = 0xd72e0705;
     bytes4 constant SELECTOR_SET_ORACLE_TYPE = 0xe6dbd15d;
-    bytes4 constant SELECTOR_GET_VALUE = 0x20965255;
-    bytes4 constant SELECTOR_SET_VALUE = 0x93a09352;
-    bytes4 constant SELECTOR_GET_VALUE_VIA_EXCHANGER = 0x43ce657d;
+    bytes4 constant SELECTOR_GET_VERSION_VIA_EXCHANGER = 0x10916f3b;
 
-    address constant MODULE_ISSUER = 0x61dCB2172fD6a53380c3Bf5f6B031a242e9BE1F6;
-    address constant MODULE_EXCHANGER = 0x48D79c516C2494AcDCfC059615964E207Da81b0d;
+    address constant MODULE_EXCHANGER = 0x06bb5Bb771614067c496c2029eb56b625Ed91234;
+    bytes4 constant SELECTOR_GET_SYSTEM_VERSION = 0xe017bb0d;
 
     fallback() external {
         address implementation;
-        if (msg.sig == SELECTOR_SET_VALUE) implementation = MODULE_EXCHANGER;
-        else if (msg.sig == SELECTOR_GET_VALUE) implementation = MODULE_EXCHANGER;
-        else if (msg.sig == SELECTOR_GET_VALUE_VIA_EXCHANGER) implementation = MODULE_ISSUER;
-        else if (msg.sig == SELECTOR_GET_ORACLE_TYPE) implementation = MODULE_ISSUER;
-        else if (msg.sig == SELECTOR_SET_ORACLE_TYPE) implementation = MODULE_ISSUER;
+        if (
+            msg.sig == SELECTOR_GET_VERSION ||
+            msg.sig == SELECTOR_SET_VERSION
+        ) implementation = MODULE_SYSTEM;
+        else if (
+            msg.sig == SELECTOR_GET_ORACLE_TYPE ||
+            msg.sig == SELECTOR_SET_ORACLE_TYPE ||
+            msg.sig == SELECTOR_GET_VERSION_VIA_EXCHANGER
+        ) implementation = MODULE_ISSUER;
+        else if (
+            msg.sig == SELECTOR_GET_SYSTEM_VERSION
+        ) implementation = MODULE_EXCHANGER;
 
         require(implementation != address(0), "Selector not registered in any module");
 
@@ -40,6 +51,7 @@ contract Synthetix {
                 }
         }
     }
+
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
 }

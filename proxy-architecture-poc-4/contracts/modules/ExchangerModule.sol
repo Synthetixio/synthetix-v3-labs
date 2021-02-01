@@ -5,11 +5,7 @@ import "../storage/GlobalStorage.sol";
 
 
 contract ExchangerModule is GlobalStorageAccessor {
-    function setValue(string memory newValue) public {
-        globalStorage().someValue = newValue;
-    }
-
-    function getValue() public view returns (string memory) {
-        return globalStorage().someValue;
+    function getSystemVersion() public view returns (string memory) {
+        return globalStorage().version;
     }
 }

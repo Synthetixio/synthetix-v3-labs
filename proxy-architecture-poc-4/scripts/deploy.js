@@ -21,6 +21,8 @@ async function deploy() {
   // Deploy or retrieve main proxy
   // ------------------------------
 
+  console.log(`Upgrading the system...`);
+
   let Synthetix;
 
   if (deployments.Synthetix.proxy === '') {
@@ -41,6 +43,8 @@ async function deploy() {
 
   console.log(`Connected to Synthetix proxy at ${Synthetix.address}`);
 
+  console.log('');
+
   // -------------------
   // Upgrade main proxy
   // -------------------
@@ -60,6 +64,8 @@ async function deploy() {
   // ---------------
   // Deploy modules
   // ---------------
+
+  console.log(`Upgrading the modules...`);
 
   function getModuleBytecode(moduleName) {
     const file = fs.readFileSync(`artifacts/contracts/modules/${moduleName}.sol/${moduleName}.json`);
@@ -111,48 +117,47 @@ async function deploy() {
     logModuleSelectors(Module);
   };
 
+  console.log('');
+
   // -------------
   // Test modules
   // -------------
 
-  let tx;
-  let readValue;
-  let newValue;
+  console.log('Testing the modules...');
 
   async function getModule(moduleName) {
     return await ethers.getContractAt(moduleName, Synthetix.address);
   }
 
+  const SystemModule = await getModule('SystemModule');
   const ExchangerModule = await getModule('ExchangerModule');
   const IssuerModule = await getModule('IssuerModule');
 
-  // ExchangerModule writing to GlobalStorage.someValue
-  newValue = '42';
-  readValue = await ExchangerModule.getValue();
-  if (newValue !== readValue) {
-    console.log(`Setting GlobalStorage.someValue via ExchangerModule...`);
+  // SystemModule writing to GlobalStorage.version
+  const version = '1';
+  if (await SystemModule.getVersion() !== version) {
+    console.log(`Setting GlobalStorage.version via SystemModule...`);
 
-    tx = await ExchangerModule.setValue(newValue);
+    tx = await SystemModule.setVersion(version);
     await tx.wait();
   }
-  readValue = await ExchangerModule.getValue();
-  console.log(`GlobalStorage.someValue via ExchangerModule: ${readValue}`);
+  console.log(`GlobalStorage.version via SystemModule: ${await SystemModule.getVersion()}`);
 
-  // IssuerModule accessing GlobalStorage.someValue indirectly via ExchangerModule
-  readValue = (await IssuerModule.getValueViaExchanger()).toString();
-  console.log(`GlobalStorage.someValue via IssuerModule: ${readValue}`);
+  // ExchangerModule reading to GlobalStorage.version
+  console.log(`GlobalStorage.version via ExchangerModule: ${await ExchangerModule.getSystemVersion()}`);
+
+  // IssuerModule accessing GlobalStorage.version indirectly via ExchangerModule
+  console.log(`GlobalStorage.version via IssuerModule: ${await IssuerModule.getVersionViaExchanger()}`);
 
   // IssuerModule accessing writing IssuanceStorage.oracleType
-  newValue = 'chainlink';
-  readValue = await IssuerModule.getOracleType();
-  if (newValue !== readValue) {
+  const oracleType = 'chainlink';
+  if (await IssuerModule.getOracleType() !== oracleType) {
     console.log(`Setting IssuanceStorage.oracleType via IssuerModule...`);
 
-    tx = await IssuerModule.setOracleType(newValue);
+    tx = await IssuerModule.setOracleType(oracleType);
     await tx.wait();
   }
-  readValue = await IssuerModule.getOracleType();
-  console.log(`IssuanceStorage.oracleType via IssuerModule: ${readValue}`);
+  console.log(`IssuanceStorage.oracleType via IssuerModule: ${await IssuerModule.getOracleType()}`);
 }
 
 deploy()

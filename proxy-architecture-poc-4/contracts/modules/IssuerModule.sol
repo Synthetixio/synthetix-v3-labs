@@ -6,8 +6,8 @@ import "../storage/IssuanceStorage.sol";
 
 
 contract IssuerModule is IssuanceStorageAccessor {
-    function getValueViaExchanger() public view returns (string memory) {
-        return ExchangerModule(address(this)).getValue();
+    function getVersionViaExchanger() public view returns (string memory) {
+        return ExchangerModule(address(this)).getSystemVersion();
     }
 
     function setOracleType(string memory newOracleType) public {

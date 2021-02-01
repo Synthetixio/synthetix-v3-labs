@@ -6,7 +6,7 @@ abstract contract GlobalStorageAccessor {
     bytes32 constant GLOBAL_STORAGE_POSITION = keccak256("io.synthetix.global");
 
     struct GlobalData {
-        string someValue;
+        string version;
     }
 
     function globalStorage() internal pure returns (GlobalData storage data) {
