@@ -7,6 +7,7 @@ abstract contract GlobalStorageAccessor {
 
     struct GlobalData {
         string version;
+        string date;
     }
 
     function globalStorage() internal pure returns (GlobalData storage data) {

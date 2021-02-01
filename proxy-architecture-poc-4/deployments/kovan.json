@@ -1,22 +1,22 @@
 {
   "Synthetix": {
-    "proxy": "0xC190bBEeF3E0505bBd0D9f15D0788d19a2e28aC8",
+    "proxy": "0x59207cFf6F7328991417Ed1Db862aEB419eC577d",
     "implementations": [
-      "0x037206231a4D1E138828632A565633FA9F443821"
+      "0x360ab859dE869f4bC9abc7E7ca4ae1D1b9C0f2E5"
     ]
   },
   "modules": {
     "SystemModule": {
-      "bytecodeHash": "0x64f6b3390fd95be1579f20743edd580b851c61409331e459952b98407b7ac297",
-      "implementation": "0x81692EB97C341bdFf339c499Aeee5d1A2F1cD555"
-    },
-    "ExchangerModule": {
-      "bytecodeHash": "0x536276fac98f33092a112cad6eed118b4f59b81e2c4f429ec85a41c8a12adacc",
-      "implementation": "0x06bb5Bb771614067c496c2029eb56b625Ed91234"
+      "bytecodeHash": "0xb855800b8f9a747ed4f5b987fd26ee4344e70825d2eb009013f85fb359a77ab3",
+      "implementation": "0xcdA522f72aC0Ab675f9d9b27686229B9EE60F064"
     },
     "IssuerModule": {
-      "bytecodeHash": "0x578d213acbfa8161029e3be2032c21a6c4840124bc971ee1be68cb04e833f7df",
-      "implementation": "0x29A4e406Ec46B37937587b25Dd045f898AF1E80A"
+      "bytecodeHash": "0x9751977db1ef78c786f75c954b277716df7c9b2b0fc6c56fd9a50e965366eea2",
+      "implementation": "0x26a79B946C58fDa1b23a2E88bFEfA7E2a8F7DAf8"
+    },
+    "ExchangerModule": {
+      "bytecodeHash": "0x822393bdc9964ee862098f96672c1adcb50a31d9137affc955a26aa760a73f49",
+      "implementation": "0x1f0A572FF4B2850D747be740728E7CBCE17755e9"
     }
   }
 }

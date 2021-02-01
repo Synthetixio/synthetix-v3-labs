@@ -21,7 +21,7 @@ async function deploy() {
   // Deploy or retrieve main proxy
   // ------------------------------
 
-  console.log(`Upgrading the system...`);
+  console.log(`\nUpgrading the system...`);
 
   let Synthetix;
 
@@ -43,8 +43,6 @@ async function deploy() {
 
   console.log(`Connected to Synthetix proxy at ${Synthetix.address}`);
 
-  console.log('');
-
   // -------------------
   // Upgrade main proxy
   // -------------------
@@ -65,7 +63,7 @@ async function deploy() {
   // Deploy modules
   // ---------------
 
-  console.log(`Upgrading the modules...`);
+  console.log(`\nUpgrading the modules...`);
 
   function getModuleBytecode(moduleName) {
     const file = fs.readFileSync(`artifacts/contracts/modules/${moduleName}.sol/${moduleName}.json`);
@@ -117,13 +115,11 @@ async function deploy() {
     logModuleSelectors(Module);
   };
 
-  console.log('');
-
   // -------------
   // Test modules
   // -------------
 
-  console.log('Testing the modules...');
+  console.log('\nTesting the modules...');
 
   async function getModule(moduleName) {
     return await ethers.getContractAt(moduleName, Synthetix.address);
@@ -142,6 +138,16 @@ async function deploy() {
     await tx.wait();
   }
   console.log(`GlobalStorage.version via SystemModule: ${await SystemModule.getVersion()}`);
+
+  // SystemModule writing to GlobalStorage.version
+  const date = 'Jan 1st';
+  if (await SystemModule.getDate() !== date) {
+    console.log(`Setting GlobalStorage.date via SystemModule...`);
+
+    tx = await SystemModule.setDate(date);
+    await tx.wait();
+  }
+  console.log(`GlobalStorage.date via SystemModule: ${await SystemModule.getDate()}`);
 
   // ExchangerModule reading to GlobalStorage.version
   console.log(`GlobalStorage.version via ExchangerModule: ${await ExchangerModule.getSystemVersion()}`);

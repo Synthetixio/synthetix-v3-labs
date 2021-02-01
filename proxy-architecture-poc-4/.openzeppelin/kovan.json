@@ -72,6 +72,38 @@
         "storage": [],
         "types": {}
       }
+    },
+    "f56ae927a62cb26e48c44f483495019b120f83672d368f568f958c3ab3df3e50": {
+      "address": "0x37E7c594348358F4206aAb06D94cDf045a46343F",
+      "txHash": "0xd53a1656663f20407946d5d4e058db5e04aa2f882fbfa37efbb8f702e8a72de7",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "33b4a4ae88dbdfcaaf8934da4c5a75d9fa26ae497692e8d4c3c1d1a44c60cfe1": {
+      "address": "0x853701b982b487eD3c27937Bd54DF56Be652e4cE",
+      "txHash": "0x8529db116389242c5a668e41136039cdd8cb79703c22b24296f4ed876bb3607c",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "e29522c3ef3b343d2a0363be9df917d7947301bf81cad6e1d841ed0b725fe30d": {
+      "address": "0xAf300f28FBe5153141be2423E8D2A9aCA2a8b148",
+      "txHash": "0xd69ba76e86024ef45a3f834ae75951d6ec3ff0d6f26af324ea40389f248fac3f",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "c95d4e0d0537ae232d93e9dc906afd63f58d9f41f43c65ebbe6a3f8480078dff": {
+      "address": "0x360ab859dE869f4bC9abc7E7ca4ae1D1b9C0f2E5",
+      "txHash": "0x9110d7e915fd135cb63b04ad47ce8cc9e2bf6b98fa2db26d1ab6a587becd717e",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
     }
   },
   "admin": {
