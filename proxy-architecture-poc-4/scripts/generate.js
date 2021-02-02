@@ -13,13 +13,13 @@ contract Synthetix {
     // --------------------------------------------------------------------------------
 
     fallback() external {
-        // Function selector to implementation contract lookup table
+        // Lookup table: Function selector => implementation contract
         address implementation;@router
         else {
           revert("Unknown selector");
         }
 
-        // Delegatecall forwarder
+        // Delegatecall to the implementation contract
         assembly {
             calldatacopy(0, 0, calldatasize())
             let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)

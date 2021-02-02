@@ -11,7 +11,7 @@ contract Synthetix {
     // --------------------------------------------------------------------------------
 
     fallback() external {
-        // Function selector to implementation contract lookup table
+        // Lookup table: Function selector => implementation contract
         address implementation;
         if (
           msg.sig == 0x430fe9c1 /*getDate*/ ||
@@ -32,7 +32,7 @@ contract Synthetix {
           revert("Unknown selector");
         }
 
-        // Delegatecall forwarder
+        // Delegatecall to the implementation contract
         assembly {
             calldatacopy(0, 0, calldatasize())
             let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)

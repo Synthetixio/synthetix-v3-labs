@@ -2,7 +2,7 @@
   "Synthetix": {
     "proxy": "0x59207cFf6F7328991417Ed1Db862aEB419eC577d",
     "implementations": [
-      "0x20eCfb41049C3bA981992D5c17Dc4bf3A0760c76"
+      "0x7b84aEb7d9bC5979C35d4fE889bCb1557844A710"
     ]
   },
   "modules": {
