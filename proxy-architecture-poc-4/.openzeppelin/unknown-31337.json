@@ -48,6 +48,22 @@
         "storage": [],
         "types": {}
       }
+    },
+    "4a7904526d1dc3e1516f15397a20deafb8b8050db99e422006f9c74c77e9405e": {
+      "address": "0xC9a43158891282A2B1475592D5719c001986Aaec",
+      "txHash": "0xd315bc4819286e189f1b32ad606d6e580fc2e6638fe5bf0c57c34ecdc1112ff7",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "535420be8f77af861ed557454ce3026bb7f4d86e720450932b87d5c1884618ad": {
+      "address": "0x49fd2BE640DB2910c2fAb69bB8531Ab6E76127ff",
+      "txHash": "0x207cd050533872035b710e4bf3706a8dfe191a2b1694cde13442908e08275f62",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
     }
   },
   "admin": {

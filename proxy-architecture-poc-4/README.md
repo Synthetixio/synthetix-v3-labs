@@ -67,8 +67,10 @@ The lookup table in the main proxy's implementation is generated in order to red
 #### Testing locally
 
 1. Start local node with `npx hardhat node`
-2. Clear local deployment data with `npx hardhat run scripts/clear-deployments.js`
-3. Deploy system moduels with `npx hardhat run scripts/deploy-modules.js`
-4. Generate main proxy router with `npx hardhat run scripts/generate-proxy.js`
-5. Deploy and upgrade the main proxy with `npx hardhat run scripts/deploy-proxy.js`
-6. Run tests with `npx hardhat test`
+2. Deploy the system with `npx hardhat run scripts/deploy.js`
+3. Run tests with `npx hardhat test`
+
+Additionally, step 2 can be broken up to these commands:
+* Clear local deployment data with `npx hardhat run scripts/clear-deployments.js`
+* Deploy system moduels with `npx hardhat run scripts/deploy-modules.js`
+* Generate main proxy router with `npx hardhat run scripts/generate-proxy.js`
