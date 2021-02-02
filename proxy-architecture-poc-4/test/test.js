@@ -4,7 +4,8 @@ const { getDeploymentsFile } = require('../scripts/utils/deploymentsFile');
 describe("POC4", function() {
   let network;
   let proxyAddress;
-  let owner;
+
+  let owner, user;
 
   let SystemModule, IssuerModule, ExchangerModule;
 
@@ -24,7 +25,7 @@ describe("POC4", function() {
   before('identify signers', async () => {
     const signers = await ethers.getSigners();
 
-    owner = signers[0];
+    [ owner, user ] = signers;
   });
 
   before('connect to modules', async () => {
@@ -34,22 +35,38 @@ describe("POC4", function() {
   });
 
   describe('SystemModule', () => {
-    it('can set the system version', async () => {
-      const tx = await SystemModule.setVersion(version);
-      await tx.wait();
-    });
-
-    it('can read the system version', async () => {
-      expect(await SystemModule.getVersion()).to.be.equal(version);
-    });
-
     it('can set the owner', async () => {
       const tx = await SystemModule.setOwner(await owner.getAddress());
       await tx.wait();
     });
 
+    it('cant set the owner with a non-owner account', async () => {
+      const contract = SystemModule.connect(user);
+
+      await expect(contract.setOwner(await user.getAddress())).to.be.revertedWith("Only owner allowed");
+    });
+
     it('can read the owner', async () => {
-      expect(await SystemModule.getOwner()).to.be.equal(await owner.getAddress());
+      expect(
+        await SystemModule.getOwner()
+      ).to.be.equal(
+        await owner.getAddress()
+      );
+    });
+
+    it('can set the system version', async () => {
+      const tx = await SystemModule.setVersion(version);
+      await tx.wait();
+    });
+
+    it('cant set the system version with a non-owner account', async () => {
+      const contract = SystemModule.connect(user);
+
+      await expect(contract.setVersion('2')).to.be.revertedWith("Only owner allowed");
+    });
+
+    it('can read the system version', async () => {
+      expect(await SystemModule.getVersion()).to.be.equal(version);
     });
   });
 
@@ -75,6 +92,12 @@ describe("POC4", function() {
     it('can set the oracleType', async () => {
       const tx = await IssuerModule.setOracleType(oracleType);
       await tx.wait();
+    });
+
+    it('cant set the owner with a non-owner account', async () => {
+      const contract = IssuerModule.connect(user);
+
+      await expect(contract.setOracleType('uniswap')).to.be.revertedWith("Only owner allowed");
     });
 
     it('can read the oracleType', async () => {

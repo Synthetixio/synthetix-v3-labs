@@ -5,15 +5,15 @@ pragma solidity ^0.7.0;
 abstract contract IssuanceStorageAccessor {
     bytes32 constant ISSUANCE_STORAGE_POSITION = keccak256("io.synthetix.issuance");
 
-    struct IssuanceData {
+    struct IssuanceStorage {
         string oracleType;
     }
 
-    function issuanceStorage() internal pure returns (IssuanceData storage data) {
+    function issuanceStorage() internal pure returns (IssuanceStorage storage store) {
         bytes32 position = ISSUANCE_STORAGE_POSITION;
 
         assembly {
-            data.slot := position
+            store.slot := position
         }
     }
 }

@@ -8,6 +8,46 @@
         "storage": [],
         "types": {}
       }
+    },
+    "5e1e9875669c34ba5c7eb9c0dc31d22edff97bd00998353387245d4a9292386f": {
+      "address": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
+      "txHash": "0x660a67b20de599569013d6c77308daaa0f8060620b89bbc04720c71230b83b27",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "efa855c10b94df56c19cc282ab2ef96b40ce204ec3363e7a01d4d9eaa6372d58": {
+      "address": "0x84eA74d481Ee0A5332c457a4d796187F6Ba67fEB",
+      "txHash": "0x726cb9feeb6b066a4f04b0cc362ec1772f7c8a434fa98888263916aa124420d6",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "a4737e09d92d00023ef39567714ca6b7f1a0334f5ddaddefff6a2dad953d0e03": {
+      "address": "0x95401dc811bb5740090279Ba06cfA8fcF6113778",
+      "txHash": "0xbd6d40edec6e841b9c26c18eded0dcc1a8a9a882bcf034c13b7ac5b9c03f5940",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "47969a73c3aee4956f681e32fc58c87b1eca89906bf0a461072bf42fe3288d94": {
+      "address": "0x04C89607413713Ec9775E14b954286519d836FEf",
+      "txHash": "0xd16e39f4a95aab9785f57794d8a636e145629b1b3f959b0351fa3f59bd414c7b",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "f9504d056c897be30211785c615aa650fe545e6aa5269db6e1e0e0d6f3741a29": {
+      "address": "0xf4B146FbA71F41E0592668ffbF264F1D186b2Ca8",
+      "txHash": "0x4788a59d11d54587cdeade032aca384c5c90d3da786f228a45232c3f5e46f549",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
     }
   },
   "admin": {
