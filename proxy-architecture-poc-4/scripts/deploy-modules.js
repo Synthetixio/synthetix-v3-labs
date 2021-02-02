@@ -27,6 +27,8 @@ async function deployModules() {
 
     const bytecode = getModuleBytecode(moduleName);
     const bytecodeHash = ethers.utils.sha256(bytecode);
+    console.log(bytecodeHash);
+    return
     const bytecodeChanged = bytecodeHash !== deployments.modules[moduleName].bytecodeHash;
     console.log(`    * Bytecode changed: ${bytecodeChanged}`);
 

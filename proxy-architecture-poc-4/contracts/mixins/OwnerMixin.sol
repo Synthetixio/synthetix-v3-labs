@@ -4,9 +4,8 @@ pragma solidity ^0.7.0;
 import "../storage/GlobalStorage.sol";
 
 
-contract OwnerMixin is GlobalStorageAccessor {
-    modifier onlyOwner {
-        require(msg.sender == globalStorage().owner, "Only owner allowed");
-        _;
+library OwnerMixin {
+    function requireOwner() public view {
+        require(msg.sender == GlobalStorage.store().owner, "Only owner allowed");
     }
 }

@@ -6,16 +6,18 @@ import "../storage/IssuanceStorage.sol";
 import "../mixins/OwnerMixin.sol";
 
 
-contract IssuerModule is IssuanceStorageAccessor, OwnerMixin {
+library IssuerModule {
     function getVersionViaExchanger() public view returns (string memory) {
-        return ExchangerModule(address(this)).getSystemVersion();
+        return ExchangerModule.getSystemVersion();
     }
 
-    function setOracleType(string memory newOracleType) public onlyOwner {
-        issuanceStorage().oracleType = newOracleType;
+    function setOracleType(string memory newOracleType) public {
+        OwnerMixin.requireOwner();
+
+        IssuanceStorage.store().oracleType = newOracleType;
     }
 
     function getOracleType() public view returns (string memory) {
-        return issuanceStorage().oracleType;
+        return IssuanceStorage.store().oracleType;
     }
 }
