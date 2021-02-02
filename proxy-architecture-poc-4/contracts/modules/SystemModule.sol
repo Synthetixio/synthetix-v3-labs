@@ -13,17 +13,17 @@ contract SystemModule is GlobalStorageAccessor {
         return globalStorage().version;
     }
 
-    function setDate(string memory newDate) public {
-        globalStorage().date = newDate;
+    function setOwner(address newOwner) public {
+        globalStorage().owner = newOwner;
     }
 
-    function getDate() public view returns (string memory) {
-        return globalStorage().date;
+    function getOwner() public view returns (address) {
+        return globalStorage().owner;
     }
 
-    function getDateAndVersion() public view returns (string memory, string memory) {
+    function getOwnerAndVersion() public view returns (address, string memory) {
         GlobalData storage store = globalStorage();
 
-        return (store.date, store.version);
+        return (store.owner, store.version);
     }
 }

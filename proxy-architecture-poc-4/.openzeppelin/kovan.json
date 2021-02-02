@@ -144,6 +144,14 @@
         "storage": [],
         "types": {}
       }
+    },
+    "3e30143e92f73216e14846cc652769bea41a0582cd80ea8601226bac25c58ef4": {
+      "address": "0x856b29D0bBDd2EEd1233297A6A1D7e211943fE86",
+      "txHash": "0x99fd0140328579cb2a8f7b01ac3b0d8da41f76486920d720b7a87aebe2a80d80",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
     }
   },
   "admin": {

@@ -13,11 +13,14 @@ module.exports = {
       }
     }
   },
+  defaultNetwork: 'local',
   networks: {
+    local: {
+      url: 'http://localhost:8545',
+    },
     kovan: {
       url: `https://kovan.infura.io/v3/${process.env.INFURA_KEY}`,
       accounts: {
-        // account[0]: 0x68BF577920D6607c52114CB5E13696a19c2C9eFa
         mnemonic: process.env.MNEMONIC
       }
     }

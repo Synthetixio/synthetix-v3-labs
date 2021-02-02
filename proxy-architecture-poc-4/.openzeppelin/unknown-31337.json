@@ -1,9 +1,9 @@
 {
   "manifestVersion": "3.1",
   "impls": {
-    "a086b9806b7c0096a38766e5441218623c135f3f7f9da682fa94b2039e0aa01e": {
-      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-      "txHash": "0x3d19287007c539371f370660edbdb19671f07bda02ca2e18ab23bd58bcb6b0eb",
+    "4268b3ffdeb3f39d4773d1e5b94f65a9ec849848e1da42cdf1329292aa09d3a9": {
+      "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "txHash": "0x6d755da138716c7e603b351085aabd3aec660db239fc1ec146c85e8afabecb7d",
       "layout": {
         "storage": [],
         "types": {}
@@ -11,7 +11,7 @@
     }
   },
   "admin": {
-    "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-    "txHash": "0x52c9be0ab70f72512f49bb48732a9065e7375148954544397ec32cd4022ff196"
+    "address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+    "txHash": "0x018ae3d5c85e93fe79c33ef8ce09b2fd531d59a4bd43ca07a9187ca9fda2f677"
   }
 }

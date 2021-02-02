@@ -41,8 +41,9 @@ contract Synthetix {
 }
 `;
 
-async function generate() {
-  const network = 'kovan';
+async function generateProxy() {
+  const network = hre.network.name;
+  console.log(`\nGenerating main proxy for the ${network} network...`);
 
   // -------------------
   // Retrieve data file
@@ -114,7 +115,7 @@ ${functionData.map(func => `          msg.sig == ${func.selector} /*${func.name}
 	);
 }
 
-generate()
+generateProxy()
   .then(() => process.exit(0))
   .catch(error => {
     console.error(error);
