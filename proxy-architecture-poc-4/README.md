@@ -1,4 +1,4 @@
-## Proxy POC #4
+## "Router Proxy" POC #4
 
 This proof of concept combines Open Zeppelin transparent proxies with diamond proxies.
 
