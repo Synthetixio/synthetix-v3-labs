@@ -57,12 +57,40 @@ This is possible because all modules have access to the main proxy's storage, wh
 
 To avoid storage collisions, modules must not declare in-contract variables, but instead access a storage namespace. This deviates signifficanlty from regular Solidity code style, but should not introduce too much complexity for developers.
 
+```
+bytes32 constant GLOBAL_STORAGE_POSITION = keccak256("io.synthetix.global");
+
+struct GlobalStorage {
+    address owner;
+    string version;
+}
+
+function globalStorage() internal pure returns (GlobalStorage storage store) {
+    bytes32 position = GLOBAL_STORAGE_POSITION;
+
+    assembly {
+        store.slot := position
+    }
+}
+```
+
 Developers will need to:
 * Only use storage via namespaces
 * Always append variables to a namespace storage struct (enforced by tooling)
 * All functions in modules need to be unique (enforced by tooling)
 
 The lookup table in the main proxy's implementation is generated in order to reduce a bit of gas, but mainly for removing any kind of diamond proxy complexity from the Solidity code.
+
+Additionally, mixins that are not modules can be inherited by any module for accessing common functionality.
+
+```
+contract OwnerMixin is GlobalStorageAccessor {
+    modifier onlyOwner {
+        require(msg.sender == globalStorage().owner, "Only owner allowed");
+        _;
+    }
+}
+```
 
 #### Testing locally
 
