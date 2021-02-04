@@ -74,6 +74,16 @@ function globalStorage() internal pure returns (GlobalStorage storage store) {
 }
 ```
 
+Any number of additional namespaces can be declared, i.e.
+
+```
+...
+bytes32 constant ISSUANCE_STORAGE_POSITION = keccak256("io.synthetix.issuance");
+...
+bytes32 constant COLLATERAL_STORAGE_POSITION = keccak256("io.synthetix.collateral");
+...
+```
+
 Developers will need to:
 * Only use storage via namespaces
 * Always append variables to a namespace storage struct (enforced by tooling)
