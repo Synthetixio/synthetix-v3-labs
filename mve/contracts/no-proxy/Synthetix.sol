@@ -22,19 +22,19 @@ contract Synthetix {
     }
 
     function stake(uint amount) external {
-        // TODO
+        issuer.stake(amount);
     }
 
     function withdraw(uint amount) externla {
-        // TODO
+        issuer.withdraw(amount);
     }
 
     function issue(uint amount) external {
-        // TODO
+        issuer.issue(amount);
     }
 
     function burn(uint amount) external {
-        // TODO
+        issuer.burn(amount);
     }
 
     function exchange(
@@ -42,6 +42,6 @@ contract Synthetix {
         uint fromAmount,
         bytes32 toCurrency
     ) external returns (uint) {
-        // TODO
+        exchanger.exchange(fromCurrency, fromAmount, toCurrency);
     }
 }

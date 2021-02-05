@@ -31,7 +31,15 @@ contract Exchanger is BaseModule {
         Token toToken = synthForCurrency[toCurrency];
         require(toToken != Token(0), "Invalid toCurrency");
 
+        require(fromToken.balanceOf(msg.sender) >= amount, "Insufficient fromToken balance")
+
         uint fromRate = synthetix.rates.getRate(fromCurrency);
         uint toRate = synthetix.rates.getRate(toCurrency);
+
+        uint fromValue = fromAmount.multiplyDecimal(fromRate);
+        uint toAmount = fromValue.div(toRate);
+
+        fromToken.burn(msg.sender, fromAmount);
+        toToken.mint(msg.sender, toAmount);
     }
 }
