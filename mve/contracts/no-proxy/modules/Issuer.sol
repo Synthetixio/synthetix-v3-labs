@@ -40,9 +40,15 @@ contract Issuer is BaseModule {
     }
 
     function withdraw(uint amount) externla {
-        uint stakedBalance = stakedBalanceOf[msg.sender];
+        uint snxRate = synthetix.rates.getRate(bytes32("SNX"));
 
-        require(stakedBalanceOf >= amount, "Insufficient staked balance");
+        uint stakedBalance = stakedBalanceOf[msg.sender];
+        uint stakedValue = stakedBalance.multiplyDecimal(snxRate);
+
+        uint debtBalance = debtBalanceOf[msg.sender];
+        uint withdrawableValue = stakedValue - debtBalance;
+
+        require(withdrawableValue >= amount, "Insufficient withdrawableValue");
 
         stakedBalanceOf[msg.sender] = stakedBalance - amount;
 
