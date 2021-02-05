@@ -2,9 +2,8 @@
 pragma solidity ^0.7.0;
 
 import "./BaseModule.sol";
-import "./Token.sol";
-import "./Rates.sol";
-import "./DecimalMath.sol";
+import "../erc20/Token.sol";
+import "../libraries/DecimalMath.sol";
 
 
 contract Exchanger is BaseModule {

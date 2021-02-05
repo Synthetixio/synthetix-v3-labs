@@ -2,8 +2,7 @@
 pragma solidity ^0.7.0;
 
 import "./BaseModule.sol";
-import "./Token.sol";
-import "./Rates.sol";
+import "../erc20/Token.sol";
 import "./DecimalMath.sol";
 
 

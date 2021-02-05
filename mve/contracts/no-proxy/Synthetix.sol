@@ -1,9 +1,9 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.7.0;
 
-import "./Exchanger.sol";
-import "./Issuer.sol";
-import "./Rates.sol";
+import "./modules/Exchanger.sol";
+import "./modules/Issuer.sol";
+import "./modules/Rates.sol";
 
 
 contract Synthetix {
