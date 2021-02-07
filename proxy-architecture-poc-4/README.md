@@ -107,7 +107,7 @@ Thus, the general architecture can be categorized as follows:
 
 * Storage namespaces: Provide a storage structure for a particular functionality. E.g. GlobalStorage, or IssuerStorage.
 * Modules: Implement a specific compartimentalized feature of the system, accessing one or more storage namespaces, and requiring an implementation contract to be deployed and hardcoded into the main proxy.
-* Mixins: They are intended to be inherited by modules, can access any storage namespace, and add functions and modifiers to a module. E.g. OwnerMixin.
+* Mixins: Intended to be inherited by modules, can access any storage namespace, add functions and modifiers to a module, and are not intended to be deployed as an implementation contract. E.g. OwnerMixin.
 * Libraries: Provide common functionality to modules, without inheriting. E.g. SafeDecimalMath.
 
 ### Development considerations
