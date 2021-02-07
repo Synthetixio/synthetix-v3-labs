@@ -119,20 +119,6 @@ Developers will need to:
 
 The lookup table in the main proxy's implementation is generated in order to reduce a bit of gas, but mainly for removing any kind of diamond proxy complexity from the Solidity code.
 
-### How big can the router contract be?
-
-Regarding deployment sizes, running `generate-test-proxy` produces a router contract with 20 modules with 40 functions each (800 selectors). With 200 runs optimization, this router contract compiles and deploys just fine. This shows that the number of routings available should not be limiting at first glance.
-
-If this limit ever needed to be exteneded, the router contract could be constructed at a bytecode level, or even switched at any time to a storage based approach (which wouldnt be good for runtime gas costs).
-
-### Do runtime gas costs increase as the router grows in size?
-
-TBD
-
-Although untested, this is expected to be true, which would be unfortunate.
-
-If so, there might be better ways to identify which implementation a selector belongs to by some sort of function that combines the selector with some sort of constant, and directly produces the target implementation.
-
 ### Testing this experiment locally
 
 1. Start local node with `npx hardhat node`
@@ -144,3 +130,19 @@ Additionally, step 2 can be broken up into these commands:
 * Deploy system moduels with `npx hardhat run scripts/deploy-modules.js`
 * Generate main proxy router with `npx hardhat run scripts/generate-proxy.js`
 * Deploy main proxy router `npx hardhat run scripts/deploy-proxy.js`
+
+### Open questions
+
+#### How big can the router contract be?
+
+Regarding deployment sizes, running `generate-test-proxy` produces a router contract with 20 modules with 40 functions each (800 selectors). With 200 runs optimization, this router contract compiles and deploys just fine. This shows that the number of routings available should not be limiting at first glance.
+
+If this limit ever needed to be exteneded, the router contract could be constructed at a bytecode level, or even switched at any time to a storage based approach (which wouldnt be good for runtime gas costs).
+
+#### Do runtime gas costs increase as the router grows in size?
+
+TBD
+
+Although untested, this is expected to be true, which would be unfortunate.
+
+If so, there might be better ways to identify which implementation a selector belongs to by some sort of function that combines the selector with some sort of constant, and directly produces the target implementation.
