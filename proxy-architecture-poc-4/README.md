@@ -43,6 +43,8 @@ fallback() external {
 }
 ```
 
+### Communication between modules
+
 Any module can easily access any other module by casting itself to the other module, e.g:
 
 ```
@@ -54,6 +56,8 @@ contract IssuerModule {
 ```
 
 This is possible because all modules have access to the main proxy's storage, which removes the need of an AddressResolver or SystemSettings contract. Given that every module also has access to every other module, this pattern allows for extreme modularity and small smart contract deployment sizes, which are needed properties of the Synthetix v3 system in Optimism.
+
+### Storage namespaces
 
 To avoid storage collisions, modules must not declare in-contract variables, but instead access a storage namespace. This deviates signifficanlty from regular Solidity code style, but should not introduce too much complexity for developers.
 
@@ -84,14 +88,11 @@ bytes32 constant COLLATERAL_STORAGE_POSITION = keccak256("io.synthetix.collatera
 ...
 ```
 
-Developers will need to:
-* Only use storage via namespaces
-* Always append variables to a namespace storage struct (enforced by tooling)
-* All functions in modules need to be unique (enforced by tooling)
+The only caveat is that storage within a namespace is append only. Properties within a namespace cannot be renamed or reordered, and new properties can only be appended to a struct.
 
-The lookup table in the main proxy's implementation is generated in order to reduce a bit of gas, but mainly for removing any kind of diamond proxy complexity from the Solidity code.
+### Mixins
 
-Additionally, mixins that are not modules can be inherited by any module for accessing common functionality.
+Additionally, mixins, which are not modules, can be inherited by any module for accessing common functionality.
 
 ```
 contract OwnerMixin is GlobalStorageAccessor {
@@ -102,7 +103,23 @@ contract OwnerMixin is GlobalStorageAccessor {
 }
 ```
 
-#### Testing locally
+Thus, the general architecture can be categorized as follows:
+
+* Storage namespaces: Provide a storage structure for a particular functionality. E.g. GlobalStorage, or IssuerStorage.
+* Modules: Implement a specific compartimentalized feature of the system, accessing one or more storage namespaces, and requiring an implementation contract to be deployed and hardcoded into the main proxy.
+* Mixins: They are intended to be inherited by modules, can access any storage namespace, and add functions and modifiers to a module. E.g. OwnerMixin.
+* Libraries: Provide common functionality to modules, without inheriting. E.g. SafeDecimalMath.
+
+### Development considerations
+
+Developers will need to:
+* Only use storage via namespaces
+* Always append variables to a namespace storage struct (enforced by tooling)
+* All functions in modules need to be unique (enforced by tooling)
+
+The lookup table in the main proxy's implementation is generated in order to reduce a bit of gas, but mainly for removing any kind of diamond proxy complexity from the Solidity code.
+
+### Testing this experiment locally
 
 1. Start local node with `npx hardhat node`
 2. Deploy the system with `npx hardhat run scripts/deploy.js`
