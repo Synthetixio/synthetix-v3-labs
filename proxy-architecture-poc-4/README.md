@@ -146,3 +146,9 @@ TBD
 Although untested, this is expected to be true, which would be unfortunate.
 
 If so, there might be better ways to identify which implementation a selector belongs to by some sort of function that combines the selector with some sort of constant, and directly produces the target implementation.
+
+#### How big can the struct of a storage namespace be?
+
+TBD
+
+There could be limitations to how big a storage namespace can become. If so, using multiple namespaces or even sub-namespaces would be a solution. Nonetheless, this should be researched.
