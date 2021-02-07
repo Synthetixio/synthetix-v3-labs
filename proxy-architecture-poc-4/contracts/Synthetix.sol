@@ -1,3 +1,4 @@
+
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.7.0;
 
@@ -18,15 +19,15 @@ contract Synthetix {
           msg.sig == 0x0d8e6e2c /*getVersion*/ ||
           msg.sig == 0x13af4035 /*setOwner*/ ||
           msg.sig == 0x788bc78c /*setVersion*/
-        ) implementation = 0x367761085BF3C12e5DA2Df99AC6E1a824612b8fb /*SystemModule*/;
+        ) implementation = 0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6 /*SystemModule*/;
         else if (
           msg.sig == 0xd72e0705 /*getOracleType*/ ||
           msg.sig == 0x10916f3b /*getVersionViaExchanger*/ ||
           msg.sig == 0xe6dbd15d /*setOracleType*/
-        ) implementation = 0x4C2F7092C2aE51D986bEFEe378e50BD4dB99C901 /*IssuerModule*/;
+        ) implementation = 0x8A791620dd6260079BF849Dc5567aDC3F2FdC318 /*IssuerModule*/;
         else if (
           msg.sig == 0xe017bb0d /*getSystemVersion*/
-        ) implementation = 0x7A9Ec1d04904907De0ED7b6839CcdD59c3716AC9 /*ExchangerModule*/;
+        ) implementation = 0x610178dA211FEF7D417bC0e6FeD39F05609AD788 /*ExchangerModule*/;
         else {
           revert("Unknown selector");
         }
