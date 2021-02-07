@@ -119,6 +119,12 @@ Developers will need to:
 
 The lookup table in the main proxy's implementation is generated in order to reduce a bit of gas, but mainly for removing any kind of diamond proxy complexity from the Solidity code.
 
+### How big can the router contract be?
+
+Regarding deployment sizes, running `generate-test-proxy` produces a router contract with 20 modules with 40 functions each (800 selectors). With 200 runs optimization, this router contract compiles and deploys just fine. This shows that the number of routings available should not be limiting at first glance.
+
+If this limit ever needed to be exteneded, the router contract could be constructed at a bytecode level, or even switched at any time to a storage based approach (which wouldnt be good for runtime gas costs).
+
 ### Testing this experiment locally
 
 1. Start local node with `npx hardhat node`
@@ -129,3 +135,4 @@ Additionally, step 2 can be broken up into these commands:
 * Clear local deployment data with `npx hardhat run scripts/clear-deployments.js`
 * Deploy system moduels with `npx hardhat run scripts/deploy-modules.js`
 * Generate main proxy router with `npx hardhat run scripts/generate-proxy.js`
+* Deploy main proxy router `npx hardhat run scripts/deploy-proxy.js`
