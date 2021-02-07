@@ -125,6 +125,10 @@ Regarding deployment sizes, running `generate-test-proxy` produces a router cont
 
 If this limit ever needed to be exteneded, the router contract could be constructed at a bytecode level, or even switched at any time to a storage based approach (which wouldnt be good for runtime gas costs).
 
+### Do runtime gas costs increase as the router grows in size?
+
+TBD
+
 ### Testing this experiment locally
 
 1. Start local node with `npx hardhat node`
