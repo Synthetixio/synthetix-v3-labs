@@ -129,6 +129,10 @@ If this limit ever needed to be exteneded, the router contract could be construc
 
 TBD
 
+Although untested, this is expected to be true, which would be unfortunate.
+
+If so, there might be better ways to identify which implementation a selector belongs to by some sort of function that combines the selector with some sort of constant, and directly produces the target implementation.
+
 ### Testing this experiment locally
 
 1. Start local node with `npx hardhat node`
