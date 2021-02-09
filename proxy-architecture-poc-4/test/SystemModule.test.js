@@ -4,7 +4,7 @@ const { runTxAndLogGasUsed } = require('./helpers/GasHelper');
 
 describe("SystemModule", function() {
   let network;
-  let proxyAddress, systemModuleImplementationAddress;
+  let proxyAddress, routerAddress, systemModuleImplementationAddress;
 
   let owner, user;
 
@@ -20,6 +20,7 @@ describe("SystemModule", function() {
     deployments = getDeploymentsFile({ network });
 
     proxyAddress = deployments.Synthetix.proxy;
+    routerAddress = deployments.Synthetix.implementations.pop();
     systemModuleImplementationAddress = deployments.modules['SystemModule'].implementation;
   });
 
@@ -44,6 +45,18 @@ describe("SystemModule", function() {
     const SystemModuleImplementation = await ethers.getContractAt(
       'SystemModule',
       systemModuleImplementationAddress
+    );
+
+    await runTxAndLogGasUsed(
+      this,
+      await SystemModuleImplementation.setOwner(await owner.getAddress())
+    );
+  });
+
+  it('can set the owner on the router (gas test)', async function () {
+    const SystemModuleImplementation = await ethers.getContractAt(
+      'SystemModule',
+      routerAddress
     );
 
     await runTxAndLogGasUsed(

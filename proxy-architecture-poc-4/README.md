@@ -145,6 +145,17 @@ Regarding deployment sizes, running `generate-test-proxy` produces a router cont
 
 If this limit ever needed to be exteneded, the router contract could be constructed at a bytecode level, or even switched at any time to a storage based approach (which wouldnt be good for runtime gas costs).
 
+#### Does the architecture add a lot of runtime gas overhead?
+
+This might be the biggest con of this architecture, since it actually goes through two proxies before actually hitting any implementation code.
+
+A simple measurement of this can be found in the SystemModule tests:
+* setOwner (directly on implementation): 25043 gas
+* setOwner (via router): 26122
+* setOwner (via main proxy): 28862 gas
+
+Thus, the router seems to add ~1000 gas, and the main proxy ~3000 gas. This means that the transparent proxy adds approx. 3x gas to calls and any optimization should possibly target that instead of the router.
+
 #### Do runtime gas costs increase as the router grows in size?
 
 TBD
