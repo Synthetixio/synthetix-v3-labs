@@ -1,12 +1,14 @@
 {
   "Proxy": {
-    "address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-    "implementations": []
+    "address": "0x851356ae760d987E095750cCeb3bC6014560891C",
+    "implementations": [
+      "0x95401dc811bb5740090279Ba06cfA8fcF6113778"
+    ]
   },
   "modules": {
     "UpgradeModule": {
-      "bytecodeHash": "",
-      "implementation": ""
+      "bytecodeHash": "0x025b414b6d7246413ff9b227a89cddd44a9240cbc1cc4406bccda61007d13324",
+      "implementation": "0xf5059a5D33d5853360D16C683c16e67980206f36"
     }
   }
 }
