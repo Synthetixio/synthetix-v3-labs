@@ -10,8 +10,6 @@ describe("UpgradeModule", function() {
 
   let UpgradeModule;
 
-  const version = '1';
-
   before('identify network', async function () {
     network = hre.network.name;
   });
