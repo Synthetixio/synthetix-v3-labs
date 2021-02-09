@@ -17,19 +17,7 @@ contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
     function setImplementation(address newImplementation) public onlyOwner {
         require(newImplementation != address(0), "Invalid new implementation");
 
-        ProxyStorage storage store = _proxyStorage();
-
-        store.pastImplementations.push(store.implementation);
-        store.implementation = newImplementation;
-    }
-
-    function setPastImplementation(uint index) public onlyOwner {
-        ProxyStorage storage store = _proxyStorage();
-        address pastImplementation = store.pastImplementations[index];
-
-        require(pastImplementation != address(0), "Invalid past implementation");
-
-        store.implementation = pastImplementation;
+        _proxyStorage().implementation = newImplementation;
     }
 
     /* VIEW FUNCTIONS */
@@ -40,13 +28,5 @@ contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
 
     function getImplementation() public view returns (address) {
         return _proxyStorage().implementation;
-    }
-
-    function getPastImplementation(uint index) public view returns (address) {
-        return _proxyStorage().pastImplementations[index];
-    }
-
-    function getNumPastImplementations() public view returns (uint) {
-        return _proxyStorage().pastImplementations.length;
     }
 }

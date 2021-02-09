@@ -46,40 +46,40 @@ describe("UpgradeModule", function() {
     expect(
       await UpgradeModule.getImplementation()
     ).to.be.equal(
-      upgradeModuleImplementationAddress
+      routerAddress
     );
   });
 
-  // it('can set the owner', async function () {
-  //   await runTxAndLogGasUsed(
-  //     this,
-  //     await UpgradeModule.setOwner(await owner.getAddress())
-  //   );
-  // });
+  it('can set the owner', async function () {
+    await runTxAndLogGasUsed(
+      this,
+      await UpgradeModule.setOwner(await owner.getAddress())
+    );
+  });
 
-  // it('can set the owner on the implementation (gas test)', async function () {
-  //   const UpgradeModuleImplementation = await ethers.getContractAt(
-  //     'UpgradeModule',
-  //     upgradeModuleImplementationAddress
-  //   );
+  it('can set the owner on the implementation (gas test)', async function () {
+    const UpgradeModuleImplementation = await ethers.getContractAt(
+      'UpgradeModule',
+      upgradeModuleImplementationAddress
+    );
 
-  //   await runTxAndLogGasUsed(
-  //     this,
-  //     await UpgradeModuleImplementation.setOwner(await owner.getAddress())
-  //   );
-  // });
+    await runTxAndLogGasUsed(
+      this,
+      await UpgradeModuleImplementation.setOwner(await owner.getAddress())
+    );
+  });
 
-  // it('can set the owner on the router (gas test)', async function () {
-  //   const UpgradeModuleImplementation = await ethers.getContractAt(
-  //     'UpgradeModule',
-  //     routerAddress
-  //   );
+  it('can set the owner on the router (gas test)', async function () {
+    const UpgradeModuleImplementation = await ethers.getContractAt(
+      'UpgradeModule',
+      routerAddress
+    );
 
-  //   await runTxAndLogGasUsed(
-  //     this,
-  //     await UpgradeModuleImplementation.setOwner(await owner.getAddress())
-  //   );
-  // });
+    await runTxAndLogGasUsed(
+      this,
+      await UpgradeModuleImplementation.setOwner(await owner.getAddress())
+    );
+  });
 
   // it('cant set the owner with a non-owner account', async function () {
   //   const contract = UpgradeModule.connect(user);

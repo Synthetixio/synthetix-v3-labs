@@ -14,13 +14,10 @@ contract Router {
         address implementation;
         if (
           msg.sig == 0xaaf10f42 /*getImplementation*/ ||
-          msg.sig == 0x99def969 /*getNumPastImplementations*/ ||
           msg.sig == 0x893d20e8 /*getOwner*/ ||
-          msg.sig == 0xe8b34e42 /*getPastImplementation*/ ||
           msg.sig == 0xd784d426 /*setImplementation*/ ||
-          msg.sig == 0x13af4035 /*setOwner*/ ||
-          msg.sig == 0xa79905c0 /*setPastImplementation*/
-        ) implementation = 0xf5059a5D33d5853360D16C683c16e67980206f36 /*UpgradeModule*/;
+          msg.sig == 0x13af4035 /*setOwner*/
+        ) implementation = 0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E /*UpgradeModule*/;
         else {
           revert("Unknown selector");
         }

@@ -5,8 +5,11 @@ import "./storage/ProxyStorage.sol";
 
 
 contract Proxy is ProxyStorageNamespace {
-    constructor() {
-        _proxyStorage().owner = msg.sender;
+    constructor(address firstImplementation) {
+        ProxyStorage storage store = _proxyStorage();
+
+        store.owner = msg.sender;
+        store.implementation = firstImplementation;
     }
 
     fallback() external {

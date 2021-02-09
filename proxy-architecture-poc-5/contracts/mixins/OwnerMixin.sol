@@ -6,7 +6,10 @@ import "../storage/ProxyStorage.sol";
 
 contract OwnerMixin is ProxyStorageNamespace {
     modifier onlyOwner {
-        require(msg.sender == _proxyStorage().owner, "Only owner allowed");
+        address owner = _proxyStorage().owner;
+        if (owner != address(0)) {
+            require(msg.sender == _proxyStorage().owner, "Only owner allowed");
+        }
         _;
     }
 }

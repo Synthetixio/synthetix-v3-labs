@@ -6,13 +6,9 @@ async function main() {
 
   const deployments = getDeploymentsFile({ network });
 
-  /* Deploy implementation */
-
   const Router = await (
     await ethers.getContractFactory('Router')
   ).deploy();
-
-  /* Set implementation */
 
   const UpgradeModule = await ethers.getContractAt('UpgradeModule', deployments.Proxy.address);
 
