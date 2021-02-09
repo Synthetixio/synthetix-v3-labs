@@ -43,6 +43,8 @@ fallback() external {
 }
 ```
 
+![Diagram](imgs/diag.png)
+
 ### Communication between modules
 
 Any module can easily access any other module by casting itself to the other module, e.g:
@@ -132,6 +134,10 @@ Additionally, step 2 can be broken up into these commands:
 * Deploy main proxy router `npx hardhat run scripts/deploy-proxy.js`
 
 ### Open questions
+
+#### How would this look in a real system?
+
+A non-compilable, non-deployable pseudo code can be found in the `pseudocode` folder. It shows what Issuer could look like if implemented with this architecture.
 
 #### How big can the router contract be?
 
