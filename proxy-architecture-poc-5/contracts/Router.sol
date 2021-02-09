@@ -17,7 +17,11 @@ contract Router {
           msg.sig == 0x893d20e8 /*getOwner*/ ||
           msg.sig == 0xd784d426 /*setImplementation*/ ||
           msg.sig == 0x13af4035 /*setOwner*/
-        ) implementation = 0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E /*UpgradeModule*/;
+        ) implementation = 0x9d4454B023096f34B160D6B654540c56A1F81688 /*UpgradeModule*/;
+        else if (
+          msg.sig == 0x4c8f35ab /*getMinCollateralRatio*/ ||
+          msg.sig == 0x38536275 /*setMinCollateralRatio*/
+        ) implementation = 0x5f3f1dBD7B74C6B46e8c44f98792A1dAf8d69154 /*SettingsModule*/;
         else {
           revert("Unknown selector");
         }
