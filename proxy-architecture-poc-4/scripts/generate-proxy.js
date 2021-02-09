@@ -5,7 +5,7 @@ const source = `
 pragma solidity ^0.7.0;
 
 
-contract Synthetix {
+contract Router {
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
     // GENERATED CODE - do not edit manually
@@ -110,7 +110,7 @@ ${functionData.map(func => `          msg.sig == ${func.selector} /*${func.name}
   console.log(finalCode);
 
 	fs.writeFileSync(
-	  'contracts/Synthetix.sol',
+	  'contracts/Router.sol',
 	  finalCode
 	);
 }

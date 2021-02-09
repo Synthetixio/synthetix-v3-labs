@@ -6,8 +6,8 @@ async function clearDeployment() {
 
   const deployments = getDeploymentsFile({ network });
 
-  deployments.Synthetix.proxy = '';
-  deployments.Synthetix.implementations = [];
+  deployments.Proxy.address = '';
+  deployments.Proxy.implementations = [];
 
   const modules = Object.keys(deployments.modules);
 
