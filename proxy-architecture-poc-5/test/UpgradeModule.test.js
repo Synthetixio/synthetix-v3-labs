@@ -81,10 +81,9 @@ describe("UpgradeModule", function() {
     );
   });
 
-  // it('cant set the owner with a non-owner account', async function () {
-  //   const contract = UpgradeModule.connect(user);
+  it('cant set the owner with a non-owner account', async function () {
+    const contract = UpgradeModule.connect(user);
 
-  //   await expect(contract.setOwner(await user.getAddress())).to.be.revertedWith("Only owner allowed");
-  // });
-
+    await expect(contract.setOwner(await user.getAddress())).to.be.revertedWith("Only owner allowed");
+  });
 });
