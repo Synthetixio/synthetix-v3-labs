@@ -14,4 +14,8 @@ Of course, this could increase with a larger router, which could be later optimi
 
 Universal proxies achieve this optimization by placing the upgradeability management code in the implementation, instead of the proxy. Thus, it avoids checking if the caller is the admin on every single interaction with the system. The downside is that an incorrect implementation could brick the proxy. Fran and I believe, however, that this problem could be mitigated by checks on the upgrade logic and good tooling.
 
-2. TBD
+2. Optimized router
+
+Even though the router is pretty efficient, it quickly loses efficiency as the number of selectors increases. This is because the bytecode produced by Solidity for simple "if" matching is quite poor.
+
+This POC uses Yul for router code, and implements binary instead of linear search for the actual routing.
