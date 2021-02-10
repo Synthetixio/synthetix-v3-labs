@@ -17,9 +17,14 @@ contract Router {
         address implementation;
         assembly {
             let sig32 := shr(224, sig4)
-            @router_targets
 
-            @router_switch
+            function findImplementation(sig) -> result {@router_targets
+@router_switch
+            }
+
+            implementation := findImplementation(sig32)
+        }
+
         require(implementation != address(0), "Unknown selector");
 
         // Delegatecall to the implementation contract
@@ -68,7 +73,7 @@ async function main() {
     const moduleName = modulesNames[i];
     const moduleAddress = deployments.modules[moduleName].implementation;
 
-    routerTargets += `\n            let ${moduleName} := ${moduleAddress}`;
+    routerTargets += `\n              let ${moduleName} := ${moduleAddress}`;
   }
 
   // ----------------------
@@ -123,16 +128,19 @@ async function main() {
     const chunk = selectors.slice(i, i + chunkSize);
     const last = chunk[chunk.length - 1];
 
-    routerSwitch += `\n        ${i == 0 ? 'if' : 'else if'} lt(sig32,${last.selector}) {`
-    routerSwitch += `\n          switch sig32`
+    routerSwitch += `\n              if lt(sig,${last.selector}) {`
+    routerSwitch += `\n                switch sig`
 
     for (let j = 0; j < chunk.length; j++) {
       const s= chunk[j];
 
-      routerSwitch += `\n          case ${s.selector} { implementation := ${s.module} } // ${s.module}.${s.name}()`;
+      routerSwitch += `\n                case ${s.selector} { // ${s.module}.${s.name}()`;
+      routerSwitch += `\n                  result := ${s.module}`;
+      routerSwitch += `\n                  leave`;
+      routerSwitch += `\n                }`;
     }
 
-    routerSwitch += `\n        }`;
+    routerSwitch += `\n              }`;
   }
 
   // --------------------
