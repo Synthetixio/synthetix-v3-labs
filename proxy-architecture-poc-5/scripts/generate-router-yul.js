@@ -19,8 +19,7 @@ contract Router {
             let sig32 := shr(224, sig4)
             @router_targets
 
-            switch sig32@router_switch
-        }
+            @router_switch
         require(implementation != address(0), "Unknown selector");
 
         // Delegatecall to the implementation contract
@@ -62,21 +61,21 @@ async function main() {
   // Build @router_targets
   // ----------------------
 
-  const modules = Object.keys(deployments.modules);
+  const modulesNames = Object.keys(deployments.modules);
 
   let routerTargets = '';
-  for (let i = 0; i < modules.length; i++) {
-    const moduleName = modules[i];
+  for (let i = 0; i < modulesNames.length; i++) {
+    const moduleName = modulesNames[i];
     const moduleAddress = deployments.modules[moduleName].implementation;
 
     routerTargets += `\n            let ${moduleName} := ${moduleAddress}`;
   }
 
-  // ---------------------
-  // Build @router_switch
-  // ---------------------
+  // ----------------------
+  // Prepare selector data
+  // ----------------------
 
-  async function getModuleFunctionData(moduleName) {
+  async function getSelectors(moduleName) {
     const contract = await ethers.getContractAt(moduleName, '0x0000000000000000000000000000000000000001');
 
     return contract.interface.fragments.reduce((selectors, fragment) => {
@@ -91,28 +90,49 @@ async function main() {
     }, []);
   }
 
-  const uniqueSelectors = [];
+  let selectors = [];
+  for (let i = 0; i < modulesNames.length; i++) {
+    const moduleName = modulesNames[i];
+    const moduleSelectors = await getSelectors(moduleName);
+
+    moduleSelectors.map(moduleSelector => {
+      if (selectors.some(s => s.selector === moduleSelector.selector)) {
+        throw new Error(`Duplicate selector ${moduleSelector.name}`);
+      }
+
+      selectors.push({
+        name: moduleSelector.name,
+        selector: moduleSelector.selector,
+        module: moduleName
+      });
+    });
+  }
+
+  selectors = selectors.sort((a, b) => {
+    return parseInt(a.selector, 16) - parseInt(b.selector, 16);
+  });
+
+  // ---------------------
+  // Build @router_switch
+  // ---------------------
+
+  const chunkSize = 5;
 
   let routerSwitch = '';
-  for (let i = 0; i < modules.length; i++) {
-    const moduleName = modules[i];
-    const functionData = await getModuleFunctionData(moduleName);
+  for (let i = 0; i < selectors.length; i += chunkSize) {
+    const chunk = selectors.slice(i, i + chunkSize);
+    const last = chunk[chunk.length - 1];
 
-    // Check for selector collisions
-    // TODO: Check entire signature
-    functionData.map(func => {
-      if (uniqueSelectors.some(selector => selector === func.selector)) {
-        throw new Error(`Duplicate selector ${func.name} found in ${moduleName}`);
-      } else {
-        uniqueSelectors.push(func.selector);
-      }
-    });
+    routerSwitch += `\n        ${i == 0 ? 'if' : 'else if'} lt(sig32,${last.selector}) {`
+    routerSwitch += `\n          switch sig32`
 
-    for (let j = 0; j < functionData.length; j++) {
-      const func = functionData[j];
+    for (let j = 0; j < chunk.length; j++) {
+      const s= chunk[j];
 
-      routerSwitch += `\n            case ${func.selector} /*${func.name}*/ { implementation := ${moduleName} }`;
+      routerSwitch += `\n          case ${s.selector} { implementation := ${s.module} } // ${s.module}.${s.name}()`;
     }
+
+    routerSwitch += `\n        }`;
   }
 
   // --------------------
