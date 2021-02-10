@@ -3,7 +3,7 @@ async function main() {
 
 	await _hre.run('run', { script: './scripts/clear-deployments.js' });
 	await _hre.run('run', { script: './scripts/deploy-modules.js' });
-	await _hre.run('run', { script: './scripts/generate-router.js' });
+	await _hre.run('run', { script: './scripts/generate-router-yul.js' });
 	await _hre.run('run', { script: './scripts/deploy-proxy.js' });
 }
 

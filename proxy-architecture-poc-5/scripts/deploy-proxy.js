@@ -17,7 +17,7 @@ async function main() {
   deployments.Proxy.address = Proxy.address;
   deployments.Proxy.implementations = [Router.address];
 
-  console.log(`  > Deployed new proxy at ${Proxy.address} with first router implementation ${Router.address}`);
+  console.log(`  > Deployed new proxy at ${Proxy.address}`);
 
   saveDeploymentsFile({ deployments, network });
 }

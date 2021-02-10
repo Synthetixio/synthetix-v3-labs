@@ -13,23 +13,30 @@ contract Router {
 
     fallback() external {
         // Lookup table: Function selector => implementation contract
-        address implementation;@router
-        else {
-          revert("Unknown selector");
+        bytes4 sig4 = msg.sig;
+        address implementation;
+        assembly {
+            let sig32 := shr(224, sig4)
+            @router_targets
+
+            switch sig32@router_switch
         }
+        require(implementation != address(0), "Unknown selector");
 
         // Delegatecall to the implementation contract
         assembly {
             calldatacopy(0, 0, calldatasize())
+
             let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)
             returndatacopy(0, 0, returndatasize())
+
             switch result
-                case 0 {
-                    revert(0, returndatasize())
-                }
-                default {
-                    return(0, returndatasize())
-                }
+            case 0 {
+                revert(0, returndatasize())
+            }
+            default {
+                return(0, returndatasize())
+            }
         }
     }
 
@@ -51,9 +58,23 @@ async function main() {
   const deploymentsFilePath = `./deployments/${network}.json`;
 	const deployments = JSON.parse(fs.readFileSync(deploymentsFilePath));
 
-  // --------------
-  // Sweep modules
-  // --------------
+  // ----------------------
+  // Build @router_targets
+  // ----------------------
+
+  const modules = Object.keys(deployments.modules);
+
+  let routerTargets = '';
+  for (let i = 0; i < modules.length; i++) {
+    const moduleName = modules[i];
+    const moduleAddress = deployments.modules[moduleName].implementation;
+
+    routerTargets += `\n            let ${moduleName} := ${moduleAddress}`;
+  }
+
+  // ---------------------
+  // Build @router_switch
+  // ---------------------
 
   async function getModuleFunctionData(moduleName) {
     const contract = await ethers.getContractAt(moduleName, '0x0000000000000000000000000000000000000001');
@@ -70,16 +91,10 @@ async function main() {
     }, []);
   }
 
-  const modules = Object.keys(deployments.modules);
-
-  let routerCode = '';
-
   const uniqueSelectors = [];
 
+  let routerSwitch = '';
   for (let i = 0; i < modules.length; i++) {
-    routerCode += '\n        ';
-    routerCode += i === 0 ? 'if (' : 'else if (';
-
     const moduleName = modules[i];
     const functionData = await getModuleFunctionData(moduleName);
 
@@ -93,20 +108,21 @@ async function main() {
       }
     });
 
-    routerCode += `
-${functionData.map(func => `          msg.sig == ${func.selector} /*${func.name}*/`).join(' ||\n')}
-    `;
+    for (let j = 0; j < functionData.length; j++) {
+      const func = functionData[j];
 
-    const address = deployments.modules[moduleName].implementation;
-    routerCode += `    ) implementation = ${address} /*${moduleName}*/;`
+      routerSwitch += `\n            case ${func.selector} /*${func.name}*/ { implementation := ${moduleName} }`;
+    }
   }
 
   // --------------------
   // Write Synthetix.sol
   // --------------------
 
-  const finalCode = source.replace('@router', routerCode);
-	console.log(finalCode);
+  const finalCode = source
+    .replace('@router_targets', routerTargets)
+    .replace('@router_switch', routerSwitch);
+  console.log(finalCode);
 
 	fs.writeFileSync(
 	  'contracts/Router.sol',
