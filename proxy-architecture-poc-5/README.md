@@ -157,7 +157,18 @@ Thus, the general architecture can be categorized as follows:
 
 ### Brick risk
 
-// TODO
+Since the main proxy is a UUPS proxy, its admin upgradeability code is stored in the implementation. This saves a lot of gas for non-admin interactions with the system, but introduces the risk of the system being upgraded to a non-upgradeable implementation. If this happens, such update will effectively be the last update of the system.
+
+This could happen for example if the system is updated to a router that doesn't have an UpgradeModule, and none of the other modules are able to write to the 'eip1967.proxy.implementation' storage namespace.
+
+This mitigate this risk, this POC verifies that incoming implementations in an upgrade:
+* Don't have an address of 0x0
+* The new implementation is a contract
+* The new implementation has a isUpgradeable selector which returns true
+
+Additionally, a safety module could be used, consisting of a regular proxy with its own upgradeable implementation. This would give the system an upgrade mechanism outside of the main upgrade mechanism, which could act as a safeguard in case of a mis-deployment.
+
+Of course, additional safety measures could be implemented, such as pre-running deployments on a fork, and verifying that the new implementation could in fact receive further upgrades.
 
 ### Development considerations
 
