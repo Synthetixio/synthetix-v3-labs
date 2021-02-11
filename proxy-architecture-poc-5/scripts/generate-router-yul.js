@@ -131,7 +131,7 @@ async function main() {
   });
 
   // Put selectors into a binary data structure
-  const binaryChunkSize = 10;
+  const binaryChunkSize = 8;
 
   function binarySplit(node) {
     if (node.selectors.length > binaryChunkSize) {
