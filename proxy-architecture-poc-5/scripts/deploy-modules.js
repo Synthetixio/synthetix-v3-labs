@@ -43,7 +43,6 @@ async function main() {
       console.log(`    > No need to deploy ${moduleName}`);
     }
   };
-
 }
 
 main()

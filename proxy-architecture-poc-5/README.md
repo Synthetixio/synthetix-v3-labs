@@ -38,17 +38,76 @@ In theory, the router could handle a large amount of selectors, but if the amoun
 
 ### Communication between modules
 
-Any module can easily access any other module by casting itself to the other module, e.g:
+Modules can call functions from other modules in several ways.
+
+1. Casting method
+
+The most obvious one, and the easiest to use, is by having the caller module cast itself as the callee module. This is possible because all modules act in the same environment. The downside of this method is that an external call is made, which goes through the main proxy, then router, then callee module.
 
 ```
-contract IssuerModule {
-    function getValueViaExchanger() public view returns (string memory) {
-        return ExchangerModule(address(this)).getValue();
+contract AModule {
+    function setValueViaBModule_cast(uint newValue) public {
+        BModule(address(this)).setValue(newValue);
+    }
+}
+
+contract BModule {
+    function setValue(uint newValue) public {
+        _globalStorage().value = newValue;
     }
 }
 ```
 
-This is possible because all modules have access to the main proxy's storage, which removes the need of an AddressResolver or SystemSettings contract. Given that every module also has access to every other module, this pattern allows for extreme modularity and small smart contract deployment sizes, which are needed properties of the Synthetix v3 system in Optimism.
+Gas overhead: ~4500
+
+2. Router method
+
+Instead of making an external call that re-enters the system via the proxy, modules can call the router instead, thus saving a bit of gas. Modules need only to access the proxy storage namespace.
+
+```
+contract AModule {
+    function setValueViaBModule_router(uint newValue) public {
+        getRouter().delegatecall(
+            abi.encodeWithSelector(BModule.setValue.selector, newValue)
+        );
+    }
+}
+```
+
+```
+contract BModule {
+    function setValue(uint newValue) public {
+        _globalStorage().value = newValue;
+    }
+}
+```
+
+Gas overhead: ~3300
+
+```
+contract AModule {
+    function setValueViaBModule_router(uint newValue) public {
+        getRouter().delegatecall(
+            abi.encodeWithSelector(BModule.setValue.selector, newValue)
+        );
+    }
+}
+```
+3. Direct method
+
+If modules have a way of knowing the implementation addresses of other modules, they can delegatecall directly to them. This can be accomplished by using a RegistryModule that can be called with module addresses after deployment and save them in storage.
+
+```
+contract AModule {
+    function setValueViaBModule_direct(uint newValue) public {
+        getModuleImplementation(bytes32("BModule")).delegatecall(
+            abi.encodeWithSelector(BModule.setValue.selector, newValue)
+        );
+    }
+}
+```
+
+Gas overhead: ~2438
 
 ### Storage namespaces
 

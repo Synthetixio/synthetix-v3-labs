@@ -5,6 +5,8 @@ import "../storage/OwnerStorage.sol";
 
 
 contract OwnerMixin is OwnerStorageNamespace {
+    /* MODIFIERS */
+
     modifier onlyOwner {
         address owner = _ownerStorage().owner;
         if (owner != address(0)) {

@@ -6,9 +6,9 @@ describe("InterModule", function() {
   let network;
   let proxyAddress;
 
-  let owner, user;
-
   let AModule, BModule;
+
+  const VALUE = '42';
 
   before('identify network', async function () {
     network = hre.network.name;
@@ -32,37 +32,59 @@ describe("InterModule", function() {
   });
 
   before('set value first time for gas measurements', async () => {
-    const tx = await BModule.setValue('1');
+    const tx = await BModule.setValue(VALUE);
     await tx.wait();
   });
 
   it('B can get and set the value', async function () {
-  	const value = '42';
-
     await runTxAndLogGasUsed(
       this,
-      await BModule.setValue(value)
+      await BModule.setValue(VALUE)
     );
 
     expect(
       (await BModule.getValue()).toString()
     ).to.be.equal(
-      value
+      VALUE
     );
   });
 
-  it('A can get and set the value via B using casting', async function () {
-  	const value = '1337';
-
+  it('A can set the value via B using casting', async function () {
     await runTxAndLogGasUsed(
       this,
-      await AModule.setValueViaBModule_cast(value)
+      await AModule.setValueViaBModule_cast(VALUE)
     );
 
     expect(
       (await BModule.getValue()).toString()
     ).to.be.equal(
-      value
+      VALUE
+    );
+  });
+
+  it('A can set the value via B using delegatecall via the router', async function () {
+    await runTxAndLogGasUsed(
+      this,
+      await AModule.setValueViaBModule_router(VALUE)
+    );
+
+    expect(
+      (await BModule.getValue()).toString()
+    ).to.be.equal(
+      VALUE
+    );
+  });
+
+  it('A can set the value via B using delegatecall directly', async function () {
+    await runTxAndLogGasUsed(
+      this,
+      await AModule.setValueViaBModule_direct(VALUE)
+    );
+
+    expect(
+      (await BModule.getValue()).toString()
+    ).to.be.equal(
+      VALUE
     );
   });
 });
