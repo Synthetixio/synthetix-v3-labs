@@ -1,46 +1,46 @@
 {
   "Synthetix": {
-    "address": "0x59c7D03d2E9893FB7bAa89dA50a9452e1e9B8b90",
+    "address": "0x41219a0a9C0b86ED81933c788a6B63Dfef8f17eE",
     "implementations": [
-      "0x90E75f390332356426B60FB440DF23f860F6A113"
+      "0x82A9286dB983093Ff234cefCea1d8fA66382876B"
     ]
   },
   "modules": {
     "UpgradeModule": {
-      "bytecodeHash": "0x9abcdc7746a63a857b615fabda1fdc7e7c247de7e9af0f9d764a96d24be8cf86",
-      "implementation": "0x4f1F87d512650f32bf9949C4c5Ef37a3cc891C6D"
+      "bytecodeHash": "0x501a42d4cc4a64dd0d4653585d417c81c104bd186f5e00b77bb7238f744b80db",
+      "implementation": "0x10537D7bD661C9c34F547b38EC662D6FD482Ae95"
     },
     "DummyModule": {
       "bytecodeHash": "0x2fc04afa31dfb72e5ace1adf49a47213543ff095307bbdccaf4f98ea4050791c",
-      "implementation": "0x499AA73A1D27e54B33E7DB05ffd22854EC70257E"
+      "implementation": "0xBD2fe040D03EB1d1E5A151fbcc19A03333223019"
     },
     "AnotherDummyModule": {
       "bytecodeHash": "0x7d293d9d98a4e80f36315f998b9333b38f65b4ba6ef9b1535874d092f7bce9be",
-      "implementation": "0x4c04377f90Eb1E42D845AB21De874803B8773669"
+      "implementation": "0xfb6dAB6200b8958C2655C3747708F82243d3F32E"
     },
     "YetAnotherDummyModule": {
       "bytecodeHash": "0xf30e2b97d8b876d40b683d7a7f235e2996fd3788958cde9d1a02d461c3217ce1",
-      "implementation": "0xf93b0549cD50c849D792f0eAE94A598fA77C7718"
+      "implementation": "0x798f111c92E38F102931F34D1e0ea7e671BDBE31"
     },
     "SettingsModule": {
       "bytecodeHash": "0x9b2276491b5f733ee4614845088c950cf489a96d8b5fb9854ee4a4172870f419",
-      "implementation": "0x8CeA85eC7f3D314c4d144e34F2206C8Ac0bbadA1"
+      "implementation": "0xabebE9a2D62Af9a89E86EB208b51321e748640C3"
     },
     "OwnerModule": {
       "bytecodeHash": "0x2a8292a78c9415825cbc04692188c72f2d56d5f3929022bfc67393fd35fc761a",
-      "implementation": "0x29023DE63D7075B4cC2CE30B55f050f9c67548d4"
+      "implementation": "0xf42Ec71A4440F5e9871C643696DD6Dc9a38911F8"
     },
     "AModule": {
-      "bytecodeHash": "0x1588ec5f8e75ddb85166a21ef4cfc170f24d12dcb5f1b88b5afb6b2cf035a1d9",
-      "implementation": "0xCA87833e830652C2ab07E1e03eBa4F2c246D3b58"
+      "bytecodeHash": "0xfe4b540c63d59c921c0f5cd0bbded1cb5b033849b797a88ab29e507d6f55934c",
+      "implementation": "0xbc71F5687CFD36f64Ae6B4549186EE3A6eE259a4"
     },
     "BModule": {
       "bytecodeHash": "0x3fead4b0f0b4b77215fdda6afc3d5f9817665a68ebf92771ce151cad1c8f66f1",
-      "implementation": "0x9Bb65b12162a51413272d10399282E730822Df44"
+      "implementation": "0xD73bAb8F06DB28c87932571f87D0D2C0FDF13D94"
     },
     "RegistryModule": {
       "bytecodeHash": "0x4bc365c136e65e5129ebeaecb7f77ad1797838ab05d3deb0430c72a0775bbe16",
-      "implementation": "0x7A5EC257391817ef241ef8451642cC6b222d4f8C"
+      "implementation": "0x28227B230d3945e580eD3B1c6c8ea1df658A7AA9"
     }
   }
 }
