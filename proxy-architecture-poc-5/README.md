@@ -50,7 +50,9 @@ contract AModule {
         BModule(address(this)).setValue(newValue);
     }
 }
+```
 
+```
 contract BModule {
     function setValue(uint newValue) public {
         _globalStorage().value = newValue;
@@ -74,25 +76,8 @@ contract AModule {
 }
 ```
 
-```
-contract BModule {
-    function setValue(uint newValue) public {
-        _globalStorage().value = newValue;
-    }
-}
-```
-
 Gas overhead: ~3300
 
-```
-contract AModule {
-    function setValueViaBModule_router(uint newValue) public {
-        getRouter().delegatecall(
-            abi.encodeWithSelector(BModule.setValue.selector, newValue)
-        );
-    }
-}
-```
 3. Direct method
 
 If modules have a way of knowing the implementation addresses of other modules, they can delegatecall directly to them. This can be accomplished by using a RegistryModule that can be called with module addresses after deployment and save them in storage.
