@@ -69,9 +69,11 @@ Instead of making an external call that re-enters the system via the proxy, modu
 ```
 contract AModule {
     function setValueViaBModule_router(uint newValue) public {
-        getRouter().delegatecall(
+        (bool success,) = getRouter().delegatecall(
             abi.encodeWithSelector(BModule.setValue.selector, newValue)
         );
+
+        require(success, "Delegatecall failed");
     }
 }
 ```
@@ -85,9 +87,11 @@ If modules have a way of knowing the implementation addresses of other modules, 
 ```
 contract AModule {
     function setValueViaBModule_direct(uint newValue) public {
-        getModuleImplementation(bytes32("BModule")).delegatecall(
+        (bool success,) = getModuleImplementation(bytes32("BModule")).delegatecall(
             abi.encodeWithSelector(BModule.setValue.selector, newValue)
         );
+
+        require(success, "Delegatecall failed");
     }
 }
 ```

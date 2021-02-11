@@ -17,13 +17,13 @@ contract Router {
             let sig32 := shr(224, sig4)
 
             function findImplementation(sig) -> result {
-                let DummyModule := 0x6e0a5725dD4071e46356bD974E13F35DbF9ef367
-                let SettingsModule := 0xA9d0Fb5837f9c42c874e16da96094b14Af0e2784
-                let UpgradeModule := 0x6B21b3ae41f818Fc91e322b53f8D0773d31eCB75
-                let OwnerModule := 0x1f53E116c31F171e59f45f0752AEc5d1F5aA3714
-                let AModule := 0xa31F4c0eF2935Af25370D9AE275169CCd9793DA3
-                let BModule := 0xF9c0bF1CFAAB883ADb95fed4cfD60133BffaB18a
-                let RegistryModule := 0xb830887eE23d3f9Ed8c27dbF7DcFe63037765475
+                let DummyModule := 0x0bF7dE8d71820840063D4B8653Fd3F0618986faF
+                let SettingsModule := 0xc981ec845488b8479539e6B22dc808Fb824dB00a
+                let UpgradeModule := 0x5E5713a0d915701F464DEbb66015adD62B2e6AE9
+                let OwnerModule := 0x97fd63D049089cd70D9D139ccf9338c81372DE68
+                let AModule := 0xC0BF43A4Ca27e0976195E6661b099742f10507e5
+                let BModule := 0x43cA9bAe8dF108684E5EAaA720C25e1b32B0A075
+                let RegistryModule := 0x9D3DA37d36BB0B825CD319ed129c2872b893f538
 
                 if lt(sig,0x8cb90714) {
                     if lt(sig,0x52fb8013) {
@@ -118,70 +118,75 @@ contract Router {
                     case 0x893d20e8 { result := OwnerModule } // OwnerModule.getOwner()
                     leave
                 }
-                if lt(sig,0xc5f8f031) {
-                    if lt(sig,0xac3fa560) {
-                        if lt(sig,0x9df17257) {
+                if lt(sig,0xc79e3b48) {
+                    if lt(sig,0xac47793a) {
+                        if lt(sig,0x9ed3371b) {
+                            if lt(sig,0x9591aa82) {
+                                switch sig
+                                case 0x8cb90714 { result := AModule } // AModule.setValueViaBModule_router()
+                                case 0x8df2341b { result := DummyModule } // DummyModule.test47()
+                                case 0x8f0d282d { result := DummyModule } // DummyModule.test4()
+                                case 0x916d83db { result := DummyModule } // DummyModule.test52()
+                                leave
+                            }
                             switch sig
-                            case 0x8cb90714 { result := AModule } // AModule.setValueViaBModule_router()
-                            case 0x8df2341b { result := DummyModule } // DummyModule.test47()
-                            case 0x8f0d282d { result := DummyModule } // DummyModule.test4()
-                            case 0x916d83db { result := DummyModule } // DummyModule.test52()
                             case 0x9591aa82 { result := DummyModule } // DummyModule.test16()
                             case 0x97d78182 { result := DummyModule } // DummyModule.test49()
                             case 0x98f32fd8 { result := DummyModule } // DummyModule.test62()
+                            case 0x9df17257 { result := DummyModule } // DummyModule.test95()
                             leave
                         }
                         switch sig
-                        case 0x9df17257 { result := DummyModule } // DummyModule.test95()
                         case 0x9ed3371b { result := DummyModule } // DummyModule.test90()
                         case 0xa1ca68bd { result := DummyModule } // DummyModule.test22()
                         case 0xa5e124eb { result := DummyModule } // DummyModule.test21()
                         case 0xa6d4481c { result := DummyModule } // DummyModule.test70()
                         case 0xa7deec92 { result := DummyModule } // DummyModule.test9()
                         case 0xaaf10f42 { result := UpgradeModule } // UpgradeModule.getImplementation()
+                        case 0xac3fa560 { result := DummyModule } // DummyModule.test88()
                         leave
                     }
-                    if lt(sig,0xb3a92044) {
+                    if lt(sig,0xb702591b) {
                         switch sig
-                        case 0xac3fa560 { result := DummyModule } // DummyModule.test88()
                         case 0xac47793a { result := DummyModule } // DummyModule.test38()
                         case 0xb06335e7 { result := DummyModule } // DummyModule.test44()
                         case 0xb079af8e { result := DummyModule } // DummyModule.test24()
                         case 0xb0c4c0d5 { result := DummyModule } // DummyModule.test31()
                         case 0xb191e898 { result := DummyModule } // DummyModule.test84()
                         case 0xb23d404c { result := DummyModule } // DummyModule.test18()
+                        case 0xb3a92044 { result := DummyModule } // DummyModule.test28()
                         leave
                     }
                     switch sig
-                    case 0xb3a92044 { result := DummyModule } // DummyModule.test28()
                     case 0xb702591b { result := DummyModule } // DummyModule.test61()
                     case 0xb99f4204 { result := DummyModule } // DummyModule.test97()
                     case 0xbe08e12b { result := DummyModule } // DummyModule.test43()
                     case 0xbf018554 { result := DummyModule } // DummyModule.test45()
                     case 0xc38f5b3b { result := DummyModule } // DummyModule.test85()
                     case 0xc38f6f0b { result := DummyModule } // DummyModule.test8()
+                    case 0xc5f8f031 { result := DummyModule } // DummyModule.test14()
                     leave
                 }
                 if lt(sig,0xdb24b415) {
-                    if lt(sig,0xd1db2d54) {
+                    if lt(sig,0xd2d70754) {
                         switch sig
-                        case 0xc5f8f031 { result := DummyModule } // DummyModule.test14()
                         case 0xc79e3b48 { result := DummyModule } // DummyModule.test99()
                         case 0xc7ad392f { result := DummyModule } // DummyModule.test46()
                         case 0xca35b775 { result := DummyModule } // DummyModule.test19()
                         case 0xcc1c4819 { result := DummyModule } // DummyModule.test96()
                         case 0xce32d1c3 { result := DummyModule } // DummyModule.test37()
                         case 0xce6afb8d { result := DummyModule } // DummyModule.test93()
+                        case 0xd1db2d54 { result := DummyModule } // DummyModule.test64()
                         leave
                     }
                     switch sig
-                    case 0xd1db2d54 { result := DummyModule } // DummyModule.test64()
                     case 0xd2d70754 { result := DummyModule } // DummyModule.test100()
                     case 0xd4a95c13 { result := DummyModule } // DummyModule.test54()
                     case 0xd4bad72a { result := DummyModule } // DummyModule.test12()
                     case 0xd5c34e4b { result := DummyModule } // DummyModule.test59()
                     case 0xd5e733f7 { result := DummyModule } // DummyModule.test25()
                     case 0xd8d20484 { result := AModule } // AModule.setValueViaBModule_cast()
+                    case 0xdaa3a163 { result := UpgradeModule } // UpgradeModule.isUpgradeable()
                     leave
                 }
                 if lt(sig,0xf36b9eb3) {

@@ -13,14 +13,18 @@ contract AModule is RegistryMixin {
     }
 
     function setValueViaBModule_router(uint newValue) public {
-        getRouter().delegatecall(
+        (bool success,) = getRouter().delegatecall(
             abi.encodeWithSelector(BModule.setValue.selector, newValue)
         );
+
+        require(success, "Delegatecall failed");
     }
 
     function setValueViaBModule_direct(uint newValue) public {
-        getModuleImplementation(bytes32("BModule")).delegatecall(
+        (bool success,) = getModuleImplementation(bytes32("BModule")).delegatecall(
             abi.encodeWithSelector(BModule.setValue.selector, newValue)
         );
+
+        require(success, "Delegatecall failed");
     }
 }
