@@ -11,135 +11,205 @@ contract Router {
 
     fallback() external {
         // Lookup table: Function selector => implementation contract
+        bytes4 sig4 = msg.sig;
         address implementation;
-        if (
-          msg.sig == 0x6b59084d /*test1*/ ||
-          msg.sig == 0x7839c9a0 /*test10*/ ||
-          msg.sig == 0xd2d70754 /*test100*/ ||
-          msg.sig == 0xfa8b8ea1 /*test11*/ ||
-          msg.sig == 0xd4bad72a /*test12*/ ||
-          msg.sig == 0x41ef3738 /*test13*/ ||
-          msg.sig == 0xc5f8f031 /*test14*/ ||
-          msg.sig == 0xe30fa944 /*test15*/ ||
-          msg.sig == 0x9591aa82 /*test16*/ ||
-          msg.sig == 0xfeb53275 /*test17*/ ||
-          msg.sig == 0xb23d404c /*test18*/ ||
-          msg.sig == 0xca35b775 /*test19*/ ||
-          msg.sig == 0x66e41cb7 /*test2*/ ||
-          msg.sig == 0xee89f07c /*test20*/ ||
-          msg.sig == 0xa5e124eb /*test21*/ ||
-          msg.sig == 0xa1ca68bd /*test22*/ ||
-          msg.sig == 0x5e54e982 /*test23*/ ||
-          msg.sig == 0xb079af8e /*test24*/ ||
-          msg.sig == 0xd5e733f7 /*test25*/ ||
-          msg.sig == 0x558cb882 /*test26*/ ||
-          msg.sig == 0x810b2ab5 /*test27*/ ||
-          msg.sig == 0xb3a92044 /*test28*/ ||
-          msg.sig == 0x0ba07746 /*test29*/ ||
-          msg.sig == 0x0a8e8e01 /*test3*/ ||
-          msg.sig == 0x82aaf544 /*test30*/ ||
-          msg.sig == 0xb0c4c0d5 /*test31*/ ||
-          msg.sig == 0x66e0b067 /*test32*/ ||
-          msg.sig == 0x0604f9ec /*test33*/ ||
-          msg.sig == 0x6f0befdc /*test34*/ ||
-          msg.sig == 0x117753d9 /*test35*/ ||
-          msg.sig == 0x0c1284a1 /*test36*/ ||
-          msg.sig == 0xce32d1c3 /*test37*/ ||
-          msg.sig == 0xac47793a /*test38*/ ||
-          msg.sig == 0x52fb8013 /*test39*/ ||
-          msg.sig == 0x8f0d282d /*test4*/ ||
-          msg.sig == 0x06fe01a4 /*test40*/ ||
-          msg.sig == 0x6121490e /*test41*/ ||
-          msg.sig == 0xdb24b415 /*test42*/ ||
-          msg.sig == 0xbe08e12b /*test43*/ ||
-          msg.sig == 0xb06335e7 /*test44*/ ||
-          msg.sig == 0xbf018554 /*test45*/ ||
-          msg.sig == 0xc7ad392f /*test46*/ ||
-          msg.sig == 0x8df2341b /*test47*/ ||
-          msg.sig == 0x546b486d /*test48*/ ||
-          msg.sig == 0x97d78182 /*test49*/ ||
-          msg.sig == 0x1ad7be82 /*test5*/ ||
-          msg.sig == 0x0b8b3746 /*test50*/ ||
-          msg.sig == 0x1990b834 /*test51*/ ||
-          msg.sig == 0x916d83db /*test52*/ ||
-          msg.sig == 0xeecbd32a /*test53*/ ||
-          msg.sig == 0xd4a95c13 /*test54*/ ||
-          msg.sig == 0xfacdcda8 /*test55*/ ||
-          msg.sig == 0xfb85396b /*test56*/ ||
-          msg.sig == 0x7fb68261 /*test57*/ ||
-          msg.sig == 0x47cf780f /*test58*/ ||
-          msg.sig == 0xd5c34e4b /*test59*/ ||
-          msg.sig == 0x6f3babc4 /*test6*/ ||
-          msg.sig == 0x3db04260 /*test60*/ ||
-          msg.sig == 0xb702591b /*test61*/ ||
-          msg.sig == 0x98f32fd8 /*test62*/ ||
-          msg.sig == 0x42289fbe /*test63*/ ||
-          msg.sig == 0xd1db2d54 /*test64*/ ||
-          msg.sig == 0x13c524e6 /*test65*/ ||
-          msg.sig == 0xfc9ad801 /*test66*/ ||
-          msg.sig == 0x43c77d51 /*test67*/ ||
-          msg.sig == 0x797201ec /*test68*/ ||
-          msg.sig == 0x1713a1c0 /*test69*/ ||
-          msg.sig == 0x66e84d62 /*test7*/ ||
-          msg.sig == 0xa6d4481c /*test70*/ ||
-          msg.sig == 0xf36b9eb3 /*test71*/ ||
-          msg.sig == 0x7639747e /*test72*/ ||
-          msg.sig == 0x1b64c1a7 /*test73*/ ||
-          msg.sig == 0x4579ba59 /*test74*/ ||
-          msg.sig == 0x5e296104 /*test75*/ ||
-          msg.sig == 0x1c7b50ab /*test76*/ ||
-          msg.sig == 0x6bc20481 /*test77*/ ||
-          msg.sig == 0xf1d48d0a /*test78*/ ||
-          msg.sig == 0x5f6f7b7a /*test79*/ ||
-          msg.sig == 0xc38f6f0b /*test8*/ ||
-          msg.sig == 0x4535eecf /*test80*/ ||
-          msg.sig == 0x766d9deb /*test81*/ ||
-          msg.sig == 0x0ac421ac /*test82*/ ||
-          msg.sig == 0x80297e0a /*test83*/ ||
-          msg.sig == 0xb191e898 /*test84*/ ||
-          msg.sig == 0xc38f5b3b /*test85*/ ||
-          msg.sig == 0x746831ee /*test86*/ ||
-          msg.sig == 0x751d4a8c /*test87*/ ||
-          msg.sig == 0xac3fa560 /*test88*/ ||
-          msg.sig == 0x7baa594f /*test89*/ ||
-          msg.sig == 0xa7deec92 /*test9*/ ||
-          msg.sig == 0x9ed3371b /*test90*/ ||
-          msg.sig == 0xf4292b48 /*test91*/ ||
-          msg.sig == 0x60d3cdcb /*test92*/ ||
-          msg.sig == 0xce6afb8d /*test93*/ ||
-          msg.sig == 0x4864ea4a /*test94*/ ||
-          msg.sig == 0x9df17257 /*test95*/ ||
-          msg.sig == 0xcc1c4819 /*test96*/ ||
-          msg.sig == 0xb99f4204 /*test97*/ ||
-          msg.sig == 0xe4f58441 /*test98*/ ||
-          msg.sig == 0xc79e3b48 /*test99*/
-        ) implementation = 0x9BcC604D4381C5b0Ad12Ff3Bf32bEdE063416BC7 /*DummyModule*/;
-        else if (
-          msg.sig == 0x4c8f35ab /*getMinCollateralRatio*/ ||
-          msg.sig == 0x38536275 /*setMinCollateralRatio*/
-        ) implementation = 0x63fea6E447F120B8Faf85B53cdaD8348e645D80E /*SettingsModule*/;
-        else if (
-          msg.sig == 0xaaf10f42 /*getImplementation*/ ||
-          msg.sig == 0x893d20e8 /*getOwner*/ ||
-          msg.sig == 0xd784d426 /*setImplementation*/ ||
-          msg.sig == 0x13af4035 /*setOwner*/
-        ) implementation = 0xdFdE6B33f13de2CA1A75A6F7169f50541B14f75b /*UpgradeModule*/;
-        else {
-          revert("Unknown selector");
+        assembly {
+            let sig32 := shr(224, sig4)
+
+            function findImplementation(sig) -> result {
+                let DummyModule := 0xcD0048A5628B37B8f743cC2FeA18817A29e97270
+                let SettingsModule := 0x976C214741b4657bd99DFD38a5c0E3ac5C99D903
+                let UpgradeModule := 0x8bEe2037448F096900Fd9affc427d38aE6CC0350
+
+                if lt(sig,0x8f0d282d) {
+                    if lt(sig,0x558cb882) {
+                        if lt(sig,0x1c7b50ab) {
+                            if lt(sig,0x117753d9) {
+                                switch sig
+                                case 0x0604f9ec { result := DummyModule } // DummyModule.test33()
+                                case 0x06fe01a4 { result := DummyModule } // DummyModule.test40()
+                                case 0x0a8e8e01 { result := DummyModule } // DummyModule.test3()
+                                case 0x0ac421ac { result := DummyModule } // DummyModule.test82()
+                                case 0x0b8b3746 { result := DummyModule } // DummyModule.test50()
+                                case 0x0ba07746 { result := DummyModule } // DummyModule.test29()
+                                case 0x0c1284a1 { result := DummyModule } // DummyModule.test36()
+                                leave
+                            }
+                            switch sig
+                            case 0x117753d9 { result := DummyModule } // DummyModule.test35()
+                            case 0x13af4035 { result := UpgradeModule } // UpgradeModule.setOwner()
+                            case 0x13c524e6 { result := DummyModule } // DummyModule.test65()
+                            case 0x1713a1c0 { result := DummyModule } // DummyModule.test69()
+                            case 0x1990b834 { result := DummyModule } // DummyModule.test51()
+                            case 0x1ad7be82 { result := DummyModule } // DummyModule.test5()
+                            case 0x1b64c1a7 { result := DummyModule } // DummyModule.test73()
+                            leave
+                        }
+                        if lt(sig,0x4579ba59) {
+                            switch sig
+                            case 0x1c7b50ab { result := DummyModule } // DummyModule.test76()
+                            case 0x38536275 { result := SettingsModule } // SettingsModule.setMinCollateralRatio()
+                            case 0x3db04260 { result := DummyModule } // DummyModule.test60()
+                            case 0x41ef3738 { result := DummyModule } // DummyModule.test13()
+                            case 0x42289fbe { result := DummyModule } // DummyModule.test63()
+                            case 0x43c77d51 { result := DummyModule } // DummyModule.test67()
+                            case 0x4535eecf { result := DummyModule } // DummyModule.test80()
+                            leave
+                        }
+                        switch sig
+                        case 0x4579ba59 { result := DummyModule } // DummyModule.test74()
+                        case 0x47cf780f { result := DummyModule } // DummyModule.test58()
+                        case 0x4864ea4a { result := DummyModule } // DummyModule.test94()
+                        case 0x4c8f35ab { result := SettingsModule } // SettingsModule.getMinCollateralRatio()
+                        case 0x52fb8013 { result := DummyModule } // DummyModule.test39()
+                        case 0x546b486d { result := DummyModule } // DummyModule.test48()
+                        leave
+                    }
+                    if lt(sig,0x746831ee) {
+                        if lt(sig,0x66e41cb7) {
+                            switch sig
+                            case 0x558cb882 { result := DummyModule } // DummyModule.test26()
+                            case 0x5e296104 { result := DummyModule } // DummyModule.test75()
+                            case 0x5e54e982 { result := DummyModule } // DummyModule.test23()
+                            case 0x5f6f7b7a { result := DummyModule } // DummyModule.test79()
+                            case 0x60d3cdcb { result := DummyModule } // DummyModule.test92()
+                            case 0x6121490e { result := DummyModule } // DummyModule.test41()
+                            case 0x66e0b067 { result := DummyModule } // DummyModule.test32()
+                            leave
+                        }
+                        switch sig
+                        case 0x66e41cb7 { result := DummyModule } // DummyModule.test2()
+                        case 0x66e84d62 { result := DummyModule } // DummyModule.test7()
+                        case 0x6b59084d { result := DummyModule } // DummyModule.test1()
+                        case 0x6bc20481 { result := DummyModule } // DummyModule.test77()
+                        case 0x6f0befdc { result := DummyModule } // DummyModule.test34()
+                        case 0x6f3babc4 { result := DummyModule } // DummyModule.test6()
+                        leave
+                    }
+                    if lt(sig,0x7fb68261) {
+                        switch sig
+                        case 0x746831ee { result := DummyModule } // DummyModule.test86()
+                        case 0x751d4a8c { result := DummyModule } // DummyModule.test87()
+                        case 0x7639747e { result := DummyModule } // DummyModule.test72()
+                        case 0x766d9deb { result := DummyModule } // DummyModule.test81()
+                        case 0x7839c9a0 { result := DummyModule } // DummyModule.test10()
+                        case 0x797201ec { result := DummyModule } // DummyModule.test68()
+                        case 0x7baa594f { result := DummyModule } // DummyModule.test89()
+                        leave
+                    }
+                    switch sig
+                    case 0x7fb68261 { result := DummyModule } // DummyModule.test57()
+                    case 0x80297e0a { result := DummyModule } // DummyModule.test83()
+                    case 0x810b2ab5 { result := DummyModule } // DummyModule.test27()
+                    case 0x82aaf544 { result := DummyModule } // DummyModule.test30()
+                    case 0x893d20e8 { result := UpgradeModule } // UpgradeModule.getOwner()
+                    case 0x8df2341b { result := DummyModule } // DummyModule.test47()
+                    leave
+                }
+                if lt(sig,0xc79e3b48) {
+                    if lt(sig,0xb06335e7) {
+                        if lt(sig,0xa1ca68bd) {
+                            switch sig
+                            case 0x8f0d282d { result := DummyModule } // DummyModule.test4()
+                            case 0x916d83db { result := DummyModule } // DummyModule.test52()
+                            case 0x9591aa82 { result := DummyModule } // DummyModule.test16()
+                            case 0x97d78182 { result := DummyModule } // DummyModule.test49()
+                            case 0x98f32fd8 { result := DummyModule } // DummyModule.test62()
+                            case 0x9df17257 { result := DummyModule } // DummyModule.test95()
+                            case 0x9ed3371b { result := DummyModule } // DummyModule.test90()
+                            leave
+                        }
+                        switch sig
+                        case 0xa1ca68bd { result := DummyModule } // DummyModule.test22()
+                        case 0xa5e124eb { result := DummyModule } // DummyModule.test21()
+                        case 0xa6d4481c { result := DummyModule } // DummyModule.test70()
+                        case 0xa7deec92 { result := DummyModule } // DummyModule.test9()
+                        case 0xaaf10f42 { result := UpgradeModule } // UpgradeModule.getImplementation()
+                        case 0xac3fa560 { result := DummyModule } // DummyModule.test88()
+                        case 0xac47793a { result := DummyModule } // DummyModule.test38()
+                        leave
+                    }
+                    if lt(sig,0xb99f4204) {
+                        switch sig
+                        case 0xb06335e7 { result := DummyModule } // DummyModule.test44()
+                        case 0xb079af8e { result := DummyModule } // DummyModule.test24()
+                        case 0xb0c4c0d5 { result := DummyModule } // DummyModule.test31()
+                        case 0xb191e898 { result := DummyModule } // DummyModule.test84()
+                        case 0xb23d404c { result := DummyModule } // DummyModule.test18()
+                        case 0xb3a92044 { result := DummyModule } // DummyModule.test28()
+                        case 0xb702591b { result := DummyModule } // DummyModule.test61()
+                        leave
+                    }
+                    switch sig
+                    case 0xb99f4204 { result := DummyModule } // DummyModule.test97()
+                    case 0xbe08e12b { result := DummyModule } // DummyModule.test43()
+                    case 0xbf018554 { result := DummyModule } // DummyModule.test45()
+                    case 0xc38f5b3b { result := DummyModule } // DummyModule.test85()
+                    case 0xc38f6f0b { result := DummyModule } // DummyModule.test8()
+                    case 0xc5f8f031 { result := DummyModule } // DummyModule.test14()
+                    leave
+                }
+                if lt(sig,0xdb24b415) {
+                    if lt(sig,0xd2d70754) {
+                        switch sig
+                        case 0xc79e3b48 { result := DummyModule } // DummyModule.test99()
+                        case 0xc7ad392f { result := DummyModule } // DummyModule.test46()
+                        case 0xca35b775 { result := DummyModule } // DummyModule.test19()
+                        case 0xcc1c4819 { result := DummyModule } // DummyModule.test96()
+                        case 0xce32d1c3 { result := DummyModule } // DummyModule.test37()
+                        case 0xce6afb8d { result := DummyModule } // DummyModule.test93()
+                        case 0xd1db2d54 { result := DummyModule } // DummyModule.test64()
+                        leave
+                    }
+                    switch sig
+                    case 0xd2d70754 { result := DummyModule } // DummyModule.test100()
+                    case 0xd4a95c13 { result := DummyModule } // DummyModule.test54()
+                    case 0xd4bad72a { result := DummyModule } // DummyModule.test12()
+                    case 0xd5c34e4b { result := DummyModule } // DummyModule.test59()
+                    case 0xd5e733f7 { result := DummyModule } // DummyModule.test25()
+                    case 0xd784d426 { result := UpgradeModule } // UpgradeModule.setImplementation()
+                    leave
+                }
+                if lt(sig,0xf4292b48) {
+                    switch sig
+                    case 0xdb24b415 { result := DummyModule } // DummyModule.test42()
+                    case 0xe30fa944 { result := DummyModule } // DummyModule.test15()
+                    case 0xe4f58441 { result := DummyModule } // DummyModule.test98()
+                    case 0xee89f07c { result := DummyModule } // DummyModule.test20()
+                    case 0xeecbd32a { result := DummyModule } // DummyModule.test53()
+                    case 0xf1d48d0a { result := DummyModule } // DummyModule.test78()
+                    case 0xf36b9eb3 { result := DummyModule } // DummyModule.test71()
+                    leave
+                }
+                switch sig
+                case 0xf4292b48 { result := DummyModule } // DummyModule.test91()
+                case 0xfa8b8ea1 { result := DummyModule } // DummyModule.test11()
+                case 0xfacdcda8 { result := DummyModule } // DummyModule.test55()
+                case 0xfb85396b { result := DummyModule } // DummyModule.test56()
+                case 0xfc9ad801 { result := DummyModule } // DummyModule.test66()
+                case 0xfeb53275 { result := DummyModule } // DummyModule.test17()
+                leave
+            }
+
+            implementation := findImplementation(sig32)
         }
+
+        require(implementation != address(0), "Unknown selector");
 
         // Delegatecall to the implementation contract
         assembly {
             calldatacopy(0, 0, calldatasize())
+
             let result := delegatecall(gas(), implementation, 0, calldatasize(), 0, 0)
             returndatacopy(0, 0, returndatasize())
+
             switch result
-                case 0 {
-                    revert(0, returndatasize())
-                }
-                default {
-                    return(0, returndatasize())
-                }
+            case 0 {
+                revert(0, returndatasize())
+            }
+            default {
+                return(0, returndatasize())
+            }
         }
     }
 

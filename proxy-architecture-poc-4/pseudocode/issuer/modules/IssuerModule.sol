@@ -31,8 +31,6 @@ contract IssuerModule is
     bytes32 internal constant sETH = "sETH";
     bytes32 internal constant SNX = "SNX";
 
-    constructor(address _owner, address _resolver) public {}
-
     /* ========== VIEWS ========== */
 
     function _availableCurrencyKeysWithOptionalSNX(bool withSNX) internal view returns (bytes32[] memory) {
