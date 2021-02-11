@@ -19,15 +19,15 @@ contract Synthetix {
           msg.sig == 0x0d8e6e2c /*getVersion*/ ||
           msg.sig == 0x13af4035 /*setOwner*/ ||
           msg.sig == 0x788bc78c /*setVersion*/
-        ) implementation = 0x610178dA211FEF7D417bC0e6FeD39F05609AD788 /*SystemModule*/;
+        ) implementation = 0x2625760C4A8e8101801D3a48eE64B2bEA42f1E96 /*SystemModule*/;
         else if (
           msg.sig == 0xd72e0705 /*getOracleType*/ ||
           msg.sig == 0x10916f3b /*getVersionViaExchanger*/ ||
           msg.sig == 0xe6dbd15d /*setOracleType*/
-        ) implementation = 0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e /*IssuerModule*/;
+        ) implementation = 0xFE5f411481565fbF70D8D33D992C78196E014b90 /*IssuerModule*/;
         else if (
           msg.sig == 0xe017bb0d /*getSystemVersion*/
-        ) implementation = 0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0 /*ExchangerModule*/;
+        ) implementation = 0xD6b040736e948621c5b6E0a494473c47a6113eA8 /*ExchangerModule*/;
         else {
           revert("Unknown selector");
         }

@@ -1,22 +1,22 @@
 {
   "Proxy": {
-    "address": "0x3C15538ED063e688c8DF3d571Cb7a0062d2fB18D",
+    "address": "0x8D81A3DCd17030cD5F23Ac7370e4Efb10D2b3cA4",
     "implementations": [
-      "0xe70f935c32dA4dB13e7876795f1e175465e6458e"
+      "0x942ED2fa862887Dc698682cc6a86355324F0f01e"
     ]
   },
   "modules": {
     "DummyModule": {
       "bytecodeHash": "0xaa0ce53791c95eda7fe4158cc1623eca06c710c8b59b62c87900da0fc0d61b08",
-      "implementation": "0xE8addD62feD354203d079926a8e563BC1A7FE81e"
+      "implementation": "0xcD0048A5628B37B8f743cC2FeA18817A29e97270"
     },
     "SettingsModule": {
       "bytecodeHash": "0x7b763e757500940b7ee46c5fef7b6563edb7de53d46c2f46102146cdade4b56a",
-      "implementation": "0xe039608E695D21aB11675EBBA00261A0e750526c"
+      "implementation": "0x976C214741b4657bd99DFD38a5c0E3ac5C99D903"
     },
     "UpgradeModule": {
       "bytecodeHash": "0x21647254271240b757fe5d8c74a446db167a0df13b00849e4d4ac7f999dfba01",
-      "implementation": "0x071586BA1b380B00B793Cc336fe01106B0BFbE6D"
+      "implementation": "0x8bEe2037448F096900Fd9affc427d38aE6CC0350"
     }
   }
 }

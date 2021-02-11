@@ -17,500 +17,178 @@ contract Router {
             let sig32 := shr(224, sig4)
 
             function findImplementation(sig) -> result {
-              let DummyModule := 0xE8addD62feD354203d079926a8e563BC1A7FE81e
-              let SettingsModule := 0xe039608E695D21aB11675EBBA00261A0e750526c
-              let UpgradeModule := 0x071586BA1b380B00B793Cc336fe01106B0BFbE6D
+                let DummyModule := 0xcD0048A5628B37B8f743cC2FeA18817A29e97270
+                let SettingsModule := 0x976C214741b4657bd99DFD38a5c0E3ac5C99D903
+                let UpgradeModule := 0x8bEe2037448F096900Fd9affc427d38aE6CC0350
 
-              if lt(sig,0x0b8b3746) {
+                if lt(sig,0x8f0d282d) {
+                    if lt(sig,0x558cb882) {
+                        if lt(sig,0x1c7b50ab) {
+                            if lt(sig,0x117753d9) {
+                                switch sig
+                                case 0x0604f9ec { result := DummyModule } // DummyModule.test33()
+                                case 0x06fe01a4 { result := DummyModule } // DummyModule.test40()
+                                case 0x0a8e8e01 { result := DummyModule } // DummyModule.test3()
+                                case 0x0ac421ac { result := DummyModule } // DummyModule.test82()
+                                case 0x0b8b3746 { result := DummyModule } // DummyModule.test50()
+                                case 0x0ba07746 { result := DummyModule } // DummyModule.test29()
+                                case 0x0c1284a1 { result := DummyModule } // DummyModule.test36()
+                                leave
+                            }
+                            switch sig
+                            case 0x117753d9 { result := DummyModule } // DummyModule.test35()
+                            case 0x13af4035 { result := UpgradeModule } // UpgradeModule.setOwner()
+                            case 0x13c524e6 { result := DummyModule } // DummyModule.test65()
+                            case 0x1713a1c0 { result := DummyModule } // DummyModule.test69()
+                            case 0x1990b834 { result := DummyModule } // DummyModule.test51()
+                            case 0x1ad7be82 { result := DummyModule } // DummyModule.test5()
+                            case 0x1b64c1a7 { result := DummyModule } // DummyModule.test73()
+                            leave
+                        }
+                        if lt(sig,0x4579ba59) {
+                            switch sig
+                            case 0x1c7b50ab { result := DummyModule } // DummyModule.test76()
+                            case 0x38536275 { result := SettingsModule } // SettingsModule.setMinCollateralRatio()
+                            case 0x3db04260 { result := DummyModule } // DummyModule.test60()
+                            case 0x41ef3738 { result := DummyModule } // DummyModule.test13()
+                            case 0x42289fbe { result := DummyModule } // DummyModule.test63()
+                            case 0x43c77d51 { result := DummyModule } // DummyModule.test67()
+                            case 0x4535eecf { result := DummyModule } // DummyModule.test80()
+                            leave
+                        }
+                        switch sig
+                        case 0x4579ba59 { result := DummyModule } // DummyModule.test74()
+                        case 0x47cf780f { result := DummyModule } // DummyModule.test58()
+                        case 0x4864ea4a { result := DummyModule } // DummyModule.test94()
+                        case 0x4c8f35ab { result := SettingsModule } // SettingsModule.getMinCollateralRatio()
+                        case 0x52fb8013 { result := DummyModule } // DummyModule.test39()
+                        case 0x546b486d { result := DummyModule } // DummyModule.test48()
+                        leave
+                    }
+                    if lt(sig,0x746831ee) {
+                        if lt(sig,0x66e41cb7) {
+                            switch sig
+                            case 0x558cb882 { result := DummyModule } // DummyModule.test26()
+                            case 0x5e296104 { result := DummyModule } // DummyModule.test75()
+                            case 0x5e54e982 { result := DummyModule } // DummyModule.test23()
+                            case 0x5f6f7b7a { result := DummyModule } // DummyModule.test79()
+                            case 0x60d3cdcb { result := DummyModule } // DummyModule.test92()
+                            case 0x6121490e { result := DummyModule } // DummyModule.test41()
+                            case 0x66e0b067 { result := DummyModule } // DummyModule.test32()
+                            leave
+                        }
+                        switch sig
+                        case 0x66e41cb7 { result := DummyModule } // DummyModule.test2()
+                        case 0x66e84d62 { result := DummyModule } // DummyModule.test7()
+                        case 0x6b59084d { result := DummyModule } // DummyModule.test1()
+                        case 0x6bc20481 { result := DummyModule } // DummyModule.test77()
+                        case 0x6f0befdc { result := DummyModule } // DummyModule.test34()
+                        case 0x6f3babc4 { result := DummyModule } // DummyModule.test6()
+                        leave
+                    }
+                    if lt(sig,0x7fb68261) {
+                        switch sig
+                        case 0x746831ee { result := DummyModule } // DummyModule.test86()
+                        case 0x751d4a8c { result := DummyModule } // DummyModule.test87()
+                        case 0x7639747e { result := DummyModule } // DummyModule.test72()
+                        case 0x766d9deb { result := DummyModule } // DummyModule.test81()
+                        case 0x7839c9a0 { result := DummyModule } // DummyModule.test10()
+                        case 0x797201ec { result := DummyModule } // DummyModule.test68()
+                        case 0x7baa594f { result := DummyModule } // DummyModule.test89()
+                        leave
+                    }
+                    switch sig
+                    case 0x7fb68261 { result := DummyModule } // DummyModule.test57()
+                    case 0x80297e0a { result := DummyModule } // DummyModule.test83()
+                    case 0x810b2ab5 { result := DummyModule } // DummyModule.test27()
+                    case 0x82aaf544 { result := DummyModule } // DummyModule.test30()
+                    case 0x893d20e8 { result := UpgradeModule } // UpgradeModule.getOwner()
+                    case 0x8df2341b { result := DummyModule } // DummyModule.test47()
+                    leave
+                }
+                if lt(sig,0xc79e3b48) {
+                    if lt(sig,0xb06335e7) {
+                        if lt(sig,0xa1ca68bd) {
+                            switch sig
+                            case 0x8f0d282d { result := DummyModule } // DummyModule.test4()
+                            case 0x916d83db { result := DummyModule } // DummyModule.test52()
+                            case 0x9591aa82 { result := DummyModule } // DummyModule.test16()
+                            case 0x97d78182 { result := DummyModule } // DummyModule.test49()
+                            case 0x98f32fd8 { result := DummyModule } // DummyModule.test62()
+                            case 0x9df17257 { result := DummyModule } // DummyModule.test95()
+                            case 0x9ed3371b { result := DummyModule } // DummyModule.test90()
+                            leave
+                        }
+                        switch sig
+                        case 0xa1ca68bd { result := DummyModule } // DummyModule.test22()
+                        case 0xa5e124eb { result := DummyModule } // DummyModule.test21()
+                        case 0xa6d4481c { result := DummyModule } // DummyModule.test70()
+                        case 0xa7deec92 { result := DummyModule } // DummyModule.test9()
+                        case 0xaaf10f42 { result := UpgradeModule } // UpgradeModule.getImplementation()
+                        case 0xac3fa560 { result := DummyModule } // DummyModule.test88()
+                        case 0xac47793a { result := DummyModule } // DummyModule.test38()
+                        leave
+                    }
+                    if lt(sig,0xb99f4204) {
+                        switch sig
+                        case 0xb06335e7 { result := DummyModule } // DummyModule.test44()
+                        case 0xb079af8e { result := DummyModule } // DummyModule.test24()
+                        case 0xb0c4c0d5 { result := DummyModule } // DummyModule.test31()
+                        case 0xb191e898 { result := DummyModule } // DummyModule.test84()
+                        case 0xb23d404c { result := DummyModule } // DummyModule.test18()
+                        case 0xb3a92044 { result := DummyModule } // DummyModule.test28()
+                        case 0xb702591b { result := DummyModule } // DummyModule.test61()
+                        leave
+                    }
+                    switch sig
+                    case 0xb99f4204 { result := DummyModule } // DummyModule.test97()
+                    case 0xbe08e12b { result := DummyModule } // DummyModule.test43()
+                    case 0xbf018554 { result := DummyModule } // DummyModule.test45()
+                    case 0xc38f5b3b { result := DummyModule } // DummyModule.test85()
+                    case 0xc38f6f0b { result := DummyModule } // DummyModule.test8()
+                    case 0xc5f8f031 { result := DummyModule } // DummyModule.test14()
+                    leave
+                }
+                if lt(sig,0xdb24b415) {
+                    if lt(sig,0xd2d70754) {
+                        switch sig
+                        case 0xc79e3b48 { result := DummyModule } // DummyModule.test99()
+                        case 0xc7ad392f { result := DummyModule } // DummyModule.test46()
+                        case 0xca35b775 { result := DummyModule } // DummyModule.test19()
+                        case 0xcc1c4819 { result := DummyModule } // DummyModule.test96()
+                        case 0xce32d1c3 { result := DummyModule } // DummyModule.test37()
+                        case 0xce6afb8d { result := DummyModule } // DummyModule.test93()
+                        case 0xd1db2d54 { result := DummyModule } // DummyModule.test64()
+                        leave
+                    }
+                    switch sig
+                    case 0xd2d70754 { result := DummyModule } // DummyModule.test100()
+                    case 0xd4a95c13 { result := DummyModule } // DummyModule.test54()
+                    case 0xd4bad72a { result := DummyModule } // DummyModule.test12()
+                    case 0xd5c34e4b { result := DummyModule } // DummyModule.test59()
+                    case 0xd5e733f7 { result := DummyModule } // DummyModule.test25()
+                    case 0xd784d426 { result := UpgradeModule } // UpgradeModule.setImplementation()
+                    leave
+                }
+                if lt(sig,0xf4292b48) {
+                    switch sig
+                    case 0xdb24b415 { result := DummyModule } // DummyModule.test42()
+                    case 0xe30fa944 { result := DummyModule } // DummyModule.test15()
+                    case 0xe4f58441 { result := DummyModule } // DummyModule.test98()
+                    case 0xee89f07c { result := DummyModule } // DummyModule.test20()
+                    case 0xeecbd32a { result := DummyModule } // DummyModule.test53()
+                    case 0xf1d48d0a { result := DummyModule } // DummyModule.test78()
+                    case 0xf36b9eb3 { result := DummyModule } // DummyModule.test71()
+                    leave
+                }
                 switch sig
-                case 0x0604f9ec { // DummyModule.test33()
-                  result := DummyModule
-                  leave
-                }
-                case 0x06fe01a4 { // DummyModule.test40()
-                  result := DummyModule
-                  leave
-                }
-                case 0x0a8e8e01 { // DummyModule.test3()
-                  result := DummyModule
-                  leave
-                }
-                case 0x0ac421ac { // DummyModule.test82()
-                  result := DummyModule
-                  leave
-                }
-                case 0x0b8b3746 { // DummyModule.test50()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0x13c524e6) {
-                switch sig
-                case 0x0ba07746 { // DummyModule.test29()
-                  result := DummyModule
-                  leave
-                }
-                case 0x0c1284a1 { // DummyModule.test36()
-                  result := DummyModule
-                  leave
-                }
-                case 0x117753d9 { // DummyModule.test35()
-                  result := DummyModule
-                  leave
-                }
-                case 0x13af4035 { // UpgradeModule.setOwner()
-                  result := UpgradeModule
-                  leave
-                }
-                case 0x13c524e6 { // DummyModule.test65()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0x1c7b50ab) {
-                switch sig
-                case 0x1713a1c0 { // DummyModule.test69()
-                  result := DummyModule
-                  leave
-                }
-                case 0x1990b834 { // DummyModule.test51()
-                  result := DummyModule
-                  leave
-                }
-                case 0x1ad7be82 { // DummyModule.test5()
-                  result := DummyModule
-                  leave
-                }
-                case 0x1b64c1a7 { // DummyModule.test73()
-                  result := DummyModule
-                  leave
-                }
-                case 0x1c7b50ab { // DummyModule.test76()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0x43c77d51) {
-                switch sig
-                case 0x38536275 { // SettingsModule.setMinCollateralRatio()
-                  result := SettingsModule
-                  leave
-                }
-                case 0x3db04260 { // DummyModule.test60()
-                  result := DummyModule
-                  leave
-                }
-                case 0x41ef3738 { // DummyModule.test13()
-                  result := DummyModule
-                  leave
-                }
-                case 0x42289fbe { // DummyModule.test63()
-                  result := DummyModule
-                  leave
-                }
-                case 0x43c77d51 { // DummyModule.test67()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0x4c8f35ab) {
-                switch sig
-                case 0x4535eecf { // DummyModule.test80()
-                  result := DummyModule
-                  leave
-                }
-                case 0x4579ba59 { // DummyModule.test74()
-                  result := DummyModule
-                  leave
-                }
-                case 0x47cf780f { // DummyModule.test58()
-                  result := DummyModule
-                  leave
-                }
-                case 0x4864ea4a { // DummyModule.test94()
-                  result := DummyModule
-                  leave
-                }
-                case 0x4c8f35ab { // SettingsModule.getMinCollateralRatio()
-                  result := SettingsModule
-                  leave
-                }
-              }
-              if lt(sig,0x5e54e982) {
-                switch sig
-                case 0x52fb8013 { // DummyModule.test39()
-                  result := DummyModule
-                  leave
-                }
-                case 0x546b486d { // DummyModule.test48()
-                  result := DummyModule
-                  leave
-                }
-                case 0x558cb882 { // DummyModule.test26()
-                  result := DummyModule
-                  leave
-                }
-                case 0x5e296104 { // DummyModule.test75()
-                  result := DummyModule
-                  leave
-                }
-                case 0x5e54e982 { // DummyModule.test23()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0x66e41cb7) {
-                switch sig
-                case 0x5f6f7b7a { // DummyModule.test79()
-                  result := DummyModule
-                  leave
-                }
-                case 0x60d3cdcb { // DummyModule.test92()
-                  result := DummyModule
-                  leave
-                }
-                case 0x6121490e { // DummyModule.test41()
-                  result := DummyModule
-                  leave
-                }
-                case 0x66e0b067 { // DummyModule.test32()
-                  result := DummyModule
-                  leave
-                }
-                case 0x66e41cb7 { // DummyModule.test2()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0x6f3babc4) {
-                switch sig
-                case 0x66e84d62 { // DummyModule.test7()
-                  result := DummyModule
-                  leave
-                }
-                case 0x6b59084d { // DummyModule.test1()
-                  result := DummyModule
-                  leave
-                }
-                case 0x6bc20481 { // DummyModule.test77()
-                  result := DummyModule
-                  leave
-                }
-                case 0x6f0befdc { // DummyModule.test34()
-                  result := DummyModule
-                  leave
-                }
-                case 0x6f3babc4 { // DummyModule.test6()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0x7839c9a0) {
-                switch sig
-                case 0x746831ee { // DummyModule.test86()
-                  result := DummyModule
-                  leave
-                }
-                case 0x751d4a8c { // DummyModule.test87()
-                  result := DummyModule
-                  leave
-                }
-                case 0x7639747e { // DummyModule.test72()
-                  result := DummyModule
-                  leave
-                }
-                case 0x766d9deb { // DummyModule.test81()
-                  result := DummyModule
-                  leave
-                }
-                case 0x7839c9a0 { // DummyModule.test10()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0x810b2ab5) {
-                switch sig
-                case 0x797201ec { // DummyModule.test68()
-                  result := DummyModule
-                  leave
-                }
-                case 0x7baa594f { // DummyModule.test89()
-                  result := DummyModule
-                  leave
-                }
-                case 0x7fb68261 { // DummyModule.test57()
-                  result := DummyModule
-                  leave
-                }
-                case 0x80297e0a { // DummyModule.test83()
-                  result := DummyModule
-                  leave
-                }
-                case 0x810b2ab5 { // DummyModule.test27()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0x916d83db) {
-                switch sig
-                case 0x82aaf544 { // DummyModule.test30()
-                  result := DummyModule
-                  leave
-                }
-                case 0x893d20e8 { // UpgradeModule.getOwner()
-                  result := UpgradeModule
-                  leave
-                }
-                case 0x8df2341b { // DummyModule.test47()
-                  result := DummyModule
-                  leave
-                }
-                case 0x8f0d282d { // DummyModule.test4()
-                  result := DummyModule
-                  leave
-                }
-                case 0x916d83db { // DummyModule.test52()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0x9ed3371b) {
-                switch sig
-                case 0x9591aa82 { // DummyModule.test16()
-                  result := DummyModule
-                  leave
-                }
-                case 0x97d78182 { // DummyModule.test49()
-                  result := DummyModule
-                  leave
-                }
-                case 0x98f32fd8 { // DummyModule.test62()
-                  result := DummyModule
-                  leave
-                }
-                case 0x9df17257 { // DummyModule.test95()
-                  result := DummyModule
-                  leave
-                }
-                case 0x9ed3371b { // DummyModule.test90()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0xaaf10f42) {
-                switch sig
-                case 0xa1ca68bd { // DummyModule.test22()
-                  result := DummyModule
-                  leave
-                }
-                case 0xa5e124eb { // DummyModule.test21()
-                  result := DummyModule
-                  leave
-                }
-                case 0xa6d4481c { // DummyModule.test70()
-                  result := DummyModule
-                  leave
-                }
-                case 0xa7deec92 { // DummyModule.test9()
-                  result := DummyModule
-                  leave
-                }
-                case 0xaaf10f42 { // UpgradeModule.getImplementation()
-                  result := UpgradeModule
-                  leave
-                }
-              }
-              if lt(sig,0xb0c4c0d5) {
-                switch sig
-                case 0xac3fa560 { // DummyModule.test88()
-                  result := DummyModule
-                  leave
-                }
-                case 0xac47793a { // DummyModule.test38()
-                  result := DummyModule
-                  leave
-                }
-                case 0xb06335e7 { // DummyModule.test44()
-                  result := DummyModule
-                  leave
-                }
-                case 0xb079af8e { // DummyModule.test24()
-                  result := DummyModule
-                  leave
-                }
-                case 0xb0c4c0d5 { // DummyModule.test31()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0xb99f4204) {
-                switch sig
-                case 0xb191e898 { // DummyModule.test84()
-                  result := DummyModule
-                  leave
-                }
-                case 0xb23d404c { // DummyModule.test18()
-                  result := DummyModule
-                  leave
-                }
-                case 0xb3a92044 { // DummyModule.test28()
-                  result := DummyModule
-                  leave
-                }
-                case 0xb702591b { // DummyModule.test61()
-                  result := DummyModule
-                  leave
-                }
-                case 0xb99f4204 { // DummyModule.test97()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0xc5f8f031) {
-                switch sig
-                case 0xbe08e12b { // DummyModule.test43()
-                  result := DummyModule
-                  leave
-                }
-                case 0xbf018554 { // DummyModule.test45()
-                  result := DummyModule
-                  leave
-                }
-                case 0xc38f5b3b { // DummyModule.test85()
-                  result := DummyModule
-                  leave
-                }
-                case 0xc38f6f0b { // DummyModule.test8()
-                  result := DummyModule
-                  leave
-                }
-                case 0xc5f8f031 { // DummyModule.test14()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0xce32d1c3) {
-                switch sig
-                case 0xc79e3b48 { // DummyModule.test99()
-                  result := DummyModule
-                  leave
-                }
-                case 0xc7ad392f { // DummyModule.test46()
-                  result := DummyModule
-                  leave
-                }
-                case 0xca35b775 { // DummyModule.test19()
-                  result := DummyModule
-                  leave
-                }
-                case 0xcc1c4819 { // DummyModule.test96()
-                  result := DummyModule
-                  leave
-                }
-                case 0xce32d1c3 { // DummyModule.test37()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0xd4bad72a) {
-                switch sig
-                case 0xce6afb8d { // DummyModule.test93()
-                  result := DummyModule
-                  leave
-                }
-                case 0xd1db2d54 { // DummyModule.test64()
-                  result := DummyModule
-                  leave
-                }
-                case 0xd2d70754 { // DummyModule.test100()
-                  result := DummyModule
-                  leave
-                }
-                case 0xd4a95c13 { // DummyModule.test54()
-                  result := DummyModule
-                  leave
-                }
-                case 0xd4bad72a { // DummyModule.test12()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0xe30fa944) {
-                switch sig
-                case 0xd5c34e4b { // DummyModule.test59()
-                  result := DummyModule
-                  leave
-                }
-                case 0xd5e733f7 { // DummyModule.test25()
-                  result := DummyModule
-                  leave
-                }
-                case 0xd784d426 { // UpgradeModule.setImplementation()
-                  result := UpgradeModule
-                  leave
-                }
-                case 0xdb24b415 { // DummyModule.test42()
-                  result := DummyModule
-                  leave
-                }
-                case 0xe30fa944 { // DummyModule.test15()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0xf36b9eb3) {
-                switch sig
-                case 0xe4f58441 { // DummyModule.test98()
-                  result := DummyModule
-                  leave
-                }
-                case 0xee89f07c { // DummyModule.test20()
-                  result := DummyModule
-                  leave
-                }
-                case 0xeecbd32a { // DummyModule.test53()
-                  result := DummyModule
-                  leave
-                }
-                case 0xf1d48d0a { // DummyModule.test78()
-                  result := DummyModule
-                  leave
-                }
-                case 0xf36b9eb3 { // DummyModule.test71()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0xfc9ad801) {
-                switch sig
-                case 0xf4292b48 { // DummyModule.test91()
-                  result := DummyModule
-                  leave
-                }
-                case 0xfa8b8ea1 { // DummyModule.test11()
-                  result := DummyModule
-                  leave
-                }
-                case 0xfacdcda8 { // DummyModule.test55()
-                  result := DummyModule
-                  leave
-                }
-                case 0xfb85396b { // DummyModule.test56()
-                  result := DummyModule
-                  leave
-                }
-                case 0xfc9ad801 { // DummyModule.test66()
-                  result := DummyModule
-                  leave
-                }
-              }
-              if lt(sig,0xfeb53275) {
-                switch sig
-                case 0xfeb53275 { // DummyModule.test17()
-                  result := DummyModule
-                  leave
-                }
-              }
+                case 0xf4292b48 { result := DummyModule } // DummyModule.test91()
+                case 0xfa8b8ea1 { result := DummyModule } // DummyModule.test11()
+                case 0xfacdcda8 { result := DummyModule } // DummyModule.test55()
+                case 0xfb85396b { result := DummyModule } // DummyModule.test56()
+                case 0xfc9ad801 { result := DummyModule } // DummyModule.test66()
+                case 0xfeb53275 { result := DummyModule } // DummyModule.test17()
+                leave
             }
 
             implementation := findImplementation(sig32)
