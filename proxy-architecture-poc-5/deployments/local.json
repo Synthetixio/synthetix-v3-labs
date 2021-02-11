@@ -1,38 +1,38 @@
 {
   "Synthetix": {
-    "address": "0x7bdd3b028C4796eF0EAf07d11394d0d9d8c24139",
+    "address": "0xA3f7BF5b0fa93176c260BBa57ceE85525De2BaF4",
     "implementations": [
-      "0x0b27a79cb9C0B38eE06Ca3d94DAA68e0Ed17F953"
+      "0x6f2E42BB4176e9A7352a8bF8886255Be9F3D2d13"
     ]
   },
   "modules": {
     "DummyModule": {
       "bytecodeHash": "0xaa0ce53791c95eda7fe4158cc1623eca06c710c8b59b62c87900da0fc0d61b08",
-      "implementation": "0xF5b81Fe0B6F378f9E6A3fb6A6cD1921FCeA11799"
+      "implementation": "0x6e0a5725dD4071e46356bD974E13F35DbF9ef367"
     },
     "SettingsModule": {
       "bytecodeHash": "0x9b2276491b5f733ee4614845088c950cf489a96d8b5fb9854ee4a4172870f419",
-      "implementation": "0x67baFF31318638F497f4c4894Cd73918563942c8"
+      "implementation": "0xA9d0Fb5837f9c42c874e16da96094b14Af0e2784"
     },
     "UpgradeModule": {
       "bytecodeHash": "0xe4d3f2f65ef89f3eda8e0efe5e22bafec7dad5ed77dd0fafde8339e2b4544180",
-      "implementation": "0x6533158b042775e2FdFeF3cA1a782EFDbB8EB9b1"
+      "implementation": "0x6B21b3ae41f818Fc91e322b53f8D0773d31eCB75"
     },
     "OwnerModule": {
       "bytecodeHash": "0x2a8292a78c9415825cbc04692188c72f2d56d5f3929022bfc67393fd35fc761a",
-      "implementation": "0x73C68f1f41e4890D06Ba3e71b9E9DfA555f1fb46"
+      "implementation": "0x1f53E116c31F171e59f45f0752AEc5d1F5aA3714"
     },
     "AModule": {
-      "bytecodeHash": "0x1f8c893b794da512a97724dfbe6da45894713db15b1c6f3487b91cd46357b78a",
-      "implementation": "0xD2D5e508C82EFc205cAFA4Ad969a4395Babce026"
+      "bytecodeHash": "0xb499b63008f4c6e5ce02fd078e3d4de693545b9e4ed4b620d5dc39783684431c",
+      "implementation": "0xa31F4c0eF2935Af25370D9AE275169CCd9793DA3"
     },
     "BModule": {
       "bytecodeHash": "0x3fead4b0f0b4b77215fdda6afc3d5f9817665a68ebf92771ce151cad1c8f66f1",
-      "implementation": "0x2b639Cc84e1Ad3aA92D4Ee7d2755A6ABEf300D72"
+      "implementation": "0xF9c0bF1CFAAB883ADb95fed4cfD60133BffaB18a"
     },
     "RegistryModule": {
       "bytecodeHash": "0x4bc365c136e65e5129ebeaecb7f77ad1797838ab05d3deb0430c72a0775bbe16",
-      "implementation": "0xF85895D097B2C25946BB95C4d11E2F3c035F8f0C"
+      "implementation": "0xb830887eE23d3f9Ed8c27dbF7DcFe63037765475"
     }
   }
 }

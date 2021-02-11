@@ -38,9 +38,9 @@ In theory, the router could handle a large amount of selectors, but if the amoun
 
 ### Communication between modules
 
-Modules can call functions from other modules in several ways.
+Modules can call functions from other modules in several ways. Each method has different usage difficulty, but results in very different gas costs.
 
-1. Casting method
+1. **Casting method**
 
 The most obvious one, and the easiest to use, is by having the caller module cast itself as the callee module. This is possible because all modules act in the same environment. The downside of this method is that an external call is made, which goes through the main proxy, then router, then callee module.
 
@@ -62,7 +62,7 @@ contract BModule {
 
 Gas overhead: ~4500
 
-2. Router method
+2. **Router method**
 
 Instead of making an external call that re-enters the system via the proxy, modules can call the router instead, thus saving a bit of gas. Modules need only to access the proxy storage namespace.
 
@@ -78,7 +78,7 @@ contract AModule {
 
 Gas overhead: ~3300
 
-3. Direct method
+3. **Direct method**
 
 If modules have a way of knowing the implementation addresses of other modules, they can delegatecall directly to them. This can be accomplished by using a RegistryModule that can be called with module addresses after deployment and save them in storage.
 
@@ -93,6 +93,10 @@ contract AModule {
 ```
 
 Gas overhead: ~2438
+
+**Which method to use?**
+
+If a module rarely calls another module, i.e. an admin or owner function, it should be fine to use method 1. However, if a user facing function needs to call another module, options 2 and 3 should be considered. Also, if the user facing function calls other modules a lot, developers should consider abstracting part of the callee module to a mixin, and execute the logic with no external calls.
 
 ### Storage namespaces
 
