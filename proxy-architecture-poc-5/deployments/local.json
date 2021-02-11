@@ -1,8 +1,8 @@
 {
   "Synthetix": {
-    "address": "0x75c68e69775fA3E9DD38eA32E554f6BF259C1135",
+    "address": "0x286B8DecD5ED79c962b2d8F4346CD97FF0E2C352",
     "implementations": [
-      "0x7580708993de7CA120E957A62f26A5dDD4b3D8aC"
+      "0x3fdc08D815cc4ED3B7F69Ee246716f2C8bCD6b07"
     ]
   },
   "modules": {
@@ -12,15 +12,15 @@
     },
     "SettingsModule": {
       "bytecodeHash": "0x7e07fe817e6662eb9e25b28d474be7ea8ffda3c17ba87ed246f1b4a6b46e954e",
-      "implementation": "0xE8F7d98bE6722d42F29b50500B0E318EF2be4fc8"
+      "implementation": "0x1D8D70AD07C8E7E442AD78E4AC0A16f958Eba7F0"
     },
     "UpgradeModule": {
       "bytecodeHash": "0xb802f009dfc6d67431dba49960678aede461fd34efbed35e389638ff7e12d98b",
-      "implementation": "0xe38b6847E611e942E6c80eD89aE867F522402e80"
+      "implementation": "0xA9e6Bfa2BF53dE88FEb19761D9b2eE2e821bF1Bf"
     },
     "OwnerModule": {
       "bytecodeHash": "0xfae1dda625a0a5307dfea2c705b687cf5eb48142dcc3f4ddf5ae6add5a8f66a0",
-      "implementation": "0x2c8ED11fd7A058096F2e5828799c68BE88744E2F"
+      "implementation": "0x1E3b98102e19D3a164d239BdD190913C2F02E756"
     }
   }
 }
