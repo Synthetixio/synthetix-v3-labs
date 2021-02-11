@@ -12,7 +12,12 @@ contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
     function upgradeTo(address newImplementation) public onlyOwner {
         require(newImplementation != address(0), "Invalid new implementation: zero address");
         require(Address.isContract(newImplementation), "Invalid new implementation: not a contract");
-        require(UpgradeModule(newImplementation).isUpgradeable(), "Invalid new implementation: not upgradeable");
+
+        (bool success, bytes memory data) = address(newImplementation).delegatecall(
+            abi.encodeWithSelector(UpgradeModule(0).isUpgradeable.selector)
+        );
+        bool isUpgradeable = abi.decode(data, (bool));
+        require(success && isUpgradeable, "Invalid new implementation: not upgradeable");
 
         _setImplementation(newImplementation);
     }

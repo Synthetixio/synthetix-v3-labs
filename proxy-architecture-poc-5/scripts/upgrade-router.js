@@ -12,7 +12,7 @@ async function main() {
 
   const UpgradeModule = await ethers.getContractAt('UpgradeModule', deployments.Synthetix.address);
 
-  const tx = await UpgradeModule.setImplementation(Router.address);
+  const tx = await UpgradeModule.upgradeTo(Router.address);
   await tx.wait();
 
   console.log(`  > New router implementation set: ${Router.address}`);

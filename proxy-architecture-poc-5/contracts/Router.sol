@@ -17,13 +17,13 @@ contract Router {
             let sig32 := shr(224, sig4)
 
             function findImplementation(sig) -> result {
-                let DummyModule := 0x0bF7dE8d71820840063D4B8653Fd3F0618986faF
-                let SettingsModule := 0xc981ec845488b8479539e6B22dc808Fb824dB00a
-                let UpgradeModule := 0x5E5713a0d915701F464DEbb66015adD62B2e6AE9
-                let OwnerModule := 0x97fd63D049089cd70D9D139ccf9338c81372DE68
-                let AModule := 0xC0BF43A4Ca27e0976195E6661b099742f10507e5
-                let BModule := 0x43cA9bAe8dF108684E5EAaA720C25e1b32B0A075
-                let RegistryModule := 0x9D3DA37d36BB0B825CD319ed129c2872b893f538
+                let UpgradeModule := 0x3BFbbf82657577668144921b96aAb72BC170646C
+                let DummyModule := 0x930b218f3e63eE452c13561057a8d5E61367d5b7
+                let SettingsModule := 0x721d8077771Ebf9B931733986d619aceea412a1C
+                let OwnerModule := 0x38c76A767d45Fc390160449948aF80569E2C4217
+                let AModule := 0xDC57724Ea354ec925BaFfCA0cCf8A1248a8E5CF1
+                let BModule := 0xfc073209b7936A771F77F63D42019a3a93311869
+                let RegistryModule := 0xb4e9A5BC64DC07f890367F72941403EEd7faDCbB
 
                 if lt(sig,0x8cb90714) {
                     if lt(sig,0x52fb8013) {
