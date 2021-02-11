@@ -21,8 +21,8 @@ async function main() {
     moduleAddresses.push(module.implementation);
   };
 
-  console.log(`  > Module ids: ${moduleIds}`);
-  console.log(`  > Module addresses: ${moduleAddresses}`);
+  // console.log(`  > Module ids: ${moduleIds}`);
+  // console.log(`  > Module addresses: ${moduleAddresses}`);
 
   const RegistryModule = await ethers.getContractAt('RegistryModule', deployments.Synthetix.address);
 

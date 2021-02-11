@@ -98,6 +98,7 @@ async function main() {
       address: deployments.modules[name].implementation,
     }
   });
+  console.log(`  > Modules: ${modules.length}`);
 
   // Collect selectors into a single array of
   // {
@@ -122,6 +123,7 @@ async function main() {
       });
     });
   }
+  console.log(`  > Selectors: ${selectors.length}`);
 
   // Sort selectors from lowest numeric value to highest
   selectors = selectors.sort((a, b) => {
@@ -220,7 +222,7 @@ async function main() {
   const finalCode = source
     .replace('@router_targets', routerTargets)
     .replace('@router_switch', routerSwitch);
-  console.log(finalCode);
+  // console.log(finalCode);
 
 	fs.writeFileSync(
 	  'contracts/Router.sol',

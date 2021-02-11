@@ -76,6 +76,7 @@ async function main() {
   }
 
   const modules = Object.keys(deployments.modules);
+  console.log(`  > Modules: ${modules.length}`);
 
   let routerCode = '';
 
@@ -105,13 +106,14 @@ ${functionData.map(func => `          msg.sig == ${func.selector} /*${func.name}
     const address = deployments.modules[moduleName].implementation;
     routerCode += `    ) implementation = ${address} /*${moduleName}*/;`
   }
+  console.log(`  > Selectors: ${uniqueSelectors.length}`);
 
   // --------------------
   // Write Synthetix.sol
   // --------------------
 
   const finalCode = source.replace('@router', routerCode);
-	console.log(finalCode);
+	// console.log(finalCode);
 
 	fs.writeFileSync(
 	  'contracts/Router.sol',

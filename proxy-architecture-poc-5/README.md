@@ -155,12 +155,17 @@ Thus, the general architecture can be categorized as follows:
 * Mixins: Intended to be inherited by modules, can access any storage namespace, add functions and modifiers to a module, and are not intended to be deployed as an implementation contract. E.g. OwnerMixin.
 * Libraries: Provide common functionality to modules, without inheriting. E.g. SafeDecimalMath.
 
+### Brick risk
+
+// TODO
+
 ### Development considerations
 
 Developers will need to:
 * Only use storage via namespaces
 * Always append variables to a namespace storage struct (enforced by tooling)
 * All functions in modules need to be unique (enforced by tooling)
+* An incorrect update could make the main proxy no longer upgradeable, effectively bricking it
 
 The lookup table in the main proxy's implementation is generated in order to reduce a bit of gas, but mainly for removing any kind of diamond proxy complexity from the Solidity code.
 
@@ -195,6 +200,8 @@ Universal proxies achieve this optimization by placing the upgradeability manage
 Even though the router is pretty efficient, it quickly loses efficiency as the number of selectors increases. This is because the bytecode produced by Solidity for simple "if" matching is quite poor.
 
 This POC uses Yul for router code, and implements binary instead of linear search for the actual routing.
+
+A router whose code is too large to deploy with POC #4 generation, is only ~9kb with this new generator.
 
 ### Open questions
 
