@@ -6,8 +6,8 @@ async function main() {
 
   const deployments = getDeploymentsFile({ network });
 
-  deployments.Proxy.address = '';
-  deployments.Proxy.implementations = [];
+  deployments.Synthetix.address = '';
+  deployments.Synthetix.implementations = [];
 
   const modules = Object.keys(deployments.modules);
 

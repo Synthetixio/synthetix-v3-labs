@@ -70,6 +70,11 @@ async function main() {
   const network = hre.network.name;
   console.log(`\nGenerating router for the ${network} network...`);
 
+  const routerPath = '../contracts/Router.sol';
+  if (fs.existsSync(routerPath)) {
+    fs.unlinkSync(routerPath);
+  }
+
   // -------------------
   // Retrieve data file
   // -------------------
@@ -124,7 +129,7 @@ async function main() {
   });
 
   // Put selectors into a binary data structure
-  const binaryChunkSize = 10;
+  const binaryChunkSize = 7;
 
   function binarySplit(node) {
     if (node.selectors.length > binaryChunkSize) {
@@ -191,7 +196,6 @@ async function main() {
         }
       }
       const midSelector = findMidSelector(childB);
-      console.log(midSelector);
 
       routerSwitch += `\n${tab.repeat(4 + indent)}if lt(sig,${midSelector.selector}) {`;
       renderNode(childA, indent + 1);

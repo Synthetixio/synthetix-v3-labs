@@ -44,6 +44,11 @@ async function main() {
   const network = hre.network.name;
   console.log(`\nGenerating router for the ${network} network...`);
 
+  const routerPath = '../contracts/Router.sol';
+  if (fs.existsSync(routerPath)) {
+    fs.unlinkSync(routerPath);
+  }
+
   // -------------------
   // Retrieve data file
   // -------------------

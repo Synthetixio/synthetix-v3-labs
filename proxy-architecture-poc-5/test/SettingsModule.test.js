@@ -18,7 +18,7 @@ describe("SettingsModule", function() {
   before('retrieve main proxy address', async function () {
     deployments = getDeploymentsFile({ network });
 
-    proxyAddress = deployments.Proxy.address;
+    proxyAddress = deployments.Synthetix.address;
   });
 
   before('identify signers', async function () {

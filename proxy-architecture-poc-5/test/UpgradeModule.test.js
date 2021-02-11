@@ -17,8 +17,8 @@ describe("UpgradeModule", function() {
   before('retrieve main proxy address', async function () {
     deployments = getDeploymentsFile({ network });
 
-    proxyAddress = deployments.Proxy.address;
-    routerAddress = deployments.Proxy.implementations.pop();
+    proxyAddress = deployments.Synthetix.address;
+    routerAddress = deployments.Synthetix.implementations.pop();
     upgradeModuleImplementationAddress = deployments.modules['UpgradeModule'].implementation;
   });
 
@@ -32,56 +32,11 @@ describe("UpgradeModule", function() {
     UpgradeModule = await ethers.getContractAt('UpgradeModule', proxyAddress);
   });
 
-  it('can read the owner', async function () {
-    expect(
-      await UpgradeModule.getOwner()
-    ).to.be.equal(
-      await owner.getAddress()
-    );
-  });
-
   it('can read the implementation', async function () {
     expect(
       await UpgradeModule.getImplementation()
     ).to.be.equal(
       routerAddress
     );
-  });
-
-  it('can set the owner', async function () {
-    await runTxAndLogGasUsed(
-      this,
-      await UpgradeModule.setOwner(await owner.getAddress())
-    );
-  });
-
-  it('can set the owner on the implementation (gas test)', async function () {
-    const UpgradeModuleImplementation = await ethers.getContractAt(
-      'UpgradeModule',
-      upgradeModuleImplementationAddress
-    );
-
-    await runTxAndLogGasUsed(
-      this,
-      await UpgradeModuleImplementation.setOwner(await owner.getAddress())
-    );
-  });
-
-  it('can set the owner on the router (gas test)', async function () {
-    const UpgradeModuleImplementation = await ethers.getContractAt(
-      'UpgradeModule',
-      routerAddress
-    );
-
-    await runTxAndLogGasUsed(
-      this,
-      await UpgradeModuleImplementation.setOwner(await owner.getAddress())
-    );
-  });
-
-  it('cant set the owner with a non-owner account', async function () {
-    const contract = UpgradeModule.connect(user);
-
-    await expect(contract.setOwner(await user.getAddress())).to.be.revertedWith("Only owner allowed");
   });
 });

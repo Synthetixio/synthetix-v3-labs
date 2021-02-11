@@ -10,14 +10,14 @@ async function main() {
     await ethers.getContractFactory('Router')
   ).deploy();
 
-  const Proxy = await (
-    await ethers.getContractFactory('Proxy')
+  const Synthetix = await (
+    await ethers.getContractFactory('Synthetix')
   ).deploy(Router.address);
 
-  deployments.Proxy.address = Proxy.address;
-  deployments.Proxy.implementations = [Router.address];
+  deployments.Synthetix.address = Synthetix.address;
+  deployments.Synthetix.implementations = [Router.address];
 
-  console.log(`  > Deployed new proxy at ${Proxy.address}`);
+  console.log(`  > Deployed new proxy at ${Synthetix.address}`);
 
   saveDeploymentsFile({ deployments, network });
 }

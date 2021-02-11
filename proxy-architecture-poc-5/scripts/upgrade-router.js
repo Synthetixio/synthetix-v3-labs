@@ -10,14 +10,14 @@ async function main() {
     await ethers.getContractFactory('Router')
   ).deploy();
 
-  const UpgradeModule = await ethers.getContractAt('UpgradeModule', deployments.Proxy.address);
+  const UpgradeModule = await ethers.getContractAt('UpgradeModule', deployments.Synthetix.address);
 
   const tx = await UpgradeModule.setImplementation(Router.address);
   await tx.wait();
 
   console.log(`  > New router implementation set: ${Router.address}`);
 
-  deployments.Proxy.implementations.push(Router.address);
+  deployments.Synthetix.implementations.push(Router.address);
 
   saveDeploymentsFile({ deployments, network });
 }
