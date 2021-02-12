@@ -5,6 +5,8 @@ pragma solidity ^0.7.0;
 
 
 contract Router_@router_network {
+    address public constant SafetyModule = @router_safety;
+
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
     // GENERATED CODE - do not edit manually
@@ -25,7 +27,9 @@ contract Router_@router_network {
             implementation := findImplementation(sig32)
         }
 
-        require(implementation != address(0), "Unknown selector");
+        if (implementation == address(0)) {
+            implementation = SafetyModule;
+        }
 
         // Delegatecall to the implementation contract
         assembly {
@@ -215,6 +219,7 @@ async function main() {
   // --------------------
 
   const finalCode = source
+    .replace('@router_safety', deployments.SafetyModule.address)
     .replace('@router_network', network)
     .replace('@router_targets', routerTargets)
     .replace('@router_switch', routerSwitch);

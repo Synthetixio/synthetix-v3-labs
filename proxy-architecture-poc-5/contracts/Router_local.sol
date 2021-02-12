@@ -3,6 +3,8 @@ pragma solidity ^0.7.0;
 
 
 contract Router_local {
+    address public constant SafetyModule = 0x1429859428C0aBc9C2C47C8Ee9FBaf82cFA0F20f;
+
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
     // GENERATED CODE - do not edit manually
@@ -17,15 +19,15 @@ contract Router_local {
             let sig32 := shr(224, sig4)
 
             function findImplementation(sig) -> result {
-                let UpgradeModule := 0xf524930660f75CF602e909C15528d58459AB2A56
-                let DummyModule := 0x6c383Ef7C9Bf496b5c847530eb9c49a3ED6E4C56
-                let AnotherDummyModule := 0xAAF0F531b7947e8492f21862471d61d5305f7538
-                let YetAnotherDummyModule := 0x2aA12f98795E7A65072950AfbA9d1E023D398241
-                let SettingsModule := 0x81f4f47aa3bBd154171C877b4d70F6C9EeCAb216
-                let OwnerModule := 0x2ce1F0e20C1f69E9d9AEA83b25F0cEB69e2AA2b5
-                let AModule := 0xE5b6F5e695BA6E4aeD92B68c4CC8Df1160D69A81
-                let BModule := 0x9bE634797af98cB560DB23260b5f7C6e98AcCAcf
-                let RegistryModule := 0x01c93598EeC9131C05a2450Cd033cbd8F82da31e
+                let UpgradeModule := 0xBEc49fA140aCaA83533fB00A2BB19bDdd0290f25
+                let DummyModule := 0xB0D4afd8879eD9F52b28595d31B441D079B2Ca07
+                let AnotherDummyModule := 0x162A433068F51e18b7d13932F27e66a3f99E6890
+                let YetAnotherDummyModule := 0x922D6956C99E12DFeB3224DEA977D0939758A1Fe
+                let SettingsModule := 0x5081a39b8A5f0E35a8D959395a630b68B74Dd30f
+                let OwnerModule := 0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d
+                let AModule := 0xdbC43Ba45381e02825b14322cDdd15eC4B3164E6
+                let BModule := 0x04C89607413713Ec9775E14b954286519d836FEf
+                let RegistryModule := 0x4C4a2f8c81640e47606d3fd77B353E87Ba015584
 
                 if lt(sig,0x7fb68261) {
                     if lt(sig,0x3db04260) {
@@ -1037,7 +1039,9 @@ contract Router_local {
             implementation := findImplementation(sig32)
         }
 
-        require(implementation != address(0), "Unknown selector");
+        if (implementation == address(0)) {
+            implementation = SafetyModule;
+        }
 
         // Delegatecall to the implementation contract
         assembly {

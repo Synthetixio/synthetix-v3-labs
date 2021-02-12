@@ -2,6 +2,7 @@ require('dotenv').config();
 
 require('@nomiclabs/hardhat-ethers');
 require('@nomiclabs/hardhat-waffle');
+require('@openzeppelin/hardhat-upgrades');
 
 module.exports = {
   solidity: {

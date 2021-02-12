@@ -9,6 +9,9 @@ async function main() {
   deployments.Synthetix.address = '';
   deployments.Synthetix.implementations = [];
 
+  deployments.SafetyModule.address = '';
+  deployments.SafetyModule.implementations = [];
+
   const modules = Object.keys(deployments.modules);
 
   for (let i = 0; i < modules.length; i++) {

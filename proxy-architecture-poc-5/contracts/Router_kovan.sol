@@ -49,8 +49,6 @@ contract Router_kovan {
             implementation := findImplementation(sig32)
         }
 
-        require(implementation != address(0), "Unknown selector");
-
         // Delegatecall to the implementation contract
         assembly {
             calldatacopy(0, 0, calldatasize())

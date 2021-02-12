@@ -1,0 +1,25 @@
+{
+  "manifestVersion": "3.1",
+  "impls": {
+    "ac0db523ddc3e330f735df7b3b0b24460531c71290a891170e840f8f67d5ff6b": {
+      "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "txHash": "0xc0c219cad961c9fd5c130e2c19f7e1e7cd6cc9b1dd3af0087bcd7a875e447d6d",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    },
+    "6c8110ef8332673f96392034ce5621f567200b74c9c35bd9bc9ad8a31ac83d43": {
+      "address": "0x1613beB3B2C4f22Ee086B2b38C1476A3cE7f78E8",
+      "txHash": "0x50dd35fb1082f4a6f6f38165bd0ff58b7d974d02701539fbf7aa54c3c626e3df",
+      "layout": {
+        "storage": [],
+        "types": {}
+      }
+    }
+  },
+  "admin": {
+    "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "txHash": "0x52c9be0ab70f72512f49bb48732a9065e7375148954544397ec32cd4022ff196"
+  }
+}
