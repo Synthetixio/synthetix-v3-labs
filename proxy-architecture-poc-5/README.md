@@ -219,6 +219,10 @@ This POC uses Yul for router code, and implements binary instead of linear searc
 
 A router whose code is too large to deploy with POC #4 generation, is only ~9kb with this new generator.
 
+### Integration with OpenZeppelin Defender
+
+TBD
+
 ### Open questions
 
 TBD
