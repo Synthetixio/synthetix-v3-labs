@@ -17,15 +17,15 @@ contract Router_local {
             let sig32 := shr(224, sig4)
 
             function findImplementation(sig) -> result {
-                let UpgradeModule := 0xf524930660f75CF602e909C15528d58459AB2A56
-                let DummyModule := 0x6c383Ef7C9Bf496b5c847530eb9c49a3ED6E4C56
-                let AnotherDummyModule := 0xAAF0F531b7947e8492f21862471d61d5305f7538
-                let YetAnotherDummyModule := 0x2aA12f98795E7A65072950AfbA9d1E023D398241
-                let SettingsModule := 0x81f4f47aa3bBd154171C877b4d70F6C9EeCAb216
-                let OwnerModule := 0x2ce1F0e20C1f69E9d9AEA83b25F0cEB69e2AA2b5
-                let AModule := 0xE5b6F5e695BA6E4aeD92B68c4CC8Df1160D69A81
-                let BModule := 0x9bE634797af98cB560DB23260b5f7C6e98AcCAcf
-                let RegistryModule := 0x01c93598EeC9131C05a2450Cd033cbd8F82da31e
+                let UpgradeModule := 0xf953b3A269d80e3eB0F2947630Da976B896A8C5b
+                let DummyModule := 0xAA292E8611aDF267e563f334Ee42320aC96D0463
+                let AnotherDummyModule := 0x5c74c94173F05dA1720953407cbb920F3DF9f887
+                let YetAnotherDummyModule := 0x720472c8ce72c2A2D711333e064ABD3E6BbEAdd3
+                let SettingsModule := 0xe8D2A1E88c91DCd5433208d4152Cc4F399a7e91d
+                let OwnerModule := 0x5067457698Fd6Fa1C6964e416b3f42713513B3dD
+                let AModule := 0x18E317A7D70d8fBf8e6E893616b52390EbBdb629
+                let BModule := 0x4b6aB5F819A515382B0dEB6935D793817bB4af28
+                let RegistryModule := 0xCace1b78160AE76398F486c8a18044da0d66d86D
 
                 if lt(sig,0x7fb68261) {
                     if lt(sig,0x3db04260) {
