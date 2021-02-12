@@ -16,6 +16,7 @@ async function main() {
 
   const modules = Object.keys(deployments.modules);
 
+  let allAbis = [];
   for (let i = 0; i < modules.length; i++) {
     const moduleName = modules[i];
     console.log(`  > Updating Defender for ${moduleName}`);
@@ -23,13 +24,16 @@ async function main() {
     const Module = await ethers.getContractAt(moduleName, proxyAddress);
     const abi = Module.interface.format('json');
 
-    await defender.addContract({
-      network,
-      address: proxyAddress,
-      name: moduleName,
-      abi
-    });
+    allAbis = allAbis.concat(JSON.parse(abi));
   };
+
+  const abi = JSON.stringify(allAbis, null, 2);
+  await defender.addContract({
+    network,
+    address: proxyAddress,
+    name: 'Synthetix',
+    abi
+  });
 }
 
 main()
