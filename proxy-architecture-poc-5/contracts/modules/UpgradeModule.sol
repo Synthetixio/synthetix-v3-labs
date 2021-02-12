@@ -2,33 +2,49 @@
 pragma solidity ^0.7.0;
 
 import "../mixins/OwnerMixin.sol";
+import "../mixins/UpgradeMixin.sol";
 import "../storage/ProxyStorage.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 
 
-contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
+contract UpgradeModule is UpgradeMixin, OwnerMixin {
     /* MUTATIVE FUNCTIONS */
 
     function upgradeTo(address newImplementation) public onlyOwner {
-        require(newImplementation != address(0), "Invalid new implementation: zero address");
-        require(Address.isContract(newImplementation), "Invalid new implementation: not a contract");
+        _upgradeTo(newImplementation);
 
-        (bool success, bytes memory data) = address(newImplementation).delegatecall(
-            abi.encodeWithSelector(UpgradeModule(0).isUpgradeable.selector)
-        );
-        bool isUpgradeable = abi.decode(data, (bool));
-        require(success && isUpgradeable, "Invalid new implementation: not upgradeable");
+        _validateUpgrade();
+    }
 
-        _setImplementation(newImplementation);
+    function _validateUpgrade() private {
+        bool isValid = false;
+
+        try this.canUpgradeAgain() {
+          revert();
+        } catch Error(string memory) {
+          isValid = true;
+        } catch (bytes memory) {}
+
+        if (!isValid) {
+            revert("Target upgrade is not safe");
+        }
+    }
+
+    function canUpgradeAgain() public {
+        ProxyStorage storage store = _proxyStorage();
+        if (store.safeImplementation == address(0)) {
+            store.safeImplementation = address(new UpgradeMixin());
+        }
+
+        _upgradeTo(store.safeImplementation);
+
+        if (this.getKnownValue() == 42) {
+            revert("ok");
+        }
+
+        revert();
     }
 
     /* VIEW FUNCTIONS */
 
-    function isUpgradeable() public pure returns (bool) {
-        return true;
-    }
-
-    function getImplementation() public view returns (address) {
-        return _getImplementation();
-    }
 }
