@@ -166,11 +166,11 @@ This mitigate this risk, this POC verifies that incoming implementations in an u
 * The new implementation is a contract
 * The new implementation has a isUpgradeable selector which returns true
 
-Additionally, a safety module could be used, consisting of a regular proxy with its own upgradeable implementation. This would give the system an upgrade mechanism outside of the main upgrade mechanism, which could act as a safeguard in case of a mis-deployment.
-
-![SafetyModule](imgs/safety.png)
-
 Of course, additional safety measures could be implemented, such as pre-running deployments on a fork, and verifying that the new implementation could in fact receive further upgrades.
+
+**Runtime anti-brick upgrades**
+
+TBD - Under research
 
 ### Development considerations
 
