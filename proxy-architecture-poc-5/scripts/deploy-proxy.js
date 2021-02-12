@@ -7,7 +7,7 @@ async function main() {
   const deployments = getDeploymentsFile({ network });
 
   const Router = await (
-    await ethers.getContractFactory('Router')
+    await ethers.getContractFactory(`Router_${network}`)
   ).deploy();
 
   const Synthetix = await (

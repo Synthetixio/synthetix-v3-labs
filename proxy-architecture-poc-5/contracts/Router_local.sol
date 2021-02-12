@@ -2,7 +2,7 @@
 pragma solidity ^0.7.0;
 
 
-contract Router {
+contract Router_local {
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
     // GENERATED CODE - do not edit manually
@@ -17,15 +17,15 @@ contract Router {
             let sig32 := shr(224, sig4)
 
             function findImplementation(sig) -> result {
-                let UpgradeModule := 0x716473Fb4E7cD49c7d1eC7ec6d7490A03d9dA332
-                let DummyModule := 0x64079a2Edd1104a2323E2b732A1244BCE011B1F5
-                let AnotherDummyModule := 0x0Deeb4b6492C1a55Bb7C0555AaFf65fF6dC424B2
-                let YetAnotherDummyModule := 0xe24e7570Fe7207AdAaAa8c6c89a59850391B5276
-                let SettingsModule := 0x67Fc5Aa53440518DdbAd4B381fD4b86fFD77B776
-                let OwnerModule := 0xFE92134da38df8c399A90a540f20187D19216E05
-                let AModule := 0x2e13f7644014F6E934E314F0371585845de7B986
-                let BModule := 0xf4e55515952BdAb2aeB4010f777E802D61eB384f
-                let RegistryModule := 0xe519389F8c262d4301Fd2830196FB7D0021daf59
+                let UpgradeModule := 0xf524930660f75CF602e909C15528d58459AB2A56
+                let DummyModule := 0x6c383Ef7C9Bf496b5c847530eb9c49a3ED6E4C56
+                let AnotherDummyModule := 0xAAF0F531b7947e8492f21862471d61d5305f7538
+                let YetAnotherDummyModule := 0x2aA12f98795E7A65072950AfbA9d1E023D398241
+                let SettingsModule := 0x81f4f47aa3bBd154171C877b4d70F6C9EeCAb216
+                let OwnerModule := 0x2ce1F0e20C1f69E9d9AEA83b25F0cEB69e2AA2b5
+                let AModule := 0xE5b6F5e695BA6E4aeD92B68c4CC8Df1160D69A81
+                let BModule := 0x9bE634797af98cB560DB23260b5f7C6e98AcCAcf
+                let RegistryModule := 0x01c93598EeC9131C05a2450Cd033cbd8F82da31e
 
                 if lt(sig,0x7fb68261) {
                     if lt(sig,0x3db04260) {
