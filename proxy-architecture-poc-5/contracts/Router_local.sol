@@ -3,7 +3,7 @@ pragma solidity ^0.7.0;
 
 
 contract Router_local {
-    address public constant SafetyModule = 0x1429859428C0aBc9C2C47C8Ee9FBaf82cFA0F20f;
+    address public constant SafetyModule = 0x1780bCf4103D3F501463AD3414c7f4b654bb7aFd;
 
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
@@ -19,15 +19,15 @@ contract Router_local {
             let sig32 := shr(224, sig4)
 
             function findImplementation(sig) -> result {
-                let UpgradeModule := 0xBEc49fA140aCaA83533fB00A2BB19bDdd0290f25
-                let DummyModule := 0xB0D4afd8879eD9F52b28595d31B441D079B2Ca07
-                let AnotherDummyModule := 0x162A433068F51e18b7d13932F27e66a3f99E6890
-                let YetAnotherDummyModule := 0x922D6956C99E12DFeB3224DEA977D0939758A1Fe
-                let SettingsModule := 0x5081a39b8A5f0E35a8D959395a630b68B74Dd30f
-                let OwnerModule := 0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d
-                let AModule := 0xdbC43Ba45381e02825b14322cDdd15eC4B3164E6
-                let BModule := 0x04C89607413713Ec9775E14b954286519d836FEf
-                let RegistryModule := 0x4C4a2f8c81640e47606d3fd77B353E87Ba015584
+                let UpgradeModule := 0x56D13Eb21a625EdA8438F55DF2C31dC3632034f5
+                let DummyModule := 0x71089Ba41e478702e1904692385Be3972B2cBf9e
+                let AnotherDummyModule := 0x8F4ec854Dd12F1fe79500a1f53D0cbB30f9b6134
+                let YetAnotherDummyModule := 0xC66AB83418C20A65C3f8e83B3d11c8C3a6097b6F
+                let SettingsModule := 0xeF31027350Be2c7439C1b0BE022d49421488b72C
+                let OwnerModule := 0x12Bcb546bC60fF39F1Adfc7cE4605d5Bd6a6A876
+                let AModule := 0xaC47e91215fb80462139756f43438402998E4A3a
+                let BModule := 0x9BcC604D4381C5b0Ad12Ff3Bf32bEdE063416BC7
+                let RegistryModule := 0x63fea6E447F120B8Faf85B53cdaD8348e645D80E
 
                 if lt(sig,0x7fb68261) {
                     if lt(sig,0x3db04260) {

@@ -12,8 +12,19 @@ async function main() {
 
   const UpgradeModule = await ethers.getContractAt('UpgradeModule', deployments.Synthetix.address);
 
-  const tx = await UpgradeModule.upgradeTo(Router.address);
-  await tx.wait();
+  try {
+    const tx = await UpgradeModule.upgradeTo(Router.address);
+    await tx.wait();
+  } catch (err) {
+    console.log(`  > Upgrade failed: ${err}`);
+
+    console.log(`  > Attempting to upgrade via the SafetyModule`);
+
+    const SafetyModule = await ethers.getContractAt('SafetyModule', deployments.Synthetix.address);
+
+    const tx = await SafetyModule.safety_upgradeTo(Router.address);
+    await tx.wait();
+  }
 
   console.log(`  > New router implementation set: ${Router.address}`);
 
