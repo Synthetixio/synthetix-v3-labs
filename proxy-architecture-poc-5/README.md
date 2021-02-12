@@ -189,8 +189,13 @@ The lookup table in the main proxy's implementation is generated in order to red
 Additionally, step 2 can be broken up into these commands:
 * Clear local deployment data with `npx hardhat run scripts/clear-deployments.js`
 * Deploy system moduels with `npx hardhat run scripts/deploy-modules.js`
-* Generate main proxy router with `npx hardhat run scripts/generate-proxy.js`
+* Generate main proxy router with `npx hardhat run scripts/generate-router-yul.js`
 * Deploy main proxy router `npx hardhat run scripts/deploy-proxy.js`
+* Poulate the RegistryModule (optional) `npx hardhat run scripts/register-modules.js`
+
+Incremental upgrades can then be done by:
+* Generate main proxy router with `npx hardhat run scripts/generate-router-yul.js`
+* Upgrade the main proxy `npx hardhat run scripts/upgrade-router.js`
 
 ### Differences with POC #4
 
