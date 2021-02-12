@@ -36,7 +36,7 @@ describe("SettingsModule", function() {
   	await tx.wait();
   });
 
-  it('can read the owner', async function () {
+  it('can read the minCollateralRatio', async function () {
     expect(
       (await SettingsModule.getMinCollateralRatio()).toString()
     ).to.be.equal(
