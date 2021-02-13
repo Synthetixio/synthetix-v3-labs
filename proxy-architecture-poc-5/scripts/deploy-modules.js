@@ -23,15 +23,15 @@ async function main() {
     const module = deployments.modules[moduleName];
 
     const isNewModule = module.implementation === '';
-    console.log(`    * Is new module: ${isNewModule}`);
 
     const bytecode = getModuleBytecode(moduleName);
     const bytecodeHash = ethers.utils.sha256(bytecode);
     const bytecodeChanged = bytecodeHash !== deployments.modules[moduleName].bytecodeHash;
-    console.log(`    * Bytecode changed: ${bytecodeChanged}`);
 
     if (isNewModule || bytecodeChanged) {
       console.log(`    > Deploying new ${moduleName} instance...`);
+      console.log(`      * Bytecode changed: ${bytecodeChanged}`);
+      console.log(`      * Is new module: ${isNewModule}`);
 
       const factory = await ethers.getContractFactory(moduleName);
       Module = await factory.deploy();
@@ -39,8 +39,6 @@ async function main() {
       deployments.modules[moduleName].implementation = Module.address;
       deployments.modules[moduleName].bytecodeHash = bytecodeHash;
       saveDeploymentsFile({ deployments, network });
-    } else {
-      console.log(`    > No need to deploy ${moduleName}`);
     }
   };
 }
