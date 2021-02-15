@@ -5,7 +5,8 @@ async function main() {
 		await _hre.run('run', { script: './scripts/clear-deployments.js' });
 	}
 	await _hre.run('run', { script: './scripts/deploy-modules.js' });
-	await _hre.run('run', { script: './scripts/generate-router.js' });
+	// await _hre.run('run', { script: './scripts/generate-router.js' });
+	await _hre.run('run', { script: './scripts/generate-router-masks.js' });
 	await _hre.run('run', { script: './scripts/deploy-proxy.js' });
 	await _hre.run('run', { script: './scripts/register-modules.js' });
 	if (_hre.network.name == 'kovan') {
