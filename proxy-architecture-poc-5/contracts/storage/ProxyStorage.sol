@@ -19,7 +19,7 @@ contract ProxyStorageNamespace {
     }
 
     struct ProxyStorage {
-        address safeImplementation;
+        address knownImplementation;
     }
 
     function _proxyStorage() internal pure returns (ProxyStorage storage store) {

@@ -6,9 +6,9 @@ import "../storage/ProxyStorage.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 
 
-contract SafeImplementation {
-    function getKnownValue() public pure returns (uint) {
-        return 42;
+contract KnownImplementation {
+    function getKnownValue() public pure returns (bytes32) {
+        return keccak256("synthetix");
     }
 
     function isUpgradeable() public pure returns (bool) {
@@ -21,8 +21,8 @@ contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
 
     function upgradeTo(address newImplementation) public onlyOwner {
         ProxyStorage storage store = _proxyStorage();
-        if (store.safeImplementation == address(0)) {
-            store.safeImplementation = address(new SafeImplementation());
+        if (store.knownImplementation == address(0)) {
+            store.knownImplementation = address(new KnownImplementation());
         }
 
         require(newImplementation != address(0), "Invalid new implementation: zero address");
@@ -74,10 +74,18 @@ contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
     }
 
     function canUpgradeAgain() public {
-        upgradeTo(_proxyStorage().safeImplementation);
+        upgradeTo(_proxyStorage().knownImplementation);
 
-        if (this.getKnownValue() == 42) {
-            revert("ok");
+        (bool success, bytes memory data) = address(this).call(
+            abi.encodeWithSelector(KnownImplementation(0).getKnownValue.selector)
+        );
+
+        if (success) {
+            bytes32 message = abi.decode(data, (bytes32));
+
+            if (message == keccak256("synthetix")) {
+                revert("ok");
+            }
         }
 
         revert();
@@ -91,9 +99,5 @@ contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
 
     function getImplementation() public view returns (address) {
         return _getImplementation();
-    }
-
-    function getKnownValue() public pure returns (uint) {
-        return 1337;
     }
 }
