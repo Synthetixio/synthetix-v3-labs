@@ -3,6 +3,16 @@ pragma solidity ^0.7.0;
 
 
 contract Router_local {
+    address constant UpgradeModule = 0xcC4c41415fc68B2fBf70102742A83cDe435e0Ca7;
+    address constant DummyModule = 0xa722bdA6968F50778B973Ae2701e90200C564B49;
+    address constant AnotherDummyModule = 0xc7cDb7A2E5dDa1B7A0E792Fe1ef08ED20A6F56D4;
+    address constant YetAnotherDummyModule = 0x967AB65ef14c58bD4DcfFeaAA1ADb40a022140E5;
+    address constant SettingsModule = 0xe1708FA6bb2844D5384613ef0846F9Bc1e8eC55E;
+    address constant OwnerModule = 0x0aec7c174554AF8aEc3680BB58431F6618311510;
+    address constant AModule = 0x8e264821AFa98DD104eEcfcfa7FD9f8D8B320adA;
+    address constant BModule = 0x871ACbEabBaf8Bed65c22ba7132beCFaBf8c27B5;
+    address constant RegistryModule = 0x6A59CC73e334b018C9922793d96Df84B538E6fD5;
+
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
     // GENERATED CODE - do not edit manually
@@ -17,16 +27,6 @@ contract Router_local {
             let sig32 := shr(224, sig4)
 
             function findImplementation(sig) -> result {
-                let UpgradeModule := 0x5FbDB2315678afecb367f032d93F642f64180aa3
-                let DummyModule := 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
-                let AnotherDummyModule := 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
-                let YetAnotherDummyModule := 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9
-                let SettingsModule := 0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9
-                let OwnerModule := 0x5FC8d32690cc91D4c39d9d3abcBD16989F875707
-                let AModule := 0x0165878A594ca255338adfa4d48449f69242Eb8F
-                let BModule := 0xa513E6E4b8f2a923D98304ec87F64353C4D5C853
-                let RegistryModule := 0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6
-
                 if lt(sig,0x7fb68261) {
                     if lt(sig,0x3df86c93) {
                         if lt(sig,0x1fa85301) {

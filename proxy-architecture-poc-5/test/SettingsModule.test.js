@@ -4,11 +4,11 @@ const { runTxAndLogGasUsed } = require('./helpers/GasHelper');
 
 describe("SettingsModule", function() {
   let network;
-  let proxyAddress, routerAddress, implementationAddress;
+  let proxyAddress;
 
   let owner;
 
-  let SettingsModule;
+  let SettingsModule, SettingsModuleImplementation, Router;
 
 	const COLLATERAL_RATIO = '42';
 
@@ -31,13 +31,46 @@ describe("SettingsModule", function() {
   before('connect to modules', async function () {
     SettingsModule = await ethers.getContractAt('SettingsModule', proxyAddress);
 
-    routerAddress = deployments.Synthetix.implementations.pop();
-    implementationAddress = deployments.modules['SettingsModule'].implementation;
+    SettingsModuleImplementation = await ethers.getContractAt(
+      'SettingsModule',
+      deployments.modules['SettingsModule'].implementation
+    );
+
+    Router = await ethers.getContractAt(
+      'SettingsModule',
+      deployments.Synthetix.implementations.pop()
+    );
+  });
+
+  before('set once for gas measurements', async () => {
+    let tx;
+    tx = await SettingsModule.setMinCollateralRatio(await owner.getAddress());
+    await tx.wait();
+    tx = await SettingsModuleImplementation.setMinCollateralRatio(await owner.getAddress());
+    await tx.wait();
+    tx = await Router.setMinCollateralRatio(await owner.getAddress());
+    await tx.wait();
   });
 
   it('can set the minCollateralRatio', async function () {
-  	const tx = await SettingsModule.setMinCollateralRatio(COLLATERAL_RATIO);
-  	await tx.wait();
+    await runTxAndLogGasUsed(
+      this,
+  	  await SettingsModule.setMinCollateralRatio(COLLATERAL_RATIO)
+    );
+  });
+
+  it('can set the minCollateralRatio on the implementation (gas test)', async function () {
+    await runTxAndLogGasUsed(
+      this,
+      await SettingsModuleImplementation.setMinCollateralRatio(COLLATERAL_RATIO)
+    );
+  });
+
+  it('can set the minCollateralRatio on the router (gas test)', async function () {
+    await runTxAndLogGasUsed(
+      this,
+      await Router.setMinCollateralRatio(COLLATERAL_RATIO)
+    );
   });
 
   it('can read the minCollateralRatio', async function () {
@@ -47,29 +80,4 @@ describe("SettingsModule", function() {
       COLLATERAL_RATIO
     );
   });
-
-  it('can set the minCollateralRatio on the implementation (gas test)', async function () {
-    const SettingsModuleImplementation = await ethers.getContractAt(
-      'SettingsModule',
-      implementationAddress
-    );
-
-    await runTxAndLogGasUsed(
-      this,
-      await SettingsModuleImplementation.setMinCollateralRatio(await owner.getAddress())
-    );
-  });
-
-  it('can set the minCollateralRatio on the router (gas test)', async function () {
-    const SettingsModuleImplementation = await ethers.getContractAt(
-      'SettingsModule',
-      routerAddress
-    );
-
-    await runTxAndLogGasUsed(
-      this,
-      await SettingsModuleImplementation.setMinCollateralRatio(await owner.getAddress())
-    );
-  });
-
 });

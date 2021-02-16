@@ -5,7 +5,8 @@ const source = `//SPDX-License-Identifier: Unlicense
 pragma solidity ^0.7.0;
 
 
-contract Router_@router_network {
+contract Router_@router_network {@router_targets
+
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------
     // GENERATED CODE - do not edit manually
@@ -19,8 +20,7 @@ contract Router_@router_network {
         assembly {
             let sig32 := shr(224, sig4)
 
-            function findImplementation(sig) -> result {@router_targets
-@router_switch
+            function findImplementation(sig) -> result {@router_switch
             }
 
             implementation := findImplementation(sig32)
@@ -155,7 +155,7 @@ async function main() {
   for (let i = 0; i < modules.length; i++) {
     const module = modules[i];
 
-    routerTargets += `\n${tab.repeat(4)}let ${module.name} := ${module.address}`;
+    routerTargets += `\n${tab.repeat(1)}address constant ${module.name} = ${module.address};`;
   }
 
   // ----------------------
