@@ -3,15 +3,15 @@ pragma solidity ^0.7.0;
 
 
 contract Router_local {
-    address constant UpgradeModule = 0xcC4c41415fc68B2fBf70102742A83cDe435e0Ca7;
-    address constant DummyModule = 0xa722bdA6968F50778B973Ae2701e90200C564B49;
-    address constant AnotherDummyModule = 0xc7cDb7A2E5dDa1B7A0E792Fe1ef08ED20A6F56D4;
-    address constant YetAnotherDummyModule = 0x967AB65ef14c58bD4DcfFeaAA1ADb40a022140E5;
-    address constant SettingsModule = 0xe1708FA6bb2844D5384613ef0846F9Bc1e8eC55E;
-    address constant OwnerModule = 0x0aec7c174554AF8aEc3680BB58431F6618311510;
-    address constant AModule = 0x8e264821AFa98DD104eEcfcfa7FD9f8D8B320adA;
-    address constant BModule = 0x871ACbEabBaf8Bed65c22ba7132beCFaBf8c27B5;
-    address constant RegistryModule = 0x6A59CC73e334b018C9922793d96Df84B538E6fD5;
+    address constant UpgradeModule = 0x5e6CB7E728E1C320855587E1D9C6F7972ebdD6D5;
+    address constant DummyModule = 0x79E8AB29Ff79805025c9462a2f2F12e9A496f81d;
+    address constant AnotherDummyModule = 0x0Dd99d9f56A14E9D53b2DdC62D9f0bAbe806647A;
+    address constant YetAnotherDummyModule = 0xeAd789bd8Ce8b9E94F5D0FCa99F8787c7e758817;
+    address constant SettingsModule = 0x95775fD3Afb1F4072794CA4ddA27F2444BCf8Ac3;
+    address constant OwnerModule = 0xd9fEc8238711935D6c8d79Bef2B9546ef23FC046;
+    address constant AModule = 0xd3FFD73C53F139cEBB80b6A524bE280955b3f4db;
+    address constant BModule = 0x512F7469BcC83089497506b5df64c6E246B39925;
+    address constant RegistryModule = 0x9fD16eA9E31233279975D99D5e8Fc91dd214c7Da;
 
     // --------------------------------------------------------------------------------
     // --------------------------------------------------------------------------------

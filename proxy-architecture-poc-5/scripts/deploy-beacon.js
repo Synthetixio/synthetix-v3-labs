@@ -6,13 +6,11 @@ async function main() {
 
   const deployments = getDeploymentsFile({ network });
 
-  const Synthetix = await (
-    await ethers.getContractFactory(`Synthetix`)
+  const Beacon = await (
+    await ethers.getContractFactory(`Beacon`)
   ).deploy();
 
-  console.log(`  > Deployed new Synthetix at ${Synthetix.address}`);
-
-  deployments.Synthetix.address = Synthetix.address;
+  console.log(`  > Deployed new Beacon at ${Beacon.address}`);
 
   saveDeploymentsFile({ deployments, network });
 }
