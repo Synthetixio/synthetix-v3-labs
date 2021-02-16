@@ -5,6 +5,7 @@ pragma solidity ^0.7.0;
 contract OwnerStorageNamespace {
     struct OwnerStorage {
         address owner;
+        address nominatedOwner;
     }
 
     function _ownerStorage() internal pure returns (OwnerStorage storage store) {

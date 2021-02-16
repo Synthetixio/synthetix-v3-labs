@@ -4,7 +4,7 @@ const { runTxAndLogGasUsed } = require('./helpers/GasHelper');
 
 describe("OwnerModule", function() {
   let network;
-  let proxyAddress, routerAddress, ownerModuleImplementationAddress;
+  let proxyAddress;
 
   let owner, user;
 
@@ -18,8 +18,6 @@ describe("OwnerModule", function() {
     deployments = getDeploymentsFile({ network });
 
     proxyAddress = deployments.Synthetix.address;
-    routerAddress = deployments.Synthetix.implementations.pop();
-    ownerModuleImplementationAddress = deployments.modules['OwnerModule'].implementation;
   });
 
   before('identify signers', async function () {
@@ -32,10 +30,15 @@ describe("OwnerModule", function() {
     OwnerModule = await ethers.getContractAt('OwnerModule', proxyAddress);
   });
 
-  it('can set the owner', async function () {
+  it('can set an owner via nomination', async function () {
     await runTxAndLogGasUsed(
       this,
-      await OwnerModule.setOwner(await owner.getAddress())
+      await OwnerModule.nominateOwner(await owner.getAddress())
+    );
+
+    await runTxAndLogGasUsed(
+      this,
+      await OwnerModule.acceptOwnership()
     );
   });
 
@@ -47,33 +50,9 @@ describe("OwnerModule", function() {
     );
   });
 
-  it('can set the owner on the implementation (gas test)', async function () {
-    const OwnerModuleImplementation = await ethers.getContractAt(
-      'OwnerModule',
-      ownerModuleImplementationAddress
-    );
-
-    await runTxAndLogGasUsed(
-      this,
-      await OwnerModuleImplementation.setOwner(await owner.getAddress())
-    );
-  });
-
-  it('can set the owner on the router (gas test)', async function () {
-    const OwnerModuleImplementation = await ethers.getContractAt(
-      'OwnerModule',
-      routerAddress
-    );
-
-    await runTxAndLogGasUsed(
-      this,
-      await OwnerModuleImplementation.setOwner(await owner.getAddress())
-    );
-  });
-
-  it('cant set the owner with a non-owner account', async function () {
+  it('cannot nominate an owner with a non-owner account', async function () {
     const contract = OwnerModule.connect(user);
 
-    await expect(contract.setOwner(await user.getAddress())).to.be.revertedWith("Only owner allowed");
+    await expect(contract.nominateOwner(await user.getAddress())).to.be.revertedWith("Only owner allowed");
   });
 });

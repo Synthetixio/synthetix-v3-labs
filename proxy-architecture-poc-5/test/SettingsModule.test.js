@@ -1,11 +1,12 @@
 const { expect } = require("chai");
 const { getDeploymentsFile } = require('../scripts/utils/deploymentsFile');
+const { runTxAndLogGasUsed } = require('./helpers/GasHelper');
 
 describe("SettingsModule", function() {
   let network;
-  let proxyAddress;
+  let proxyAddress, routerAddress, implementationAddress;
 
-  let owner, user;
+  let owner;
 
   let SettingsModule;
 
@@ -29,6 +30,9 @@ describe("SettingsModule", function() {
 
   before('connect to modules', async function () {
     SettingsModule = await ethers.getContractAt('SettingsModule', proxyAddress);
+
+    routerAddress = deployments.Synthetix.implementations.pop();
+    implementationAddress = deployments.modules['SettingsModule'].implementation;
   });
 
   it('can set the minCollateralRatio', async function () {
@@ -43,4 +47,29 @@ describe("SettingsModule", function() {
       COLLATERAL_RATIO
     );
   });
+
+  it('can set the minCollateralRatio on the implementation (gas test)', async function () {
+    const SettingsModuleImplementation = await ethers.getContractAt(
+      'SettingsModule',
+      implementationAddress
+    );
+
+    await runTxAndLogGasUsed(
+      this,
+      await SettingsModuleImplementation.setMinCollateralRatio(await owner.getAddress())
+    );
+  });
+
+  it('can set the minCollateralRatio on the router (gas test)', async function () {
+    const SettingsModuleImplementation = await ethers.getContractAt(
+      'SettingsModule',
+      routerAddress
+    );
+
+    await runTxAndLogGasUsed(
+      this,
+      await SettingsModuleImplementation.setMinCollateralRatio(await owner.getAddress())
+    );
+  });
+
 });
