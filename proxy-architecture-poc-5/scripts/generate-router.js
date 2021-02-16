@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { getSelectorsForModule } = require('./utils/moduleSelectors');
 
 const source = `//SPDX-License-Identifier: Unlicense
 pragma solidity ^0.7.0;
@@ -51,21 +52,6 @@ contract Router_@router_network {
 }
 `;
 
-async function _getSelectorsForModule(moduleName) {
-  const contract = await ethers.getContractAt(moduleName, '0x0000000000000000000000000000000000000001');
-
-  return contract.interface.fragments.reduce((selectors, fragment) => {
-    if (fragment.type === "function") {
-      selectors.push({
-        name: fragment.name,
-        selector: contract.interface.getSighash(fragment)
-      });
-    }
-
-    return selectors;
-  }, []);
-}
-
 async function main() {
   const network = hre.network.name;
   console.log(`\nGenerating router for the ${network} network...`);
@@ -104,7 +90,7 @@ async function main() {
   let selectors = [];
   for (let i = 0; i < modules.length; i++) {
     const module = modules[i];
-    const moduleSelectors = await _getSelectorsForModule(module.name);
+    const moduleSelectors = await getSelectorsForModule(module.name);
 
     moduleSelectors.map(moduleSelector => {
       if (selectors.some(s => s.selector === moduleSelector.selector)) {
@@ -210,9 +196,9 @@ async function main() {
 
   renderNode(binaryData, 0);
 
-  // --------------------
-  // Write Synthetix.sol
-  // --------------------
+  // ------------------------------
+  // Concatenate and validate code
+  // ------------------------------
 
   const finalCode = source
     .replace('@router_network', network)
@@ -220,12 +206,37 @@ async function main() {
     .replace('@router_switch', routerSwitch);
   // console.log(finalCode);
 
+  // Verify that all selectors are in the code,
+  // associated to the correct module
+  console.log('Checking selectors on source...');
+  for (let i = 0; i < modules.length; i++) {
+    const module = modules[i];
+    const moduleSelectors = await getSelectorsForModule(module.name);
+
+    moduleSelectors.map(moduleSelector => {
+      const regex = `^.*case ${moduleSelector.selector}.*$`;
+      const matches = finalCode.match(new RegExp(regex, 'gm'));
+      if (matches.length !== 1) {
+        throw new Error(`Selector case found ${matches.length} times instead of the expected single time. Regex: ${regex}. Matches: ${matches}`);
+      }
+      const match = matches[0];
+      if (!match.includes(module.name)) {
+        throw new Error(`Expected to find ${module.name} in the selector case: ${match}`);
+      }
+      console.log(`  > ${module.name}.${moduleSelector.name} ✓`);
+    });
+  }
+
+  // --------------------
+  // Write Synthetix.sol
+  // --------------------
+
 	fs.writeFileSync(
 	  `contracts/Router_${network}.sol`,
 	  finalCode
 	);
 
-  console.log(`  > Router code generated`);
+  console.log(`Router code generated`);
 }
 
 main()
