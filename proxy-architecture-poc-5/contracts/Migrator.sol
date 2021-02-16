@@ -7,14 +7,30 @@ import "./modules/StatusModule.sol";
 
 
 contract Migrator {
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Migration targets
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     address public constant Synthetix = 0x3E661784267F128e5f706De17Fac1Fc1c9d56f30;
     address public constant newRouter = 0x8f119cd256a0FfFeed643E830ADCD9767a1d517F;
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Modules needed for upgrade
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     OwnerModule public constant ownerModule = OwnerModule(Synthetix);
     UpgradeModule public constant upgradeModule = UpgradeModule(Synthetix);
     StatusModule public constant statusModule = StatusModule(Synthetix);
 
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Temp storage
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     address public owner;
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~* THE MIGRATION *~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     function migrate() public {
         _takeOwnership();
@@ -92,6 +108,9 @@ contract Migrator {
         require(ownerModule.getOwner() == address(this), "Migrator is not owner");
 
         ownerModule.nominateOwner(owner);
+
+        require(ownerModule.getOwner() == owner, "Could not take ownership");
+
         owner = address(0);
     }
 }
