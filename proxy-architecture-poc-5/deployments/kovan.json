@@ -10,6 +10,10 @@
       "bytecodeHash": "0x501a42d4cc4a64dd0d4653585d417c81c104bd186f5e00b77bb7238f744b80db",
       "implementation": "0x8E3C115787FA05Ea526175Fa1b939d3b1F546314"
     },
+    "StatusModule": {
+      "bytecodeHash": "",
+      "implementation": ""
+    },
     "SettingsModule": {
       "bytecodeHash": "0x9b2276491b5f733ee4614845088c950cf489a96d8b5fb9854ee4a4172870f419",
       "implementation": "0xC5778be11e8c03b8635D3F7b500E8C5436EA4C70"

@@ -223,9 +223,10 @@ async function main() {
       if (!match.includes(module.name)) {
         throw new Error(`Expected to find ${module.name} in the selector case: ${match}`);
       }
-      console.log(`  > ${module.name}.${moduleSelector.name} ✓`);
+      // console.log(`  > ${module.name}.${moduleSelector.name} ✓`);
     });
   }
+  console.log('  > All selectors have been verified ✓');
 
   // --------------------
   // Write Synthetix.sol
