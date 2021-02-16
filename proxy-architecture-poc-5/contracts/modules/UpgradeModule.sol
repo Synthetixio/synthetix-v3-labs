@@ -6,25 +6,10 @@ import "../storage/ProxyStorage.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 
 
-contract KnownImplementation {
-    function getKnownValue() public pure returns (bytes32) {
-        return keccak256("synthetix");
-    }
-
-    function isUpgradeable() public pure returns (bool) {
-        return true;
-    }
-}
-
 contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
     /* MUTATIVE FUNCTIONS */
 
     function upgradeTo(address newImplementation) public onlyOwner {
-        ProxyStorage storage store = _proxyStorage();
-        if (store.knownImplementation == address(0)) {
-            store.knownImplementation = address(new KnownImplementation());
-        }
-
         require(newImplementation != address(0), "Invalid new implementation: zero address");
         require(Address.isContract(newImplementation), "Invalid new implementation: not a contract");
         _requireIsUpgradeable(newImplementation);
@@ -49,6 +34,11 @@ contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
     }
 
     function _validateUpgrade() private {
+        ProxyStorage storage store = _proxyStorage();
+        if (store.knownImplementation == address(0)) {
+            store.knownImplementation = address(new KnownImplementation());
+        }
+
         bool isValid = false;
 
         /*
@@ -63,9 +53,13 @@ contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
             revert();
         } catch Error(string memory revertReason) {
             // revertReason == 'ok'
-            isValid = keccak256(abi.encodePacked(revertReason)) == keccak256("ok");
+            isValid = keccak256(bytes(revertReason)) == keccak256("ok");
+
+            emit SecondaryUpgradeTested(revertReason);
         } catch (bytes memory) {
             // no revert reason
+
+            emit SecondaryUpgradeTested("not ok");
         }
 
         if (!isValid) {
@@ -81,9 +75,9 @@ contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
         );
 
         if (success) {
-            bytes32 message = abi.decode(data, (bytes32));
+            bytes1 message = abi.decode(data, (bytes1));
 
-            if (message == keccak256("synthetix")) {
+            if (message == 0x2a) {
                 revert("ok");
             }
         }
@@ -100,4 +94,19 @@ contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
     function getImplementation() public view returns (address) {
         return _getImplementation();
     }
+
+    /* EVENTS */
+
+    event SecondaryUpgradeTested(string revertReason);
 }
+
+contract KnownImplementation {
+    function getKnownValue() public pure returns (bytes1) {
+        return 0x2a;
+    }
+
+    function isUpgradeable() public pure returns (bool) {
+        return true;
+    }
+}
+

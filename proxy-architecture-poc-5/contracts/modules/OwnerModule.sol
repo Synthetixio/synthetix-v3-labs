@@ -28,6 +28,8 @@ contract OwnerModule is OwnerMixin {
 
         store.owner = store.nominatedOwner;
         store.nominatedOwner = address(0);
+
+        emit OwnerChanged(store.owner);
     }
 
     /* VIEW FUNCTIONS */
@@ -39,4 +41,8 @@ contract OwnerModule is OwnerMixin {
     function getNominatedOwner() public view returns (address) {
         return _ownerStorage().nominatedOwner;
     }
+
+    /* EVENTS */
+
+    event OwnerChanged(address newOwner);
 }

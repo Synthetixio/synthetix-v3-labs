@@ -1,6 +1,5 @@
 const { expect } = require("chai");
 const { getDeploymentsFile } = require('../scripts/utils/deploymentsFile');
-const { runTxAndLogGasUsed } = require('./helpers/GasHelper');
 
 describe("OwnerModule", function() {
   let network;
@@ -31,15 +30,16 @@ describe("OwnerModule", function() {
   });
 
   it('can set an owner via nomination', async function () {
-    await runTxAndLogGasUsed(
-      this,
-      await OwnerModule.nominateOwner(await owner.getAddress())
-    );
+    let tx, receipt;
 
-    await runTxAndLogGasUsed(
-      this,
-      await OwnerModule.acceptOwnership()
-    );
+    tx = await OwnerModule.nominateOwner(await owner.getAddress());
+    await tx.wait();
+
+    tx = await OwnerModule.acceptOwnership();
+    receipt = await tx.wait();
+
+    const event = receipt.events.find(e => e.event === 'OwnerChanged');
+    expect(event.args[0]).to.be.equal(await owner.getAddress());
   });
 
   it('can read the owner', async function () {

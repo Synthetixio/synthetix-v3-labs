@@ -13,7 +13,13 @@ async function main() {
   const UpgradeModule = await ethers.getContractAt('UpgradeModule', deployments.Synthetix.address);
 
   const tx = await UpgradeModule.upgradeTo(Router.address);
-  await tx.wait();
+  const receipt = await tx.wait();
+
+  console.log('  > Events:');
+  receipt.events.map(e => {
+    console.log(`    * ${e.event} - ${e.args}`);
+  });
+  // console.log(JSON.stringify(receipt, null, 2));
 
   console.log(`  > New router implementation set: ${Router.address}`);
 
