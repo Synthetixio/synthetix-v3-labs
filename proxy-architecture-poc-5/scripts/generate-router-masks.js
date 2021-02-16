@@ -84,7 +84,6 @@ async function main() {
   // For each module, find a mask that for all selectors:
   // selector & mask = constant
   // Making sure that all masks and all constants are unique.
-
   const masks = [];
   const results = [];
 
@@ -96,6 +95,8 @@ async function main() {
 
     const maxMask = parseInt('0xffffffff', 16);
     for (let mask = 1; mask < maxMask; mask++) {
+      console.log((mask / maxMask).toFixed(8));
+
       if (masks.indexOf(mask) >= 0) {
         continue;
       }
@@ -119,23 +120,26 @@ async function main() {
 
         lastResult = result;
       }
-      console.log(`  > Matching results: ${matchingResults}`);
 
       if (matchingResults === selectors.length - 1) {
-        for (let k = 0; k < modulesNames.length; k++) {
-          const otherModuleName = modulesNames[k];
-          if (otherModuleName === moduleName) {
-            continue;
+        let collides = false;
+        if (masks.length > 0) {
+          for (let k = 0; k < masks.length; k++) {
+            const otherMask = masks[k];
+            const otherResult = results[k];
+            if (selectors[0] & otherMask === otherResult) {
+              collides = true;
+            }
           }
-
-          const selectors = (await _getSelectorsForModule(moduleName)).map(s => parseInt(s.selector, 16));
-
         }
-        masks.push(mask);
-        results.push(selectors[0] & mask);
-        console.log(masks);
 
-        break;
+        if (!collides) {
+          masks.push(mask);
+          results.push(selectors[0] & mask);
+          console.log(masks);
+
+          break;
+        }
       }
     }
   }
@@ -168,10 +172,10 @@ async function main() {
     .replace('@router_masks', routerMasks)
   console.log(finalCode);
 
-	// fs.writeFileSync(
-	//   `contracts/Router_${network}.sol`,
-	//   finalCode
-	// );
+	fs.writeFileSync(
+	  `contracts/Router_${network}.sol`,
+	  finalCode
+	);
 
   console.log(`  > Router code generated`);
 }
