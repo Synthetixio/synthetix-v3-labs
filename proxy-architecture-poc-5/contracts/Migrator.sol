@@ -11,16 +11,8 @@ contract Migrator {
     // Migration targets
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    address public constant Synthetix = 0x3E661784267F128e5f706De17Fac1Fc1c9d56f30;
-    address public constant newRouter = 0x8f119cd256a0FfFeed643E830ADCD9767a1d517F;
-
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Modules needed for upgrade
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    OwnerModule public constant ownerModule = OwnerModule(Synthetix);
-    UpgradeModule public constant upgradeModule = UpgradeModule(Synthetix);
-    StatusModule public constant statusModule = StatusModule(Synthetix);
+    address public constant synthetix = 0x9c65f85425c619A6cB6D29fF8d57ef696323d188;
+    address public constant newRouter = 0xa62835D1A6bf5f521C4e2746E1F51c923b8f3483;
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Temp storage
@@ -50,7 +42,7 @@ contract Migrator {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     function _upgradeRouter() internal {
-        upgradeModule.upgradeTo(newRouter);
+        UpgradeModule(synthetix).upgradeTo(newRouter);
     }
 
     function _initializeModules() internal {
@@ -75,8 +67,6 @@ contract Migrator {
 
     function _concludingChecks() internal {
         // TODO
-
-        require(ownerModule.getOwner() == owner, "Owner not restored");
     }
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,11 +74,11 @@ contract Migrator {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     function _suspendSystem() internal {
-        statusModule.suspendSystem();
+        StatusModule(synthetix).suspendSystem();
     }
 
     function _resumeSystem() internal {
-        statusModule.resumeSystem();
+        StatusModule(synthetix).resumeSystem();
     }
 
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -96,21 +86,17 @@ contract Migrator {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     function _takeOwnership() internal {
-        require(ownerModule.getNominatedOwner() == address(this), "Migrator not nominated for ownership");
+        require(OwnerModule(synthetix).getNominatedOwner() == address(this), "Migrator not nominated for ownership");
 
-        owner = ownerModule.getOwner();
-        ownerModule.acceptOwnership();
+        owner = OwnerModule(synthetix).getOwner();
+        OwnerModule(synthetix).acceptOwnership();
 
-        require(ownerModule.getOwner() == address(this), "Could not take ownership");
+        require(OwnerModule(synthetix).getOwner() == address(this), "Could not take ownership");
     }
 
     function _restoreOwnership() internal {
-        require(ownerModule.getOwner() == address(this), "Migrator is not owner");
+        require(OwnerModule(synthetix).getOwner() == address(this), "Migrator is not owner");
 
-        ownerModule.nominateOwner(owner);
-
-        require(ownerModule.getOwner() == owner, "Could not take ownership");
-
-        owner = address(0);
+        OwnerModule(synthetix).nominateOwner(owner);
     }
 }

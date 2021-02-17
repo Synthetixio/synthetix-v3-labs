@@ -14,4 +14,15 @@ contract OwnerMixin is OwnerStorageNamespace {
         }
         _;
     }
+
+    modifier onlyOwnerOrProxy {
+        address owner = _ownerStorage().owner;
+        if (owner != address(0)) {
+            require(
+                msg.sender == _ownerStorage().owner || msg.sender == address(this),
+                "Only owner or proxy allowed"
+            );
+        }
+        _;
+    }
 }

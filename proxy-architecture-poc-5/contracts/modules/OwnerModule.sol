@@ -24,9 +24,14 @@ contract OwnerModule is OwnerMixin {
     function acceptOwnership() public {
         OwnerStorage storage store = _ownerStorage();
 
-        require(msg.sender == store.nominatedOwner, "Must be nominated");
+        if (store.owner == address(0)) {
+            store.owner = msg.sender;
+        } else {
+            require(msg.sender == store.nominatedOwner, "Must be nominated");
 
-        store.owner = store.nominatedOwner;
+            store.owner = store.nominatedOwner;
+        }
+
         store.nominatedOwner = address(0);
 
         emit OwnerChanged(store.owner);

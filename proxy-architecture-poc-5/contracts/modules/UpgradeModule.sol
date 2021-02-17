@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/utils/Address.sol";
 contract UpgradeModule is ProxyStorageNamespace, OwnerMixin {
     /* MUTATIVE FUNCTIONS */
 
-    function upgradeTo(address newImplementation) public onlyOwner {
+    function upgradeTo(address newImplementation) public onlyOwnerOrProxy {
         require(newImplementation != address(0), "Invalid new implementation: zero address");
         require(Address.isContract(newImplementation), "Invalid new implementation: not a contract");
         _requireIsUpgradeable(newImplementation);

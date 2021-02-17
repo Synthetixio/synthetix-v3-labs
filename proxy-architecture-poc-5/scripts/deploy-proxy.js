@@ -19,6 +19,15 @@ async function main() {
 
   console.log(`  > Deployed new proxy at ${Synthetix.address}`);
 
+  const OwnerModule = await ethers.getContractAt('OwnerModule', deployments.Synthetix.address);
+
+  console.log(`  > Setting first proxy owner...`);
+
+  const tx = await OwnerModule.acceptOwnership();
+  await tx.wait();
+
+  console.log(`  > Owner is ${await OwnerModule.getOwner()}`);
+
   saveDeploymentsFile({ deployments, network });
 }
 

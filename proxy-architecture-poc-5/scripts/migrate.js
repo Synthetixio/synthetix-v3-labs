@@ -1,4 +1,4 @@
-const { getDeploymentsFile } = require('./utils/deploymentsFile');
+const { getDeploymentsFile, saveDeploymentsFile } = require('./utils/deploymentsFile');
 
 async function main() {
   const network = hre.network.name;
@@ -11,10 +11,13 @@ async function main() {
   const Migrator = await (
     await ethers.getContractFactory(`Migrator`)
   ).deploy();
+  console.log(`  > Deployed migrator to ${Migrator.address}`);
 
   console.log(`  > Nominating migrator as owner...`);
 
   const OwnerModule = await ethers.getContractAt('OwnerModule', deployments.Synthetix.address);
+
+  console.log(`  > Owner is ${await OwnerModule.getOwner()}`);
 
   let tx;
 
@@ -24,11 +27,17 @@ async function main() {
   console.log(`  > Starting migration...`);
 
   tx = await Migrator.migrate();
-  const receipt = await tx.wait();
-  console.log('  > Events:');
-  receipt.events.map(e => {
-    console.log(`    * ${e.event} - ${e.args}`);
-  });
+  await tx.wait();
+
+  console.log(`  > Restoring ownership...`);
+
+  tx = await OwnerModule.acceptOwnership();
+  await tx.wait();
+
+  console.log(`  > Owner is ${await OwnerModule.getOwner()}`);
+
+  deployments.Synthetix.implementations.push(await Migrator.newRouter());
+  saveDeploymentsFile({ deployments, network });
 
   console.log(`Migration completed`);
 }
