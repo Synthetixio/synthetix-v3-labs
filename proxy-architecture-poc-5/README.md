@@ -82,21 +82,11 @@ Gas overhead: ~3300
 
 3. **Direct method**
 
-If modules have a way of knowing the implementation addresses of other modules, they can delegatecall directly to them. This can be accomplished by using a RegistryModule that can be called with module addresses after deployment and save them in storage.
+TBD
 
-```
-contract AModule {
-    function setValueViaBModule_direct(uint newValue) public {
-        (bool success,) = getModuleImplementation(bytes32("BModule")).delegatecall(
-            abi.encodeWithSelector(BModule.setValue.selector, newValue)
-        );
-
-        require(success, "Delegatecall failed");
-    }
-}
-```
-
-Gas overhead: ~2438
+Under research:
+* Using storage results in ~3300 gas, but it sucks to have to store the modules in two places
+* Exposing the modules via an interface in the Router works, but it involves 2 calls, one to query the module address in the router, and another one to make the actual call to the library, so its just slightly more efficient that the router method.
 
 **Which method to use?**
 

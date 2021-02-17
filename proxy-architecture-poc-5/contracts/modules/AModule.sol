@@ -2,10 +2,10 @@
 pragma solidity ^0.7.0;
 
 import "./BModule.sol";
-import "../mixins/RegistryMixin.sol";
+import "../mixins/ModulesMixin.sol";
 
 
-contract AModule is RegistryMixin {
+contract AModule is ModulesMixin {
     /* MUTATIVE FUNCTIONS */
 
     function setValueViaBModule_cast(uint newValue) public {
@@ -14,14 +14,6 @@ contract AModule is RegistryMixin {
 
     function setValueViaBModule_router(uint newValue) public {
         (bool success,) = getRouter().delegatecall(
-            abi.encodeWithSelector(BModule.setValue.selector, newValue)
-        );
-
-        require(success, "Delegatecall failed");
-    }
-
-    function setValueViaBModule_direct(uint newValue) public {
-        (bool success,) = getModuleImplementation(bytes32("BModule")).delegatecall(
             abi.encodeWithSelector(BModule.setValue.selector, newValue)
         );
 

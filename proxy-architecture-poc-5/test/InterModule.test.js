@@ -74,17 +74,4 @@ describe("InterModule", function() {
       VALUE
     );
   });
-
-  it('A can set the value via B using delegatecall directly', async function () {
-    await runTxAndLogGasUsed(
-      this,
-      await AModule.setValueViaBModule_direct(VALUE)
-    );
-
-    expect(
-      (await BModule.getValue()).toString()
-    ).to.be.equal(
-      VALUE
-    );
-  });
 });

@@ -29,10 +29,6 @@
     "BModule": {
       "bytecodeHash": "0x3fead4b0f0b4b77215fdda6afc3d5f9817665a68ebf92771ce151cad1c8f66f1",
       "implementation": "0x4bD008A95C0D8Dc276644d3e1B653478136422FA"
-    },
-    "RegistryModule": {
-      "bytecodeHash": "0x4bc365c136e65e5129ebeaecb7f77ad1797838ab05d3deb0430c72a0775bbe16",
-      "implementation": "0x89D7B5891130Ef7566015188aeabc2dDec21F7D0"
     }
   }
 }
