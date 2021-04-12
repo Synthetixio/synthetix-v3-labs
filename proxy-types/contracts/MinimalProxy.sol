@@ -2,6 +2,24 @@
 pragma solidity >= 0.6.0 < 0.8.0;
 
 /*
+| Constructor:
+|
+| Position     Opcode          Instruction           Stack                  Memory          Description
+| 0            3d              returndatasize        0
+| 1            602d            push 2d (dec 45)      2d, 0
+| 3            80              dup1                  2d, 2d, 0
+| 4            600a            push 0a (dec 10)      0a, 2d, 2d, 0
+| 6            3d              returndatasize        0, 0a, 2d, 2d, 0
+| 7            39              codecopy              2d, 0                  code            codecopy(targetMemPos: 0, fromCodePos: 0a, length: 2d)
+| 8            81              dup2                  0, 2d, 0
+| 9            f3              return                0                                      return(fromMemPos: 0, length: 2d)
+ \
+  = 3d602d80600a3d3981f3 (10 bytes)
+ */
+
+/*
+| Runtime:
+|
 |           Position        Opcode         Instruction           Stack                    Description
 |           0x00000000      36             calldatasize          cds                      Pushes the size of calldata to the stack
 |           0x00000001      3d             returndatasize        0 cds                    Pushes 0 to the stack
@@ -24,10 +42,10 @@ pragma solidity >= 0.6.0 < 0.8.0;
 |           0x00000026      91             swap2                 suc 0 rds                Swaps the first and 2nd elements in the stack
 |           0x00000027      602b           push1 0x2b            0x2b suc 0 rds           Pushes 0x2b to the stack
 |       ,=< 0x00000029      57             jumpi                 0 rds                    Jumps to 0x2b if suc == true
-|       |   0x0000002a      fd             revert                                         Did not jump? xP
+|       |   0x0000002a      fd             revert                                         Did not jump? kill xP
 |       `-> 0x0000002b      5b             jumpdest              0 rds                    Jump here!
 \           0x0000002c      f3             return                                         Returns with data at mem pos 0, length rds
- = 363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf3
+ = 363d3d373d3d3d363d73bebebebebebebebebebebebebebebebebebebebe5af43d82803e903d91602b57fd5bf3 (45 bytes)
  */
 
 contract MinimalProxy {
