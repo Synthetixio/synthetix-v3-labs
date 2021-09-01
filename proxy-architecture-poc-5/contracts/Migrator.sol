@@ -27,12 +27,9 @@ contract Migrator {
     function migrate() public {
         _takeOwnership();
         _preliminaryChecks();
-        _suspendSystem();
         _upgradeRouter();
         _initializeModules();
-        _registerModules();
         _upgradeSettings();
-        _resumeSystem();
         _concludingChecks();
         _restoreOwnership();
     }
