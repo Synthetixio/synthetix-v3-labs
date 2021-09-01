@@ -6,6 +6,8 @@ describe('Governance', function () {
 
   let owner, users;
 
+  let proposal;
+
   let governanceRole;
 
   before('identify signers', async () => {
@@ -71,22 +73,26 @@ describe('Governance', function () {
       }
     });
 
-    before('skip some time so that holders have voting power', async () => {
-      await ethers.provider.send('evm_increaseTime', [1000]);
-    });
-
     before('make proposal', async () => {
       const proposalCalldata = Token.interface.encodeFunctionData('mint', [owner.address, tokensToMint]);
 
+      proposal = {
+        targets: [Token.address],
+        values: [0],
+        actions: [proposalCalldata],
+        description: `Mint ${ethers.utils.formatEther(tokensToMint)} tokens for owner`,
+      }
+
       const tx = await Governance.propose(
-        [Token.address],    // Targets
-        [0],                // Values
-        [proposalCalldata], // Actions
-        `Mint ${ethers.utils.formatEther(tokensToMint)} tokens for owner`
+        proposal.targets,
+        proposal.values,
+        proposal.actions,
+        proposal.description
       );
       const proposalReceipt = await tx.wait();
 
       proposalCreatedEvent = proposalReceipt.events.find(e => e.event === 'ProposalCreated');
+
       proposalId = proposalCreatedEvent.args.proposalId.toHexString();
     });
 
@@ -109,20 +115,50 @@ describe('Governance', function () {
 
       describe('when some votes are cast', () => {
         before('cast votes', async () => {
-          await (await Governance.connect(users[0]).castVote(proposalId, 1)).wait();
-          await (await Governance.connect(users[1]).castVote(proposalId, 1)).wait();
-          await (await Governance.connect(users[2]).castVote(proposalId, 1)).wait();
-          await (await Governance.connect(users[3]).castVote(proposalId, 1)).wait();
+          for (let user of users) {
+            await (await Governance.connect(user).castVote(proposalId, 1)).wait();
+          }
         });
 
         it('shows that the votes were registered', async () => {
           const [againstVotes, forVotes, abstainVotes] = await Governance.proposalVotes(proposalId);
 
-          assert.equal(forVotes.toString(), ethers.utils.parseEther('4'));
+          assert.equal(forVotes.toString(), ethers.utils.parseEther(`${users.length}`));
         });
       });
 
-      // describe('', () => {});
+      describe('when the voting period elapses', () => {
+        before('skip', async () => {
+          const currentBlock = await ethers.provider.getBlockNumber();
+          const proposalEndBlock = proposalCreatedEvent.args.endBlock;
+          const deltaBlocks = proposalEndBlock.sub(currentBlock);
+
+          for (let i = 0; i < deltaBlocks.toNumber(); i++) {
+            await ethers.provider.send('evm_mine', []);
+          }
+        });
+
+        it('shows that the proposal state is Succeeded', async () => {
+          assert.equal(await Governance.state(proposalId), 4); // state 4 = Succeeded
+        });
+
+        describe('when the proposal gets executed', () => {
+          before('execute', async () => {
+            await (await Governance.execute(
+              proposal.targets,
+              proposal.values,
+              proposal.actions,
+              ethers.utils.id(proposal.description)
+            )).wait();
+          });
+
+          it('shows that the tokens where minted', async () => {
+            const balance = await Token.balanceOf(owner.address);
+
+            assert.deepEqual(balance, ethers.utils.parseEther('101'));
+          });
+        });
+      });
     });
   });
 });

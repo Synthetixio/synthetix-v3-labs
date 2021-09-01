@@ -20,7 +20,7 @@ contract Governance is Governor, GovernorCountingSimple, GovernorVotes, Governor
     }
 
     function votingPeriod() public pure override returns (uint256) {
-        return 45818; // 1 week
+        return 25;
     }
 
     function quorum(uint256 blockNumber)
