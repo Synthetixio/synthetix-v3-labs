@@ -5,30 +5,41 @@ import "./BModule.sol";
 import "./AModule.sol";
 
 contract TestRouter { // gas 415086
-    address private RouterAddress = 0x3328358128832A260C76A4141e19E2A943CD4B6D;
+    address private RouterAddress = 0x838F9b8228a5C95a7c431bcDAb58E289f5D2A4DC;
     
-    function setValue(uint256 value) public {
-        BModule(RouterAddress).setBValue(value);    
-    }
-    function resetValue() public {
-        BModule(RouterAddress).resetBValue();    
-    }
-    function getValue() view public returns(uint256){
+    function getValue() view public returns(uint256){ // gas --
         return BModule(RouterAddress).getBValue();    
     }
+    function setValue(uint256 value) public { // gas 35089 // w/getAddress 35223
+        BModule(RouterAddress).setBValue(value);    
+    }
+    function resetValue() public { // gas 31468 // w/getAddress 31535
+        BModule(RouterAddress).resetBValue();    
+    }
 
-    function setAValueRouter(uint256 value) public {
+
+    function setAValueMixin(uint256 value) public { // gas 38743 (failed -- wrong storage) // w/getAddress 38843
+        AModule(RouterAddress).setBValue1(value);    
+    }
+    function resetAValueMixin() public { // gas 37471 (failed -- wrong storage) // w/getAddress 34782
+        AModule(RouterAddress).resetBValue1();    
+    }
+
+
+    function setAValueRouter(uint256 value) public { // gas 39034 // w/getAddress 39212
         AModule(RouterAddress).setBValue4(value);    
     }
-    function resetAValueRouter() public {
+    function resetAValueRouter() public { // gas 37813 // w/getAddress 37991
         AModule(RouterAddress).resetBValue4();    
     }
 
-    function setAValueMixin(uint256 value) public {
-        AModule(RouterAddress).setBValue1(value);    
+    
+    function setAValueGetAddress(uint256 value) public { // gas --// w/getAddress 37436  (failed -- wrong storage)
+        AModule(RouterAddress).setBValue5(value);    
     }
-    function resetAValueMixin() public {
-        AModule(RouterAddress).resetBValue1();    
+    function resetAValueGetAddress() public { // gas -- // w/getAddress 36251  (failed -- wrong storage)
+        AModule(RouterAddress).resetBValue5();    
     }
+
 }
 

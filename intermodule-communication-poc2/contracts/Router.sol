@@ -8,8 +8,17 @@ pragma solidity ^0.8.0;
 // --------------------------------------------------------------------------------
 
 contract Router {
-    address constant AModule = 0x7EF2e0048f5bAeDe046f6BF797943daF4ED8CB47;
-    address constant BModule = 0xd9145CCE52D386f254917e481eB44e9943F39138;
+    address constant AModule = 0xE5f2A565Ee0Aa9836B4c80a07C8b32aAd7978e22;
+    address constant BModule = 0x1c91347f2A44538ce62453BEBd9Aa907C662b4bD;
+    bytes32 constant AModuleId = 'AModule';
+    bytes32 constant BModuleId = 'BModule';
+    
+    function getModuleAddress(bytes32 id) public pure returns (address) {
+        if (id == AModuleId) return AModule;
+        if (id == BModuleId) return BModule;
+        revert('Unknown ID');
+    }
+    
     fallback() external {
         // Lookup table: Function selector => implementation contract
         bytes4 sig4 = msg.sig;
@@ -28,6 +37,10 @@ contract Router {
 
                     case 0x7a066c4a { result := AModule } // AModule.resetBValue1() 0x7a066c4a 
                     case 0xfdf148d5 { result := AModule } // AModule.getBValue1()   0xfdf148d5 0000000000000000000000000000000000000000000000000000000000000001
+                    
+                    case 0xd04c3e25 { result := AModule } // AModule.resetBValue5() 0xd04c3e25 
+                    case 0x5dc12cbc { result := AModule } // AModule.getBValue5()   0x5dc12cbc 0000000000000000000000000000000000000000000000000000000000000001
+                    
                 leave
             }
 

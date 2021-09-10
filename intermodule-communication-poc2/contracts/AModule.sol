@@ -5,6 +5,7 @@ import "./IMCMixin_v1.sol";
 import "./IMCMixin_v2.sol";
 import "./IMCMixin_v3.sol";
 import "./BModule.sol";
+import "./Router.sol";
 
 contract AModule is IMCMixinV1, IMCMixinV2, IMCMixinV3 { // gas 415086
     address public theValue;
@@ -37,6 +38,16 @@ contract AModule is IMCMixinV1, IMCMixinV2, IMCMixinV3 { // gas 415086
     }
     function resetBValue4() public {
         BModule(address(this)).resetBValue();    
+    }
+
+    bytes32 constant BModuleId = 'BModule';
+
+    function setBValue5(uint256 value) public {
+        BModule(Router(address(this)).getModuleAddress(BModuleId)).setBValue(value);    
+    }
+    
+    function resetBValue5() public {
+        BModule(Router(address(this)).getModuleAddress(BModuleId)).resetBValue();    
     }
 }
 
