@@ -1,46 +1,80 @@
 # Tests on inter module communications
 
 ## Concepts
-The idea of the Inter Module Communication is to allow communication between modules in a cheap (not consuming much gas) way.
+This POC adds another option that is a pure function in the router to resolve for the address, so that all modules can directly query the address from the router.
 
-This concept adds a mixing (three in fact) where the addresses are pre-filled and hardcoded. 
+This will simplify the deploy script and architecture without the need to add one (or several) mixin to resolve the addresses and all the generated data will be consolidated in the router.
 
-The modules requiring communication to other modules can inherit this mixin as shown in AModule.sol and access the addresses to cast another module.
+On the other side, it adds a public function that will force the EVM to have a selector function in the router and hence will add some gas to every router usage.
 
-IMCMixin_v1 and IMCMixin_v2 are simmilar in cost but require the addresses of the modules to be known before compiling the modules.
+This POC is used to get some stats on the different approaches to make an informed decision on which option is better.
 
-IMCMixin_v3 is costlier since uses storage for holding the values but the addresses can be set after the modules are deployed.
+## Results
 
-The gas used in a single assign is *~11* using a constant (v1 mode), and *~46* for a pure function call (v2 mode) while using the storage takes *~2268* gas.
+### Router with GetModuleAddress function (not only fallback)
+This section shows the gas consumption by method with the resolve function in the router.
 
-## Process
-In order to use constants or pure functions calls we require to know the address of the contracts (modules) that are going to be deployed beforehand to set the addresses. So, the steps involved are:
+#### Direct access to the contract (Control group)
+Directly accesing BModule 
+- Reset Value: 34335
+- Set Value: 35223
+- Increment on Reset Value: 0 (control)
+- Increment on Set Value: 0 (control)
 
-1- Make a dummy mixing with fake address (can be all 0x0). Needed to pass the linter.
+#### Using the mixin
+Accessing BModule functions via AMdule using the mixin and using DelegateCall
+- Reset Value: 37956
+- Set Value: 39295
+- Increment on Reset Value: 3621
+- Increment on Set Value: 4072
 
-2- Code the contracts using the mixing.
+#### Using the Router
+Accessing BModule functions via AMdule using the router
+- Reset Value: 37947
+- Set Value: 39168
+- Increment on Reset Value: 3612
+- Increment on Set Value: 3945
 
-3- At deployer scan for the contracts that need to be deployed, their order and pre-calculate the address of the contracts that are going to be deployed. See notes below.
+#### Using GetModuleAddress
+Accessing BModule functions via AMdule using the router GetModuleAddress pure function
+- Reset Value: 39425
+- Set Value: 40732
+- Increment on Reset Value: 5090
+- Increment on Set Value: 5509
 
-4- Set the right addresses in the IMC mixing.
+### Router without GetModuleAddress function (only fallback in router)
+This section shows the gas consumption by method without the resolve function in the router (router only has the fallback).
 
-5- Compile the contracts. 
+#### Direct access to the contract (Control group)
+Directly accesing BModule 
+- Reset Value: 34268
+- Set Value: 35089
+- Increment on Reset Value: 0 (control)
+- Increment on Set Value: 0 (control)
 
-6- Deploy the contracts in the order defined at step 3.
+#### Using the mixin
+Accessing BModule functions via AMdule using the mixin and using DelegateCall
+- Reset Value: 37822
+- Set Value: 39228
+- Increment on Reset Value: 3554
+- Increment on Set Value: 4139
 
-7- Confirm the addresses are the right ones (pre-calculated at step 3).
+#### Using the Router
+Accessing BModule functions via AMdule using the router
+- Reset Value: 37791
+- Set Value: 38967
+- Increment on Reset Value: 3523
+- Increment on Set Value: 3878
 
-8- Continue with the deployment process (build and deploy the router, etc.)
+#### Using GetModuleAddress
+N/A in this configuration
+- Reset Value: --
+- Set Value: --
+- Increment on Reset Value: --
+- Increment on Set Value: --
 
-## Notes
-This snippet can be used to pre-calculate the address of the contracts to be deployed
-```
-	async evaluateNextDeployedContractAddress() {
-		const nonce = await this.provider.getTransactionCount(this.account);
-		const rlpEncoded = ethers.utils.RLP.encode([this.account, ethers.utils.hexlify(nonce)]);
-		const hashed = ethers.utils.keccak256(rlpEncoded);
+![Usage Table](assets/GasUsage.png)
 
-		return `0x${hashed.slice(12).substring(14)}`;
-	}
-```
+### Conclusion
+The best option to intermodule communications is to use the router and not include any addressResolver.
 

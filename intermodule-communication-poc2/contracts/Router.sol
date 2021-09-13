@@ -8,14 +8,14 @@ pragma solidity ^0.8.0;
 // --------------------------------------------------------------------------------
 
 contract Router {
-    address constant AModule = 0xE5f2A565Ee0Aa9836B4c80a07C8b32aAd7978e22;
-    address constant BModule = 0x1c91347f2A44538ce62453BEBd9Aa907C662b4bD;
+    address constant AModule = 0x3b014c0307Ad9dc4262F1696BC463Fd3c6dC4679;
+    address constant BModule = 0xBE46bA58D315f0d6cD37bd7F313ccBfdC760e891;
     bytes32 constant AModuleId = 'AModule';
     bytes32 constant BModuleId = 'BModule';
     
-    function getModuleAddress(bytes32 id) public pure returns (address) {
-        if (id == AModuleId) return AModule;
-        if (id == BModuleId) return BModule;
+    function getModuleAddress(uint256 id) public pure returns (address) {
+        if (id == 2) return AModule;
+        if (id == 1) return BModule;
         revert('Unknown ID');
     }
     
