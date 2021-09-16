@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract Token is ERC20, ERC20Permit, ERC20Votes, AccessControl {
-    bytes32 public constant GOVERNANCE_ROLE = keccak256("GOVERNANCE_ROLE");
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     constructor(address[] memory holders) ERC20("Token", "TKN") ERC20Permit("Token") {
         for (uint i = 0; i < holders.length; i++) {
@@ -15,12 +15,12 @@ contract Token is ERC20, ERC20Permit, ERC20Votes, AccessControl {
         }
     }
 
-    function setGovernance(address governance) public {
-        _setRoleAdmin(GOVERNANCE_ROLE, GOVERNANCE_ROLE);
-        _setupRole(GOVERNANCE_ROLE, governance);
+    function setTimelock(address timelock) public {
+        _setRoleAdmin(MINTER_ROLE, MINTER_ROLE);
+        _setupRole(MINTER_ROLE, timelock);
     }
 
-    function mint(address to, uint amount) public onlyRole(GOVERNANCE_ROLE) {
+    function mint(address to, uint amount) public onlyRole(MINTER_ROLE) {
         _mint(to, amount);
     }
 
