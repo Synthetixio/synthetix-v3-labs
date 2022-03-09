@@ -4,21 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "prettier --check scripts/*.js",
+    "lint:fix": "prettier --write scripts/*.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.0.5",
-    "@nomiclabs/hardhat-waffle": "^2.0.3",
-    "chai": "^4.3.6",
-    "ethereum-waffle": "^3.4.0",
-    "ethers": "^5.5.4",
-    "hardhat": "^2.9.1"
+    "prettier": "^2.5.1"
   },
   "dependencies": {
     "dotenv": "^16.0.0",
+    "ethers": "^5.5.4",
+    "fastq": "^1.13.0",
     "merkle-patricia-tree": "^4.2.3"
   }
 }
