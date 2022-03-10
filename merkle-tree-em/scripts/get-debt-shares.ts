@@ -1,14 +1,18 @@
 require('dotenv/config')
 
-const ethers = require('ethers')
 const fs = require('fs')
+const ethers = require('ethers')
+const levelup = require('levelup')
+const memdown = require('memdown')
 const createQueue = require('fastq')
+const { SecureTrie } = require('merkle-patricia-tree')
+
 const SynthetixDebtShare = require('../data/SynthetixDebtShare.json')
 
-async function getAccounts(Contract) {
+async function getAccounts(Contract, deployedBlock) {
   const events = await Contract.queryFilter(
     Contract.filters.Transfer(null, null, null),
-    SynthetixDebtShare.deployedBlock
+    deployedBlock
   )
 
   // Use a Set to have implicitily unique values
@@ -45,8 +49,9 @@ async function getDebts({ Contract, blockTag, addresses }) {
   return debts
 }
 
-async function buildMerkleTree(config) {
-  // TODO Build a merkle tree with the pack(account, debtShare)
+async function buildMerkleTree() {
+  const db = levelup(memdown())
+  const trie = new SecureTrie(db)
 
   return config
 }
@@ -85,7 +90,9 @@ async function main() {
     provider
   )
 
-  const addresses = (await getAccounts(Contract)).slice(0, 100)
+  const addresses = (
+    await getAccounts(Contract, SynthetixDebtShare.deployedBlock)
+  ).slice(0, 100)
 
   console.log(`  Collected ${addresses.length} addresses`)
 
